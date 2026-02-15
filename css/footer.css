@@ -1,0 +1,21 @@
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+.github-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-family: "Montserrat", sans-serif;
+    transition: color 0.5s ease;
+}
+.github-link:hover {
+    color: var(--accent-color);
+}
+.github-link .fa-github {
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}

@@ -1,0 +1,59 @@
+@media only screen and (max-width: 900px) {
+    .app-list li {
+        width: 100%;
+    }
+    .app-item {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .app-info {
+        padding-right: 0;
+        padding-top: 2rem;
+    }
+    .image-container {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .nav-left, .lang-switch {
+        top: 1.5rem;
+    }
+    .nav-left {
+        left: 1.5rem;
+    }
+    .lang-switch {
+        right: 1.5rem;
+    }
+    #searchInput {
+        font-size: 1.5rem;
+        padding: 1.2rem 1.5rem;
+        border-width: 3px;
+    }
+    .back-btn {
+        font-size: 1.2rem;
+    }
+    .app-name {
+        font-size: 1.8rem;
+    }
+    .app-desc {
+        font-size: 1.3rem;
+    }
+    .app-item {
+        padding: 1.5rem;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .nav-left, .lang-switch {
+        top: 1rem;
+    }
+    .nav-left {
+        left: 1rem;
+    }
+    .lang-switch {
+        right: 1rem;
+    }
+    .settings-dropdown-content {
+        min-width: 220px;
+    }
+}

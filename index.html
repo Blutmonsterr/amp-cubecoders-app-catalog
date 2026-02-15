@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="no-js" lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>CubeCoders App Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Durchsuchbarer Katalog aller Spiele und Anwendungen für CubeCoders AMP.">
+    <meta property="og:title" content="CubeCoders App Catalog">
+    <meta property="og:description" content="Durchsuchbarer Katalog aller Spiele und Anwendungen für CubeCoders AMP.">
+    <meta property="og:image" content="images/amp_social.jpg">
+    <meta property="og:type" content="website">
+
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+
+                <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/apps.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!--              Script                -->
+    
+    <script src="config.js"></script>
+    
+    <script src="js/lang/de.js"></script>
+    <script src="js/lang/en.js"></script>
+    <script src="js/lang/nl.js"></script>
+    <script src="js/lang/fr.js"></script>
+
+    <script src="js/language.js"></script>
+    <script src="js/app-logic.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/features.js"></script>
+    <script src="js/search-help.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/search.js"></script>
+
+</head>
+<body id="top">
+
+    <header class="page-header">
+        <div class="nav-left">
+            <a href="../index.html" class="back-btn" id="backBtn">&lt; Zurück zur Website</a>
+            <a href="#" id="extraLinkBtn" class="extra-btn" style="display: none;">Extra Link</a>
+        </div>
+    
+        <div style="text-align: center;">
+            <a href="https://cubecoders.com/AMP" target="_blank">
+                <img src="images/amp_social.jpg" alt="AMP Logo" style="max-width: 150px; border: 2px solid #39b54a; border-radius: 8px; vertical-align: middle;">
+            </a>
+        </div>
+    
+        <div class="lang-switch">
+            <div class="info-tooltip">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                <span class="tooltiptext" id="infoTooltipText">Aktivieren, um benutzerdefinierte Vorlagen (Custom Templates) zusätzlich anzuzeigen.</span>
+            </div>
+            <div class="settings-dropdown">
+                <button class="settings-dropbtn" aria-label="Einstellungen"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                <div class="settings-dropdown-content">
+                    <div class="dropdown-item">
+                        <span id="themeLabel">Light Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="dropdown-item">
+                        <span>Greelan (B-DEV)</span>
+                        <span class="load-error-indicator" id="greelanLoadError" style="display: none;" title="">⚠️</span>
+                        <label class="switch">
+                            <input type="checkbox" id="greelanAppsToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="dropdown-item">
+                        <span id="customAppsLabel">Custom Apps</span>
+                        <span class="load-error-indicator" id="customLoadError" style="display: none;" title="">⚠️</span>
+                        <label class="switch">
+                            <input type="checkbox" id="customAppsToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <select id="lang-select">
+                <option value="de">🇩🇪 DE</option>
+                <option value="en">🇬🇧 EN</option>
+                <option value="nl">🇳🇱 NL</option>
+                <option value="fr">🇫🇷 FR</option>
+    
+            </select>
+        </div>
+    </header>
+
+    <section class="search-section">
+                <div id="langLoadError" class="global-error" style="display: none;"></div>
+                <div class="search-bar-container">
+                    <div class="heading-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;">
+                        <h1 id="pageHeading" style="margin: 0;">Suche</h1>
+                        <img src="images/info-icon.svg" id="searchInfoBtn" alt="Info" style="width: 22px; height: 22px; cursor: pointer; display: none;">
+                    </div>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="searchInput" placeholder="..." autocomplete="off" aria-label="Suche">
+                        <i id="clearSearch" class="fa fa-times" aria-hidden="true" style="display: none;"></i>
+                    </div>
+                    <div class="filter-chips">
+                        <button id="filterBtnAll" class="filter-chip active" data-filter="">Alle</button>
+                        <button id="filterBtnNew" class="filter-chip" data-filter="f:new">Neu</button>
+                        <button id="filterBtnCrossplay" class="filter-chip" data-filter="f:crossplay"><i class="fa fa-gamepad" aria-hidden="true"></i> <span id="filterBtnCrossplayText">Crossplay</span></button>
+
+                    </div>
+                    <p id="resultCount" class="result-count"></p>
+                </div>
+
+                <div id="globalLoader" class="global-loader">Lade Apps...</div>
+                <ul id="appList" class="app-list">
+                </ul>
+                
+                <div id="no-results">
+                    <img src="images/notf.jpg" alt="Not Found" class="not-found-image">
+                    <p>Keine Spiele gefunden.</p>
+                </div>
+    </section>
+
+    <footer>
+        <a href="https://github.com/blutmonsterr/amp-cubecoders-apps" target="_blank" rel="noopener noreferrer" class="github-link">
+            <i class="fa fa-github" aria-hidden="true"></i> GitHub Repository
+        </a>
+    </footer>
+
+    <div id="go-top">
+        <a title="Back to Top" href="#top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+    </div>
+</body>
+</html>

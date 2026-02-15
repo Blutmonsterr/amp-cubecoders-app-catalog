@@ -1,0 +1,8 @@
+[
+    {
+        "name": "Mein Custom Server",
+        "desc": "Benutzerdefinierte Vorlage",
+        "image": "custom-server.jpg",
+        "alias": "custom"
+    }
+]
