@@ -1,7 +1,7 @@
 # 🔎 AMP CubeCoders App Catalog
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://blutmonsterr.de/github/demo/amp-cubecoders-app-catalog/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Demo](https://img.shields.io/badge/Live--Demo-brightgreen?style=flat-square)](https://blutmonsterr.de/github/demo/amp-cubecoders-app-catalog/)
 
 > **Note:** This project is a standalone web interface to browse applications available for [CubeCoders AMP](https://cubecoders.com/AMP).
 
@@ -19,12 +19,14 @@ Dieses Projekt bietet eine saubere, schnelle und durchsuchbare Weboberfläche, u
 - **🌐 Mehrsprachig:** Unterstützt standardmäßig Deutsch, Englisch, Französisch und Niederländisch.
 - **🔧 Konfigurierbar:** Ändere einfach den Titel, die Standardsprache und Features über eine zentrale `config.js`-Datei.
 - **🧩 Erweiterbar:** Füge ganz einfach eigene Applikationslisten hinzu.
-- **🖼️ Lazy-Loading für Bilder:** Für eine flüssigere Benutzererfahrung und bessere Performance.
+- **🔄 Auto-Update:** Lädt App-Listen von GitHub und benachrichtigt über neue Katalog-Versionen.
+- **️ Lazy-Loading für Bilder:** Für eine flüssigere Benutzererfahrung und bessere Performance.
 - **🔍 Interaktive Detailansicht:** Klicke auf eine App für eine vergrößerte Ansicht mit Details. Direkte Links zu Apps und Suchanfragen sind über die URL möglich.
+- **🛡️ Bild-Fallback:** Zeigt ein Standard-Platzhalterbild an, falls ein App-Bild nicht geladen werden kann.
 
 ### 🚀 Live-Demo
 
-Eine Live-Version dieses Projekts findest du hier: [![Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://blutmonsterr.de/github/demo/amp-cubecoders-app-catalog/)
+Eine Live-Version dieses Projekts findest du hier: [![Demo](https://img.shields.io/badge/Live--Demo-brightgreen?style=flat-square)](https://blutmonsterr.de/github/demo/amp-cubecoders-app-catalog/)
 
 ### 🛠️ Installation
 
@@ -40,17 +42,29 @@ Die Hauptkonfiguration erfolgt in der Datei `config.js`.
 
 ```javascript
 window.config = {
-    title: "CubeCoders App Catalog", // Titel im Browser-Tab
-    placeholder: "Minecraft, Valve, ...",
+    // Technische Konfiguration
+    remoteBase: "https://raw.githubusercontent.com/USER/REPO/main/", // Basis-URL für gitUpdate
+
+    // Allgemeine Einstellungen
+    title: "CubeCoders App Catalog",
+    placeholder: "Minecraft, Valve, mc ...",
+    
     language: {
         enabled: true,  // Sprachwahl aktivieren
-        default: 'de',  // Standardsprache
+        default: 'de',  // Standardsprache (de, en, fr, nl)
         disabled: []    // Deaktivierte Sprachen z.B. ['fr']
     },
     features: {
-        customApps: true,    // Custom-Apps Bereich anzeigen
-        themeSwitcher: true, // Theme-Switcher anzeigen
+        // Feature-Schalter
+        checkForUpdates: true, // Prüft auf neue Commits im Repo und zeigt eine Update-Info an
+        gitUpdate: true,       // Lädt apps.json & apps-g.json von der remoteBase URL
+        GreelanApps: true,     // Zeigt die Greelan-Apps Sektion (apps-g.json)
+        customApps: true,      // Zeigt die Custom-Apps Sektion (apps-c.json)
+        themeSwitcher: true,   // Zeigt den Dark/Light-Mode Schalter
+        filterButtons: true,   // Zeigt die Filter-Buttons (Alle, Neu, etc.)
         defaultTheme: 'dark', // 'dark' oder 'light'
+
+        // Buttons & Links
         backButton: {
             enabled: true,
             url: "ADRESS",
@@ -142,7 +156,7 @@ This project provides a clean, fast, and searchable web interface to browse avai
 
 ## 🚀 Live Demo
 
-You can find a live version of this project here: [![Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://blutmonsterr.de/github/demo/amp-cubecoders-app-catalog/)
+You can find a live version of this project here: [![Demo](https://img.shields.io/badge/Live--Demo-brightgreen?style=flat-square)](https://blutmonsterr.de/github/demo/amp-cubecoders-app-catalog/)
 
 ## 🛠️ Installation
 
