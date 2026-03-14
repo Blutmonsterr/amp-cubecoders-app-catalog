@@ -3,5 +3,10 @@
         "name": "Greelan's Server",
         "desc": "Greelan Template",
         "image": "greelan-server.jpg"
+    },
+    {
+        "name": "test",
+        "desc": "test",
+        "image": "test"
     }
 ]
