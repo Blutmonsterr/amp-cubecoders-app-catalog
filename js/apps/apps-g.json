@@ -3,5 +3,10 @@
         "name": "Greelan's Server",
         "desc": "Greelan Template",
         "image": "greelan-server.webp"
+    },
+    {
+        "name": "Greelan's Server (Beta)",
+        "desc": "Greelan Template (Beta)",
+        "image": "greelan-server-beta.webp"
     }
 ]
