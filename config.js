@@ -1,15 +1,24 @@
 window.config = {
+    // DONT CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING 
+    remoteBase: "https://raw.githubusercontent.com/Blutmonsterr/amp-cubecoders-app-catalog/main/", 
+    // --------------------------------------
+    
+    // SETTINGS
     title: "CubeCoders App Catalog",
-    placeholder: "Minecraft, Valve, ...",
+    placeholder: "Minecraft, Valve, mc ...",
+    
     language: {
         enabled: true,
-        default: 'en', // Options: 'de', 'en', 'nl', 'fr'
+        default: 'de', // Options: 'de', 'en', 'nl', 'fr'
         disabled: []   // e.g. ['nl', 'fr']
     },
     features: {
+        checkForUpdates: true, // Github new commits (github.com/blutmonsterr)
+        gitUpdate: false, // (remotebase) apps.json, apps-g.json) (no images)
+        GreelanApps: true, // (B: MAIN) - set to false to disable the Greelan-Apps section
         customApps: true,
         themeSwitcher: true,
-        filterButtons: true,
+        filterButtons: true, 
         defaultTheme: 'dark', // 'dark' or 'light'
         backButton: {
             enabled: true,

@@ -1,22 +1,33 @@
 function initFeatures() {
-    const config = window.config || { features: { customApps: true, themeSwitcher: true } };
+    const config = window.config || { features: { customApps: true, GreelanApps: true, themeSwitcher: true } };
 
-    if (config.features.customApps === false) {
+    const customAppsEnabled = config.features.customApps !== false;
+    const greelanAppsEnabled = config.features.GreelanApps !== false;
+
+    if (!customAppsEnabled && !greelanAppsEnabled) {
         const settingsDropdown = document.querySelector('.settings-dropdown');
         const infoTooltip = document.querySelector('.info-tooltip');
         if (settingsDropdown) settingsDropdown.style.display = 'none';
         if (infoTooltip) infoTooltip.style.display = 'none';
     } else {
-        const showCustom = localStorage.getItem('show_custom_apps') === 'true';
         const toggle = document.getElementById('customAppsToggle');
         if (toggle) {
-            toggle.checked = showCustom;
+            if (!customAppsEnabled) {
+                const wrapper = toggle.closest('.dropdown-item');
+                if (wrapper) wrapper.style.display = 'none';
+            } else {
+                toggle.checked = localStorage.getItem('show_custom_apps') === 'true';
+            }
         }
         
-        const showGreelan = localStorage.getItem('show_greelan_apps') === 'true';
         const toggleGreelan = document.getElementById('greelanAppsToggle');
         if (toggleGreelan) {
-            toggleGreelan.checked = showGreelan;
+            if (!greelanAppsEnabled) {
+                const wrapper = toggleGreelan.closest('.dropdown-item');
+                if (wrapper) wrapper.style.display = 'none';
+            } else {
+                toggleGreelan.checked = localStorage.getItem('show_greelan_apps') === 'true';
+            }
         }
     }
 

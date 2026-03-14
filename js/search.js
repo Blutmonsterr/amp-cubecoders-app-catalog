@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initUtils === 'function') initUtils();
     if (typeof initFeatures === 'function') initFeatures();
     if (typeof initSearchHelp === 'function') initSearchHelp();
+    if (typeof injectModalStyles === 'function') injectModalStyles();
 
     document.getElementById('themeToggle')?.addEventListener('change', (e) => toggleTheme(e.target.checked));
     document.getElementById('greelanAppsToggle')?.addEventListener('change', (e) => toggleGreelanApps(e.target.checked));

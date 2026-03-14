@@ -17,5 +17,6 @@ window.translations['de'] = {
     filterCrossplay: "Crossplay",
 
     appLoadError: "Fehler beim Laden der Apps:",
-    criticalLangError: "KRITISCHER FEHLER: Notwendige Sprachdateien (z.B. en.js) fehlen."
+    criticalLangError: "KRITISCHER FEHLER: Notwendige Sprachdateien (z.B. en.js) fehlen.",
+    updateAvailable: "Update verfügbar"
 };

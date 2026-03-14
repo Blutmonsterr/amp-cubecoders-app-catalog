@@ -39,8 +39,8 @@ function initSearchHelp() {
                     .search-help-tooltip ul { padding-left: 20px; margin: 0; }
                     .search-help-tooltip li { margin-bottom: 4px; color: #ccc; font-size: 0.85rem; }
                     
-                    body.light-theme .search-help-tooltip { background-color: #fff; color: #333; border-color: #ddd; }
-                    body.light-theme .search-help-tooltip li { color: #555; }
+                    body.light-mode .search-help-tooltip { background-color: #fff; color: #333; border-color: #ddd; }
+                    body.light-mode .search-help-tooltip li { color: #555; }
                 `;
                 document.head.appendChild(style);
             }
