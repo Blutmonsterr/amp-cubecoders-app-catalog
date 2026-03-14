@@ -1,7 +1,7 @@
 function initUtils() {
     const notFoundImg = document.querySelector('.not-found-image');
     if (notFoundImg) {
-        const fallbackSrc = 'https://placehold.co/300x200/222/39b54a?text=Not+Found';
+        const fallbackSrc = 'images/placeholder.webp';
         notFoundImg.onerror = function() {
             this.src = fallbackSrc;
             this.onerror = null;

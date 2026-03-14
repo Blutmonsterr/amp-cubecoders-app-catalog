@@ -2,7 +2,7 @@
     {
         "name": "Application Name",
         "desc": "Description or Developer",
-        "image": "filename.jpg",
+        "image": "filename.webp",
         "alias": "keyword1 keyword2",
         "isNew": "2025-12-31", // true or date (YYYY-MM-DD)
         "isBeta": true,

@@ -2,1113 +2,1113 @@
     {
         "name": "Abiotic Factor",
         "desc": "Deep Field Games",
-        "image": "abiotic-factor.jpg"
+        "image": "abiotic-factor.webp"
     },
     {
         "name": "American Truck Simulator",
         "desc": "SCS Software",
-        "image": "american-truck-simulator.jpg",
+        "image": "american-truck-simulator.webp",
         "alias": "ats"
     },
     {
         "name": "ANEURISM IV",
         "desc": "Vellocet",
-        "image": "aneurism-IV.jpg"
+        "image": "aneurism-IV.webp"
     },
     {
         "name": "ARK: Survival Ascended",
         "desc": "Studio Wildcard",
-        "image": "ark-survival-ascended.jpg",
+        "image": "ark-survival-ascended.webp",
         "alias": "asa",
         "isCrossplay": true
     },
     {   
         "name": "ARK: Survival Evolved",
         "desc": "Studio Wildcard",
-        "image": "ark-survival-evolved.jpg",
+        "image": "ark-survival-evolved.webp",
         "alias": "ase"
     },
     {
         "name": "Arma 3",
         "desc": "Bohemia Interactive",
-        "image": "arma3.jpg"
+        "image": "arma3.webp"
     },
     {
         "name": "Arma Reforger",
         "desc": "Bohemia Interactive",
-        "image": "armareforger.jpg",
+        "image": "armareforger.webp",
         "isCrossplay": true
     },
     {
         "name": "ASKA",
         "desc": "Sand Sailor Studio",
-        "image": "aska.jpg"
+        "image": "aska.webp"
     },
     {
         "name": "Assetto Corsa",
         "desc": "Kunos Simulazioni",
-        "image": "assetto-corsa.jpg"
+        "image": "assetto-corsa.webp"
     },
     {
         "name": "Astro Colony",
         "desc": "Terad Games",
-        "image": "astro-colony.jpg"
+        "image": "astro-colony.webp"
     },
     {
         "name": "Astroneer",
         "desc": "System Era Softworks",
-        "image": "astroneer.jpg",
+        "image": "astroneer.webp",
         "isCrossplay": true
     },
     {
         "name": "Avorion",
         "desc": "Boxelware",
-        "image": "avorion.jpg"
+        "image": "avorion.webp"
     },
     {
         "name": "Barotrauma",
         "desc": "FakeFish, Undertow Games",
-        "image": "barotrauma.jpg"
+        "image": "barotrauma.webp"
     },
     {
         "name": "Beam MP",
         "desc": "BeamNG",
-        "image": "beammp.jpg"
+        "image": "beammp.webp"
     },
     {
         "name": "Beasts of Bermuda",
         "desc": "Sastrei Studios",
-        "image": "beastsofbermuda.jpg"
+        "image": "beastsofbermuda.webp"
     },
     {   
         "name": "Black Mesa",
         "desc": "Crowbar Collective",
-        "image": "blackmesa.jpg"
+        "image": "blackmesa.webp"
     },
     {
         "name": "Blackwake",
         "desc": "Mastfire Studios",
-        "image": "blackwake.jpg"
+        "image": "blackwake.webp"
     },
     {
         "name": "Broke Protocol",
         "desc": "Cylinder Studios",
-        "image": "brokeprotocol.jpg"
+        "image": "brokeprotocol.webp"
     },
     {
         "name": "Bun App Runner",
         "desc": "Bun",
-        "image": "bunapprunner.jpg"
+        "image": "bunapprunner.webp"
     },
     {
         "name": "Call of Duty: Modern Warfare",
         "desc": "Infinity Ward",
-        "image": "codmw.jpg",
+        "image": "codmw.webp",
         "alias": "cod"
     },
     {
         "name": "Call of Duty: Black Ops",
         "desc": "Treyarch",
-        "image": "codbo.jpg",
+        "image": "codbo.webp",
         "alias": "cod"
     },
     {
         "name": "Call of Duty: Black Ops II",
         "desc": "Treyarch",
-        "image": "codbo2.jpg",
+        "image": "codbo2.webp",
         "alias": "cod"
     },
     {
         "name": "Call of Duty 4: Modern Warfare 2",
         "desc": "Infinity Ward",
-        "image": "codmw2.jpg",
+        "image": "codmw2.webp",
         "alias": "cod"
     },
     {
         "name": "Call of Duty: Modern Warfare 3",
         "desc": "Infinity Ward",
-        "image": "codmw3.jpg",
+        "image": "codmw3.webp",
         "alias": "cod"
     },
     {
         "name": "Call of Duty: World at War",
         "desc": "Treyarch",
-        "image": "codwaw.jpg",
+        "image": "codwaw.webp",
         "alias": "cod"
     },
     {
         "name": "Carrier Command 2",
         "desc": "Geometa",
-        "image": "carriercommander2.jpg"
+        "image": "carriercommander2.webp"
     },
     {
         "name": "Chivalry: Medieval Warfare",
         "desc": "Torn Banner Studios",
-        "image": "chivarlymedievalwarfare.jpg"
+        "image": "chivarlymedievalwarfare.webp"
     },
     {
         "name": "Colony Survival",
         "desc": "Pipliz",
-        "image": "colonysurvival.jpg"
+        "image": "colonysurvival.webp"
     },
     {
         "name": "Conan Exiles",
         "desc": "Funcom",
-        "image": "conanexiles.jpg"
+        "image": "conanexiles.webp"
     },
     {
         "name": "Core Keeper",
         "desc": "Pugstorm",
-        "image": "corekepper.jpg",
+        "image": "corekepper.webp",
         "isCrossplay": true
     },
     {
         "name": "Counter-Strike",
         "desc": "Valve - Ver.: 1.6, 2, Condition Zero, Global Offensive, Source",
-        "image": "csgo.jpg",
+        "image": "csgo.webp",
         "alias": "csgo cs2 css"
     },
     {
         "name": "Craftopia",
         "desc": "Pocketpair",
-        "image": "crafttopia.jpg"
+        "image": "crafttopia.webp"
     },
     {
         "name": "Creativerse",
         "desc": "Playful Corp",
-        "image": "creativerse.jpg"
+        "image": "creativerse.webp"
     },
     {
         "name": "CryoFall",
         "desc": "AtomicTorch Studio",
-        "image": "cryofall.jpg"
+        "image": "cryofall.webp"
     },
     {
         "name": "Cube 2: Sauerbraten",
         "desc": "Dot3 Labs",
-        "image": "c2s.jpg"
+        "image": "c2s.webp"
     },
     {
         "name": "Cubic Odyssey",
         "desc": "Cubic Odyssey Team",
-        "image": "cubicodyssey.jpg"
+        "image": "cubicodyssey.webp"
     },
     {
         "name": "Day of Defeat",
         "desc": "Valve",
-        "image": "dayofdefeat.jpg"
+        "image": "dayofdefeat.webp"
     },
     {
         "name": "Day of Defeat: Source",
         "desc": "Valve",
-        "image": "dods.jpg"
+        "image": "dods.webp"
     },
     {
         "name": "Day of Dragons",
         "desc": "Beawesome Games",
-        "image": "dod.jpg"
+        "image": "dod.webp"
     },
     {
         "name": "DayZ",
         "desc": "Bohemia Interactive",
-        "image": "dayz.jpg"
+        "image": "dayz.webp"
     },
     {
         "name": "Dead Matter",
         "desc": "Quantum Integrity Software",
-        "image": "deadmatter.jpg"
+        "image": "deadmatter.webp"
     },
     {
         "name": "DeadPoly",
         "desc": "TFL Games",
-        "image": "deadpoly.jpg"
+        "image": "deadpoly.webp"
     },
     {
         "name": "Deno App Runner",
         "desc": "Deno Land",
-        "image": "denoapprunner.jpg"
+        "image": "denoapprunner.webp"
     },
     {
         "name": "Don't Starve Together",
         "desc": "Klei Entertainment",
-        "image": "dontstarvetogether.jpg",
+        "image": "dontstarvetogether.webp",
         "alias": "dst"
     },
     {
         "name": "DOOM II",
         "desc": "id Software",
-        "image": "doom2.jpg"
+        "image": "doom2.webp"
     },
     {
         "name": "Dota 2",
         "desc": "Valve",
-        "image": "dota2.jpg"
+        "image": "dota2.webp"
     },
     {
         "name": "Dotnet App Runner",
         "desc": "Microsoft",
-        "image": "dotnetapprunner.jpg"
+        "image": "dotnetapprunner.webp"
     },
     {
         "name": "EYE: DIVINE Cybermancy",
         "desc": "Streum On Studio",
-        "image": "eyedcybermancy.jpg"
+        "image": "eyedcybermancy.webp"
     },
     {
         "name": "ECO",
         "desc": "Strange Loop Games",
-        "image": "eco.jpg"
+        "image": "eco.webp"
     },
     {
         "name": "Empyrion Galactic Survival",
         "desc": "Eleon Game Studios",
-        "image": "egs.jpg"
+        "image": "egs.webp"
     },
     {
         "name": "Enshrouded",
         "desc": "Keen Games",
-        "image": "enshrouded.jpg"
+        "image": "enshrouded.webp"
     },
     {
         "name": "ET: Legacy",
         "desc": "ET: Legacy Team",
-        "image": "etl.jpg"
+        "image": "etl.webp"
     },
     {
         "name": "Euro Truck Simulator 2",
         "desc": "SCS Software",
-        "image": "ets2.jpg",
+        "image": "ets2.webp",
         "alias": "ets2"
     },
     {
         "name": "Exfil",
         "desc": "Misultin",
-        "image": "exfil.jpg"
+        "image": "exfil.webp"
     },
     {   
         "name": "Factorio",
         "desc": "Wube Software",
-        "image": "factorio.jpg"
+        "image": "factorio.webp"
     },
     {
         "name": "Fistful of Frags",
         "desc": "Fistful of Frags Team",
-        "image": "fistfuloffrags.jpg"
+        "image": "fistfuloffrags.webp"
     },
     {
         "name": "FiveM - Grand Theft Auto V",
         "desc": "Cfx.re",
-        "image": "fivegta5.jpg",
+        "image": "fivegta5.webp",
         "alias": "gta"
     },
     {
         "name": "FOUNDRY",
         "desc": "Channel 3 Entertainment",
-        "image": "foundry.jpg"
+        "image": "foundry.webp"
     },
     {
         "name": "Foundry Virtual Tabletop",
         "desc": "Foundry Gaming",
-        "image": "fvtt.jpg"
+        "image": "fvtt.webp"
     },
     {
         "name": "Frozen Flame",
         "desc": "Dreamside Interactive",
-        "image": "frozenflame.jpg"
+        "image": "frozenflame.webp"
     },
     {
         "name": "Garry's Mod",
         "desc": "Facepunch Studios",
-        "image": "gmod.jpg",
+        "image": "gmod.webp",
         "alias": "gmod"
     },
     {
         "name": "Geyser",
         "desc": "GeyserMC",
-        "image": "gmc.jpg"
+        "image": "gmc.webp"
     },
     {
         "name": "Ground Branch",
         "desc": "BlackFoot Studios",
-        "image": "groundbranch.jpg"
+        "image": "groundbranch.webp"
     },
     {
         "name": "Half-Life",
         "desc": "Valve - Deathmatch Source, Opposing Force",
-        "image": "halflife.jpg"
+        "image": "halflife.webp"
     },
     {
         "name": "Half-Life 2: Deathmatch",
         "desc": "Valve",
-        "image": "halflife2.jpg"
+        "image": "halflife2.webp"
     },
     {
         "name": "HumanitZ",
         "desc": "Yodubzz Studios",
-        "image": "HumanitZ.jpg"
+        "image": "HumanitZ.webp"
     },
     {   
         "name": "Hurtworld",
         "desc": "Bankroll Studios",
-        "image": "hurtworld.jpg"
+        "image": "hurtworld.webp"
     },
     {
         "name": "Hytale",
         "desc": "Hypixel Studios",
-        "image": "hytale.jpg",
+        "image": "hytale.webp",
         "isNew": "2026-06-15",
         "isBeta": true
     },
     {   
         "name": "Icarus",
         "desc": "RocketWerkz",
-        "image": "icarus.jpg",
+        "image": "icarus.webp",
         "isCrossplay": true
     },
     {
         "name": "Imposter - Among Us Server",
         "desc": "AeonLucid",
-        "image": "amus.jpg"
+        "image": "amus.webp"
     },
     {   
         "name": "Insurgency Sandstorm",
         "desc": "New World Interactive",
-        "image": "insurgency.jpg",
+        "image": "insurgency.webp",
         "isCrossplay": true
     },
     {
         "name": "Java App Runner",
         "desc": "Runtime",
-        "image": "Java-Emblem.jpg"
+        "image": "Java-Emblem.webp"
     },
     {
         "name": "Just Cause 3 Multiplayer Mod",
         "desc": "Nanos",
-        "image": "just-cause3.jpg"
+        "image": "just-cause3.webp"
     },
     {   
         "name": "Kaboom!",
         "desc": "Team Kaboom",
-        "image": "Kaboom.jpg"
+        "image": "Kaboom.webp"
     },
     {
         "name": "Killing Floor",
         "desc": "Tripwire Interactive",
-        "image": "killingfloor.jpg"
+        "image": "killingfloor.webp"
     },
     {
         "name": "Killing Floor 2",
         "desc": "Tripwire Interactive",
-        "image": "killingfloor2.jpg",
+        "image": "killingfloor2.webp",
         "alias": "kf2"
     },
     {
         "name": "Last Oasis",
         "desc": "Donkey Crew",
-        "image": "lastoasis.jpg"
+        "image": "lastoasis.webp"
     },
     {
         "name": "Left 4 Dead",
         "desc": "Valve",
-        "image": "left4dead.jpg",
+        "image": "left4dead.webp",
         "alias": "l4d"
     },
     {
         "name": "Left 4 Dead 2",
         "desc": "Valve",
-        "image": "left4dead2.jpg",
+        "image": "left4dead2.webp",
         "alias": "l4d2"
     },
     {
         "name": "Longvinter",
         "desc": "Uuvana Studios",
-        "image": "longvinter.jpg"
+        "image": "longvinter.webp"
     },
     {
         "name": "Longvinter (Linux Wine)",
         "desc": "Uuvana Studios",
-        "image": "longvinterl.jpg"
+        "image": "longvinterl.webp"
     },
     {
         "name": "Luanti",
         "desc": "Luanti Contributors",
-        "image": "luanti.jpg"
+        "image": "luanti.webp"
     },
     {
         "name": "MariaDB",
         "desc": "Database",
-        "image": "mariadb.jpg"
+        "image": "mariadb.webp"
     },
     {
         "name": "Mindustry",
         "desc": "AnukenDev",
-        "image": "mindustry.jpg"
+        "image": "mindustry.webp"
     },
     {
         "name": "Minecraft Bedrock",
         "desc": "Mojang",
-        "image": "minecraft-bedrock.jpg",
+        "image": "minecraft-bedrock.webp",
         "alias": "mc",
         "isCrossplay": true
     },
     {
         "name": "Minecraft Bedrock Edition [Legacy]",
         "desc": "Mojang",
-        "image": "minecraft-bedrock.jpg",
+        "image": "minecraft-bedrock.webp",
         "alias": "mc",
         "isCrossplay": true
     },
     {
         "name": "Minecraft BungeeCord Proxy",
         "desc": "SpigotMC",
-        "image": "MinecraftJava.jpg",
+        "image": "MinecraftJava.webp",
         "alias": "mc"
     },
     {
         "name": "Minecraft Java Edition",
         "desc": "Mojang",
-        "image": "MinecraftJava.jpg",
+        "image": "MinecraftJava.webp",
         "alias": "mc"
     },
     {
         "name": "Minetest (Legacy)",
         "desc": "Minetest Team",
-        "image": "minetest.jpg"
+        "image": "minetest.webp"
     },
     {
         "name": "MongoDB",
         "desc": "Database",
-        "image": "mongodb.jpg"
+        "image": "mongodb.webp"
     },
     {
         "name": "Mordhau",
         "desc": "Triternion",
-        "image": "mordhau.jpg",
+        "image": "mordhau.webp",
         "isCrossplay": true
     },
     {
         "name": "Mount & Blade II: Bannerlord",
         "desc": "TaleWorlds Entertainment",
-        "image": "bannerlord.jpg"
+        "image": "bannerlord.webp"
     },
     {
         "name": "Multi Theft Auto: San Andreas",
         "desc": "MTA Team",
-        "image": "mtasa.jpg",
+        "image": "mtasa.webp",
         "alias": "mta gta"
     },
     {
         "name": "MX Bikes",
         "desc": "PiBoSo",
-        "image": "mxbikes.jpg"
+        "image": "mxbikes.webp"
     },
     {
         "name": "MySQL",
         "desc": "Database",
-        "image": "mysql.jpg"
+        "image": "mysql.webp"
     },
     {
         "name": "Myth of Empires",
         "desc": "Angela Game",
-        "image": "mythofempires.jpg"
+        "image": "mythofempires.webp"
     },
     {
         "name": "NEBULOUS: Fleet Command",
         "desc": "Eridanus Industries",
-        "image": "nebulous.jpg"
+        "image": "nebulous.webp"
     },
     {
         "name": "Necesse",
         "desc": "Fair Games",
-        "image": "necesse.jpg"
+        "image": "necesse.webp"
     },
     {
         "name": "Night of the Dead",
         "desc": "jacktostudios",
-        "image": "nightofthedead.jpg"
+        "image": "nightofthedead.webp"
     },
     {
         "name": "Nightingale",
         "desc": "Inflexion Games",
-        "image": "nightingale.jpg"
+        "image": "nightingale.webp"
     },
     {
         "name": "No More Room in Hell",
         "desc": "NMRiH Team",
-        "image": "nmrih.jpg",
+        "image": "nmrih.webp",
         "alias": "nmrih"
     },
     {
         "name": "No One Survived",
         "desc": "Cat Play Studio",
-        "image": "noonesurvived.jpg"
+        "image": "noonesurvived.webp"
     },
     {
         "name": "Node.js App Runner",
         "desc": "Runtime",
-        "image": "nodejs.jpg"
+        "image": "nodejs.webp"
     },
     {
         "name": "Nuclear Option",
         "desc": "Shockfront Studios",
-        "image": "nuclearoption.jpg"
+        "image": "nuclearoption.webp"
     },
     {
         "name": "Nukkit",
         "desc": "CloudburstMC",
-        "image": "nukkit.jpg"
+        "image": "nukkit.webp"
     },
     {
         "name": "Open World - RimWorld Server",
         "desc": "Ludeon Studios",
-        "image": "rimworld-server.jpg"
+        "image": "rimworld-server.webp"
     },
     {
         "name": "open.mp - Grand Theft Auto: San Andreas Server",
         "desc": "open.mp Team",
-        "image": "openmp.jpg",
+        "image": "openmp.webp",
         "alias": "samp gta"
     },
     {
         "name": "OpenRA - Dune 2000",
         "desc": "OpenRA",
-        "image": "openra-dune2000.jpg"
+        "image": "openra-dune2000.webp"
     },
     {
         "name": "OpenRA - Red Alert",
         "desc": "OpenRA",
-        "image": "openra-redalert.jpg"
+        "image": "openra-redalert.webp"
     },
     {
         "name": "OpenRA - Tiberian Dawn",
         "desc": "OpenRA",
-        "image": "openra-tiberiandawn.jpg"
+        "image": "openra-tiberiandawn.webp"
     },
     {
         "name": "OpenRCT2",
         "desc": "OpenRCT2 Team",
-        "image": "openrct2.jpg"
+        "image": "openrct2.webp"
     },
     {
         "name": "OpenStarbound",
         "desc": "OpenStarbound Team",
-        "image": "openstarbound.jpg"
+        "image": "openstarbound.webp"
     },
     {
         "name": "OpenTTD",
         "desc": "OpenTTD Team",
-        "image": "openttd.jpg"
+        "image": "openttd.webp"
     },
     {
         "name": "Operation: Harsh Doorstop",
         "desc": "Drakeling Labs",
-        "image": "operation-harsh-doorstop.jpg"
+        "image": "operation-harsh-doorstop.webp"
     },
     {
         "name": "Palworld",
         "desc": "Pocketpair",
-        "image": "palworld.jpg"
+        "image": "palworld.webp"
     },
     {
         "name": "Palworld (Modded)",
         "desc": "Pocketpair",
-        "image": "palworld.jpg"
+        "image": "palworld.webp"
     },
     {
         "name": "Path of Titans",
         "desc": "Alderon Games",
-        "image": "pathoftitans.jpg",
+        "image": "pathoftitans.webp",
         "isCrossplay": true
     },
     {
         "name": "Pavlov VR",
         "desc": "Vankrupt Games",
-        "image": "pavlovvr.jpg"
+        "image": "pavlovvr.webp"
     },
     {
         "name": "Pirates, Vikings, & Knights II",
         "desc": "Octoshark Studios",
-        "image": "pvk2.jpg"
+        "image": "pvk2.webp"
     },
     {
         "name": "PixARK",
         "desc": "Snail Games",
-        "image": "pixark.jpg"
+        "image": "pixark.webp"
     },
     {
         "name": "Plains of Pain",
         "desc": "Holotna",
-        "image": "plainsofpain.jpg"
+        "image": "plainsofpain.webp"
     },
     {
         "name": "PocketMine-MP",
         "desc": "PocketMine Team",
-        "image": "pocketmine-mp.jpg"
+        "image": "pocketmine-mp.webp"
     },
     {
         "name": "Portal Knights",
         "desc": "Keen Games",
-        "image": "portalknights.jpg"
+        "image": "portalknights.webp"
     },
     {
         "name": "PostgreSQL",
         "desc": "Database",
-        "image": "postgresql.jpg"
+        "image": "postgresql.webp"
     },
     {
         "name": "Pre-Fortress 2",
         "desc": "PF2 Team",
-        "image": "prefortress2.jpg"
+        "image": "prefortress2.webp"
     },
     {
         "name": "Project 5: Sightseer",
         "desc": "Tasharen Entertainment",
-        "image": "project5sightseer.jpg"
+        "image": "project5sightseer.webp"
     },
     {
         "name": "Project Zomboid",
         "desc": "The Indie Stone",
-        "image": "projectzomboid.jpg",
+        "image": "projectzomboid.webp",
         "alias": "pz"
     },
     {
         "name": "Puck",
         "desc": "Community",
-        "image": "puck.jpg"
+        "image": "puck.webp"
     },
     {
         "name": "Python App Runner",
         "desc": "Python Software Foundation",
-        "image": "python.jpg"
+        "image": "python.webp"
     },
     {
         "name": "Quake III Arena",
         "desc": "id Software",
-        "image": "quake3.jpg"
+        "image": "quake3.webp"
     },
     {
         "name": "Quake Live",
         "desc": "id Software",
-        "image": "quakelive.jpg"
+        "image": "quakelive.webp"
     },
     {
         "name": "RAGE:MP - Grand Theft Auto V Server",
         "desc": "RAGE:MP Team",
-        "image": "ragemp.jpg",
+        "image": "ragemp.webp",
         "alias": "gta gtav"
     },
     {
         "name": "RedM - Red Dead Redemption 2 Server",
         "desc": "Cfx.re",
-        "image": "redm.jpg",
+        "image": "redm.webp",
         "alias": "rdr2"
     },
     {
         "name": "Reign of Kings",
         "desc": "CodeHatch",
-        "image": "reignofkings.jpg"
+        "image": "reignofkings.webp"
     },
     {
         "name": "Renown",
         "desc": "RDBK Studios",
-        "image": "renown.jpg"
+        "image": "renown.webp"
     },
     {
         "name": "Rimworld Together - RimWorld Server",
         "desc": "RimWorld Together Team",
-        "image": "rimworld-together.jpg"
+        "image": "rimworld-together.webp"
     },
     {
         "name": "Rising Storm 2: Vietnam",
         "desc": "Antimatter Games",
-        "image": "risingstorm2.jpg"
+        "image": "risingstorm2.webp"
     },
     {
         "name": "Rising World (Unity Version)",
         "desc": "JIW-Games",
-        "image": "risingworld.jpg"
+        "image": "risingworld.webp"
     },
     {
         "name": "Rust",
         "desc": "Facepunch Studios",
-        "image": "rust.jpg"
+        "image": "rust.webp"
     },
     {
         "name": "San Andreas Multiplayer",
         "desc": "SA-MP Team",
-        "image": "samp.jpg",
+        "image": "samp.webp",
         "alias": "samp gta"
     },
     {
         "name": "Sapiens",
         "desc": "Majic Jungle",
-        "image": "sapiens.jpg"
+        "image": "sapiens.webp"
     },
     {
         "name": "Satisfactory",
         "desc": "Coffee Stain Studios",
-        "image": "satisfactory.jpg"
+        "image": "satisfactory.webp"
     },
     {
         "name": "SCP: Secret Laboratory",
         "desc": "Northwood Studios",
-        "image": "scpsl.jpg"
+        "image": "scpsl.webp"
     },
     {
         "name": "SCUM",
         "desc": "Gamepires",
-        "image": "scum.jpg"
+        "image": "scum.webp"
     },
     {
         "name": "Seven Days To Die",
         "desc": "The Fun Pimps",
-        "image": "7dtd.jpg",
+        "image": "7dtd.webp",
         "alias": "7dtd",
         "isCrossplay": true
     },
     {
         "name": "SinusBot",
         "desc": "SinusBot Team",
-        "image": "sinusbot.jpg"
+        "image": "sinusbot.webp"
     },
     {
         "name": "Skyrim Together Reborn",
         "desc": "The Together Team",
-        "image": "skyrimtogether.jpg"
+        "image": "skyrimtogether.webp"
     },
     {
         "name": "Smalland: Survive the Wilds",
         "desc": "Merge Games",
-        "image": "smalland.jpg",
+        "image": "smalland.webp",
         "isCrossplay": true
     },
     {
         "name": "Soldat",
         "desc": "Transhuman Design",
-        "image": "soldat.jpg"
+        "image": "soldat.webp"
     },
     {
         "name": "Sons Of The Forest",
         "desc": "Endnight Games",
-        "image": "sonsoftheforest.jpg"
+        "image": "sonsoftheforest.webp"
     },
     {
         "name": "Soulmask",
         "desc": "CampFire Studio",
-        "image": "soulmask.jpg"
+        "image": "soulmask.webp"
     },
     {
         "name": "Space Engineers",
         "desc": "Keen Software House",
-        "image": "spaceengineers.jpg",
+        "image": "spaceengineers.webp",
         "alias": "se",
         "isCrossplay": true
     },
     {
         "name": "Space Engineers (Torch)",
         "desc": "Keen Software House",
-        "image": "spaceengineers-torch.jpg",
+        "image": "spaceengineers-torch.webp",
         "isCrossplay": true
     },
     {
         "name": "Spellmasons",
         "desc": "Octavia Blue",
-        "image": "spellmasons.jpg"
+        "image": "spellmasons.webp"
     },
     {
         "name": "Squad",
         "desc": "Offworld Industries",
-        "image": "squad.jpg"
+        "image": "squad.webp"
     },
     {
         "name": "Squad 44",
         "desc": "Offworld Industries",
-        "image": "squad44.jpg",
+        "image": "squad44.webp",
         "alias": "post scriptum"
     },
     {
         "name": "STAR WARS Jedi Knight - Jedi Academy",
         "desc": "Raven Software",
-        "image": "jedi-academy.jpg"
+        "image": "jedi-academy.webp"
     },
     {
         "name": "Starbound",
         "desc": "Chucklefish",
-        "image": "starbound.jpg"
+        "image": "starbound.webp"
     },
     {
         "name": "Starmade",
         "desc": "Schine",
-        "image": "starmade.jpg"
+        "image": "starmade.webp"
     },
     {
         "name": "StarRupture",
         "desc": "Creepy Jar",
-        "image": "starrupture.jpg"
+        "image": "starrupture.webp"
     },
     {
         "name": "Stationeers",
         "desc": "RocketWerkz",
-        "image": "stationeers.jpg"
+        "image": "stationeers.webp"
     },
     {
         "name": "Staxel",
         "desc": "Plukit",
-        "image": "staxel.jpg"
+        "image": "staxel.webp"
     },
     {
         "name": "Stormworks",
         "desc": "Geometa",
-        "image": "stormworks.jpg"
+        "image": "stormworks.webp"
     },
     {
         "name": "Subnautica (Legacy)",
         "desc": "Unknown Worlds Entertainment",
-        "image": "subnautica.jpg"
+        "image": "subnautica.webp"
     },
     {
         "name": "Subnautica 2.0",
         "desc": "Unknown Worlds Entertainment",
-        "image": "subnautica.jpg"
+        "image": "subnautica.webp"
     },
     {
         "name": "Subsistence",
         "desc": "ColdGames",
-        "image": "subsistence.jpg"
+        "image": "subsistence.webp"
     },
     {
         "name": "Sunkenland",
         "desc": "Vector3 Studio",
-        "image": "sunkenland.jpg"
+        "image": "sunkenland.webp"
     },
     {
         "name": "Sven Co-op",
         "desc": "Sven Co-op Team",
-        "image": "svencoop.jpg"
+        "image": "svencoop.webp"
     },
     {
         "name": "Swords 'n Magic and Stuff",
         "desc": "Kindred Games",
-        "image": "swordsnmagic.jpg"
+        "image": "swordsnmagic.webp"
     },
     {
         "name": "Synergy",
         "desc": "Synergy Team",
-        "image": "synergy.jpg"
+        "image": "synergy.webp"
     },
     {
         "name": "Tarkov (Fika Mod) (Legacy)",
         "desc": "Fika Team",
-        "image": "tarkov-fika.jpg"
+        "image": "tarkov-fika.webp"
     },
     {
         "name": "Tarkov (Fika Mod) 4.0.0+",
         "desc": "Fika Team",
-        "image": "tarkov-fika.jpg"
+        "image": "tarkov-fika.webp"
     },
     {
         "name": "Team Fortress 2",
         "desc": "Valve",
-        "image": "tf2.jpg",
+        "image": "tf2.webp",
         "alias": "tf2"
     },
     {
         "name": "Team Fortress 2 (64 Bit)",
         "desc": "Valve",
-        "image": "tf2.jpg",
+        "image": "tf2.webp",
         "alias": "tf2"
     },
     {
         "name": "Team Fortress Classic",
         "desc": "Valve",
-        "image": "tfc.jpg",
+        "image": "tfc.webp",
         "alias": "tfc"
     },
     {
         "name": "TeamSpeak 3",
         "desc": "TeamSpeak Systems",
-        "image": "teamspeak3.jpg",
+        "image": "teamspeak3.webp",
         "alias": "ts3"
     },
     {
         "name": "TeamSpeak 6",
         "desc": "TeamSpeak Systems",
-        "image": "teamspeak6.jpg"
+        "image": "teamspeak6.webp"
     },
     {
         "name": "TeaSpeak",
         "desc": "TeaSpeak",
-        "image": "teaspeak.jpg"
+        "image": "teaspeak.webp"
     },
     {
         "name": "Teeworlds",
         "desc": "Teeworlds Team",
-        "image": "teeworlds.jpg"
+        "image": "teeworlds.webp"
     },
     {
         "name": "Terraria",
         "desc": "Re-Logic",
-        "image": "terraria.jpg"
+        "image": "terraria.webp"
     },
     {
         "name": "TerraTech Worlds",
         "desc": "Payload Studios",
-        "image": "terratechworlds.jpg"
+        "image": "terratechworlds.webp"
     },
     {
         "name": "TES3MP - The Elder Scrolls III: Morrowind Server",
         "desc": "TES3MP Team",
-        "image": "tes3mp.jpg"
+        "image": "tes3mp.webp"
     },
     {
         "name": "The Forest",
         "desc": "Endnight Games",
-        "image": "theforest.jpg"
+        "image": "theforest.webp"
     },
     {
         "name": "The Front",
         "desc": "Samar Studio",
-        "image": "thefront.jpg"
+        "image": "thefront.webp"
     },
     {
         "name": "The Isle (EVRIMA)",
         "desc": "Afterthought LLC",
-        "image": "theisle.jpg"
+        "image": "theisle.webp"
     },
     {
         "name": "The Isle (Legacy)",
         "desc": "Afterthought LLC",
-        "image": "theisle.jpg"
+        "image": "theisle.webp"
     },
     {
         "name": "The Lord of the Rings: Return to Moria",
         "desc": "Free Range Games",
-        "image": "returntomoria.jpg"
+        "image": "returntomoria.webp"
     },
     {
         "name": "Titanfall 2",
         "desc": "Respawn Entertainment",
-        "image": "titanfall2.jpg"
+        "image": "titanfall2.webp"
     },
     {
         "name": "tModLoader (Legacy)",
         "desc": "tModLoader Team",
-        "image": "tmodloader.jpg"
+        "image": "tmodloader.webp"
     },
     {
         "name": "tModLoader 1.4+",
         "desc": "tModLoader Team",
-        "image": "tmodloader.jpg"
+        "image": "tmodloader.webp"
     },
     {
         "name": "Tower Unite",
         "desc": "PixelTail Games",
-        "image": "towerunite.jpg"
+        "image": "towerunite.webp"
     },
     {
         "name": "TShock - Terraria Server",
         "desc": "TShock Team",
-        "image": "tshock.jpg"
+        "image": "tshock.webp"
     },
     {
         "name": "Turbo Sliders Unlimited",
         "desc": "Antti Mannisto",
-        "image": "turbosliders.jpg"
+        "image": "turbosliders.webp"
     },
     {
         "name": "txAdmin",
         "desc": "Tabarra",
-        "image": "txadmin.jpg"
+        "image": "txadmin.webp"
     },
     {
         "name": "Unreal Tournament 2004",
         "desc": "Epic Games",
-        "image": "ut2004.jpg"
+        "image": "ut2004.webp"
     },
     {
         "name": "Unreal Tournament 99",
         "desc": "Epic Games",
-        "image": "ut99.jpg"
+        "image": "ut99.webp"
     },
     {
         "name": "Unturned",
         "desc": "Smartly Dressed Games",
-        "image": "unturned.jpg"
+        "image": "unturned.webp"
     },
     {
         "name": "V Rising",
         "desc": "Stunlock Studios",
-        "image": "vrising.jpg"
+        "image": "vrising.webp"
     },
     {
         "name": "Valheim",
         "desc": "Iron Gate Studio",
-        "image": "valheim.jpg",
+        "image": "valheim.webp",
         "isCrossplay": true
     },
     {
         "name": "VEIN",
         "desc": "Ramjet Studios",
-        "image": "vein.jpg"
+        "image": "vein.webp"
     },
     {
         "name": "Veloren",
         "desc": "Veloren Team",
-        "image": "veloren.jpg"
+        "image": "veloren.webp"
     },
     {
         "name": "Vintage Story (Legacy)",
         "desc": "Anego Studios",
-        "image": "vintagestory.jpg"
+        "image": "vintagestory.webp"
     },
     {
         "name": "Vintage Story 1.18.8+",
         "desc": "Anego Studios",
-        "image": "vintagestory.jpg"
+        "image": "vintagestory.webp"
     },
     {
         "name": "Voyagers of Nera",
         "desc": "Treehouse Games",
-        "image": "voyagersofnera.jpg"
+        "image": "voyagersofnera.webp"
     },
     {
         "name": "Windward",
         "desc": "Tasharen Entertainment",
-        "image": "windward.jpg"
+        "image": "windward.webp"
     },
     {
         "name": "Windward Horizon",
         "desc": "Tasharen Entertainment",
-        "image": "windwardhorizon.jpg"
+        "image": "windwardhorizon.webp"
     },
     {
         "name": "Wolfenstein: Enemy Territory",
         "desc": "Splash Damage",
-        "image": "wolfenstein-et.jpg"
+        "image": "wolfenstein-et.webp"
     },
     {
         "name": "Wreckfest",
         "desc": "Bugbear Entertainment",
-        "image": "wreckfest.jpg"
+        "image": "wreckfest.webp"
     },
     {
         "name": "Wreckfest 2",
         "desc": "Bugbear Entertainment",
-        "image": "wreckfest2.jpg"
+        "image": "wreckfest2.webp"
     },
     {
         "name": "Wurm Unlimited",
         "desc": "Code Club AB",
-        "image": "wurmunlimited.jpg"
+        "image": "wurmunlimited.webp"
     },
     {
         "name": "Xonotic",
         "desc": "Xonotic Team",
-        "image": "xonotic.jpg"
+        "image": "xonotic.webp"
     },
     {
         "name": "Zombie Panic! Source",
         "desc": "",
-        "image": "zomps.jpg"
+        "image": "zomps.webp"
     }
 ]

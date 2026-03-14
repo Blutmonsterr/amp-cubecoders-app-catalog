@@ -83,7 +83,7 @@ Jede Applikation wird als JSON-Objekt mit der folgenden Struktur definiert:
 {
     "name": "Name der App",
     "desc": "Kurze Beschreibung oder Entwickler",
-    "image": "bildname.jpg",
+    "image": "bildname.webp",
     "alias": "such-alias optional",
     "isNew": "2025-12-31", // true oder Datum (YYYY-MM-DD), bis wann der "Neu"-Badge angezeigt wird
     "isBeta": "2025-12-31",// true oder Datum (YYYY-MM-DD), bis wann der "Beta"-Badge angezeigt wird
@@ -201,7 +201,7 @@ Each application is defined as a JSON object with the following structure:
 {
     "name": "App Name",
     "desc": "Short description or developer",
-    "image": "imagename.jpg",
+    "image": "imagename.webp",
     "alias": "search-alias optional",
     "isNew": "2025-12-31", // true or a date (YYYY-MM-DD) until which the "New" badge is displayed
     "isBeta": "2025-12-31",// true or a date (YYYY-MM-DD) until which the "Beta" badge is displayed

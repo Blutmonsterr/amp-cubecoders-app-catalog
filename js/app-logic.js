@@ -10,6 +10,12 @@ const escapeHtml = (unsafe) => {
         .replace(/'/g, "&#039;");
 };
 
+const isExpired = (val) => {
+    if (typeof val !== 'string') return false;
+    const expiryDate = new Date(val);
+    return !isNaN(expiryDate.getTime()) && new Date() > expiryDate;
+};
+
 function filterApps() {
     const input = document.getElementById('searchInput');
     const filter = input.value.trim().toUpperCase();
@@ -119,19 +125,106 @@ function cacheAppElements() {
 }
 
 /**
- * Fetches an optional list of apps from a given URL.
- * Logs a warning and displays a UI error on failure.
- * @param {string} url The URL of the JSON file to fetch.
- * @param {string} errorElementId The ID of the element to display as an error indicator.
- * @returns {Promise<Array|null>} A promise that resolves to the array of apps, or null on failure.
+ * Helper to compare two app objects for differences
  */
-async function fetchOptionalAppList(url, errorElementId) {
+const areAppsDifferent = (appA, appB) => {
+    if (!appA || !appB) return true;
+    const keys = ['desc', 'image', 'alias', 'isNew', 'isBeta', 'isCrossplay'];
+    return keys.some(key => {
+        // Normalisierung: Behandelt null/undefined und entfernt überflüssige Leerzeichen
+        const valA = (appA[key] || '').toString().trim();
+        const valB = (appB[key] || '').toString().trim();
+        return valA !== valB;
+    });
+};
+
+/**
+ * Merges local and remote app lists. Remote takes priority if data differs.
+ */
+function mergeAppLists(local, remote) {
+    const merged = [];
+    const localMap = new Map(local.map(app => [app.name.toLowerCase(), app]));
+    const handledNames = new Set();
+
+    if (remote) {
+        remote.forEach(remoteApp => {
+            const nameKey = remoteApp.name.toLowerCase();
+            const localApp = localMap.get(nameKey);
+
+            if (!localApp || areAppsDifferent(localApp, remoteApp)) {
+                merged.push({ ...remoteApp, _source: 'github' });
+            } else {
+                merged.push({ ...localApp, _source: 'local' });
+            }
+            handledNames.add(nameKey);
+        });
+    }
+
+    // Add local apps that are not in remote
+    local.forEach(localApp => {
+        if (!handledNames.has(localApp.name.toLowerCase())) {
+            merged.push({ ...localApp, _source: 'local' });
+        }
+    });
+
+    return merged;
+}
+
+/**
+ * Checks GitHub for new commits to notify about project updates.
+ */
+async function checkForProjectUpdates() {
+    const config = window.config || {};
+    if (!config.features || !config.features.checkForUpdates) return;
+
+    try {
+        const response = await fetch('https://api.github.com/repos/Blutmonsterr/amp-cubecoders-app-catalog/commits/main');
+        if (!response.ok) return;
+        const data = await response.json();
+        const latestCommitDate = new Date(data.commit.author.date);
+        
+        // Simple check: If the latest commit is newer than 24h from now, show notice
+        // In a real scenario, you'd compare against a local version string or timestamp.
+        const lastChecked = localStorage.getItem('last_update_viewed');
+        if (lastChecked !== data.sha) {
+            const banner = document.createElement('div');
+            banner.id = 'update-notice';
+            banner.className = 'update-nav-button';
+            const t = getTranslation();
+            banner.innerHTML = `<i class="fa fa-refresh"></i> <div class="update-text-container"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
+                                <button class="close-update" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
+            
+            const langSelect = document.getElementById('lang-select');
+            if (langSelect) {
+                langSelect.insertAdjacentElement('afterend', banner);
+            } else {
+                document.body.prepend(banner);
+            }
+        }
+    } catch (err) {
+        console.warn("Update check failed:", err);
+    }
+}
+
+async function fetchJSON(url) {
     try {
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        return response.ok ? await response.json() : null;
+    } catch (err) {
+        return null;
+    }
+}
+
+async function fetchOptionalAppList(url, errorElementId, fallbackUrl = null) {
+    try {
+        const data = await fetchJSON(url);
+        if (data) return { data, source: url.includes('githubusercontent') ? 'github' : 'local' };
+        
+        if (fallbackUrl && url !== fallbackUrl) {
+            const fallbackData = await fetchJSON(fallbackUrl);
+            if (fallbackData) return { data: fallbackData, source: 'local' };
         }
-        return await response.json();
+        return null;
     } catch (err) {
         console.warn(`Could not load optional app list from ${url}:`, err);
         const errorIndicator = document.getElementById(errorElementId);
@@ -145,10 +238,11 @@ async function fetchOptionalAppList(url, errorElementId) {
 }
 
 async function loadApps() {
-    injectModalStyles();
     const appList = document.getElementById('appList');
     const globalLoader = document.getElementById('globalLoader');
     
+    checkForProjectUpdates();
+
     const t = getTranslation();
 
     appList.innerHTML = '';
@@ -160,19 +254,19 @@ async function loadApps() {
     document.getElementById('greelanLoadError').style.display = 'none';
     document.getElementById('customLoadError').style.display = 'none';
 
-    const config = window.config || { features: { customApps: true } };
+    let allApps = [];
+    const config = window.config || { features: { customApps: true, GreelanApps: true, gitUpdate: false } };
     const customAppsEnabled = config.features && config.features.customApps !== false;
+    const greelanAppsEnabled = config.features && config.features.GreelanApps !== false;
+
     const showCustom = customAppsEnabled && (localStorage.getItem('show_custom_apps') === 'true');
-    const showGreelan = customAppsEnabled && (localStorage.getItem('show_greelan_apps') === 'true');
+    const showGreelan = greelanAppsEnabled && (localStorage.getItem('show_greelan_apps') === 'true');
+
+    const gitUpdate = config.features && config.features.gitUpdate === true;
+    const remoteBase = config.remoteBase || 'https://raw.githubusercontent.com/Blutmonsterr/amp-cubecoders-app-catalog/main/';
 
     const urlParams = new URLSearchParams(window.location.search);
-    const appParam = urlParams.get('app');
-
-    const isExpired = (val) => {
-        if (typeof val !== 'string') return false;
-        const expiryDate = new Date(val);
-        return !isNaN(expiryDate.getTime()) && new Date() > expiryDate;
-    };
+    const appParam = urlParams.get('app')?.toUpperCase();
 
     const createAppItem = (app) => {
         if (isExpired(app.isNew)) app.isNew = false;
@@ -193,6 +287,7 @@ async function loadApps() {
         li.dataset.searchAlias = (app.alias || '').toUpperCase();
         li.style.cursor = 'pointer';
         li.onclick = () => openModal(app);
+        const isGitHub = app._source === 'github';
         li.innerHTML = `
             <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}">
                 <div class="app-info">
@@ -203,6 +298,7 @@ async function loadApps() {
                 <div class="image-container">
                     <div class="img-loader"></div>
                     <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="app-image" loading="lazy">
+                    <span class="card-source-badge ${isGitHub ? 'live' : 'local'}" title="${isGitHub ? 'GitHub Raw' : 'Local File'}"><i class="fa fa-${isGitHub ? 'github' : 'server'}"></i></span>
                     ${app.isBeta ? '<span class="card-beta-badge">BETA</span>' : ''}
                     ${app.isCrossplay ? `<span class="card-crossplay-badge" title="${t.filterCrossplay || 'Crossplay'}"><i class="fa fa-gamepad"></i></span>` : ''}
                 </div>
@@ -216,21 +312,17 @@ async function loadApps() {
             loader.style.display = 'none';
             img.style.opacity = '1';
         };
-
+        
         if (img.complete) {
             onImageLoad();
         } else {
             img.onload = onImageLoad;
             img.onerror = function() {
                 loader.style.display = 'none';
-                this.src = 'https://placehold.co/260x146/222/39b54a?text=No+Image';
+                this.src = 'images/placeholder.webp';
                 this.style.opacity = '1';
                 this.onerror = null;
             };
-        }
-
-        if (appParam === app.name) {
-            setTimeout(() => openModal(app), 100);
         }
 
         return li;
@@ -253,30 +345,58 @@ async function loadApps() {
 
     try {
         // --- Block 1: Base Apps ---
-        const baseAppsRes = await fetch('js/apps/apps.json');
-        if (!baseAppsRes.ok) throw new Error(`HTTP error ${baseAppsRes.status} for apps.json`);
-        const baseApps = await baseAppsRes.json();
+        let baseApps;
+        let blocksRendered = 0;
+        const basePath = 'js/apps/apps.json';
+        const cacheBuster = `t=${Date.now()}`;
+        
+        // Fetch local first
+        const localBase = await fetchJSON(basePath);
+        if (!localBase) throw new Error("Could not load local apps.json");
+
+        if (gitUpdate) {
+            const remoteBaseData = await fetchJSON(`${remoteBase}${basePath}?${cacheBuster}`);
+            baseApps = mergeAppLists(localBase, remoteBaseData);
+        } else {
+            baseApps = localBase.map(a => ({ ...a, _source: 'local' }));
+        }
 
         if (baseApps && baseApps.length > 0) {
             renderBlock(baseApps, appList);
-            renderSeparator(appList);
+            blocksRendered++;
+            allApps = allApps.concat(baseApps);
         }
 
         // --- Block 2: Greelan Apps (Optional) ---
         if (showGreelan) {
-            const greelanApps = await fetchOptionalAppList('js/apps/apps-g.json', 'greelanLoadError');
-            if (greelanApps && greelanApps.length > 0) {
-                renderBlock(greelanApps, appList);
-                renderSeparator(appList);
+            const greelanPath = 'js/apps/apps-g.json';
+            const localG = await fetchJSON(greelanPath) || [];
+            let finalG;
+            
+            if (gitUpdate) {
+                const remoteG = await fetchJSON(`${remoteBase}${greelanPath}?${cacheBuster}`);
+                finalG = mergeAppLists(localG, remoteG);
+            } else {
+                finalG = localG.map(a => ({ ...a, _source: 'local' }));
+            }
+
+            if (finalG && finalG.length > 0) {
+                if (blocksRendered > 0) renderSeparator(appList);
+                renderBlock(finalG, appList);
+                blocksRendered++;
+                allApps = allApps.concat(finalG);
             }
         }
 
         // --- Block 3: Custom Apps (Optional) ---
         if (showCustom) {
-            const customApps = await fetchOptionalAppList('js/apps/apps-c.json', 'customLoadError');
-            if (customApps && customApps.length > 0) {
-                renderBlock(customApps, appList);
-                renderSeparator(appList);
+            const localC = await fetchJSON('js/apps/apps-c.json');
+            if (localC && localC.length > 0) {
+                const finalC = localC.map(a => ({ ...a, _source: 'local' }));
+                if (blocksRendered > 0) renderSeparator(appList);
+                renderBlock(finalC, appList);
+                blocksRendered++;
+                allApps = allApps.concat(finalC);
             }
         }
 
@@ -284,6 +404,13 @@ async function loadApps() {
 
         cacheAppElements();
         filterApps();
+
+        if (appParam) {
+            const target = allApps.find(a => a.name.toUpperCase() === appParam);
+            if (target) {
+                setTimeout(() => openModal(target), 100);
+            }
+        }
     } catch (err) {
         const t = typeof getTranslation === 'function' ? getTranslation() : {};
         const errorText = t.appLoadError || 'Fehler beim Laden der Apps:';
@@ -318,11 +445,26 @@ function injectModalStyles() {
         @keyframes fadeOutBackdrop { from { opacity: 1; } to { opacity: 0; } }
         .modal.closing { animation: fadeOutBackdrop 0.3s forwards; }
         .modal.closing .modal-content { animation: fadeOut 0.3s forwards; }
-        body.light-theme .modal-content { background-color: #fff; color: #333; border-color: #ddd; }
-        body.light-theme .modal-header { border-bottom-color: #eee; }
-        body.light-theme .modal-app-desc { color: #555; }
-        body.light-theme .close-modal { color: #888; }
-        body.light-theme .close-modal:hover { color: #000; }
+
+        .card-source-badge { position: absolute; bottom: 8px; left: 8px; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 5; display: flex; align-items: center; gap: 3px; }
+        .card-source-badge.live { background: rgba(39, 174, 96, 0.2); color: #2ecc71; border: 1px solid rgba(39, 174, 96, 0.4); }
+        .card-source-badge.local { background: rgba(149, 165, 166, 0.2); color: #bdc3c7; border: 1px solid rgba(149, 165, 166, 0.4); }
+
+        .update-nav-button { margin: 5px 15px; background-color: #333; color: #fff; padding: 10px 12px; border-radius: 4px; display: flex; align-items: center; gap: 10px; border: 1px solid #444; transition: background 0.2s; cursor: default; animation: fadeInSimple 0.4s ease-out; }
+        @keyframes fadeInSimple { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .update-nav-button i { color: #39b54a; font-size: 0.9rem; }
+        .update-text-container { font-size: 0.85rem; flex-grow: 1; }
+        .close-update { background: none; border: none; color: #888; cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0 2px; margin-left: 5px; }
+        .close-update:hover { color: #fff; }
+
+        body.light-mode .modal-content { background-color: #fff; color: #333; border-color: #ddd; }
+        body.light-mode .modal-header { border-bottom-color: #eee; }
+        body.light-mode .modal-app-desc { color: #555; }
+        body.light-mode .close-modal { color: #888; }
+        body.light-mode .close-modal:hover { color: #000; }
+        
+        body.light-mode .update-nav-button { background-color: #eee; color: #333; border-color: #ccc; }
+        body.light-mode .close-update:hover { color: #000; }
     `;
     document.head.appendChild(style);
 }

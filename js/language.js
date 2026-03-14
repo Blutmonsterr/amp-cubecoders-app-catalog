@@ -29,7 +29,8 @@ function setLanguage(lang) {
         { id: 'filterBtnCrossplayText', text: t.filterCrossplay },
         { id: 'greelanLoadError', attr: 'title', text: t.loadListError },
         { id: 'customLoadError', attr: 'title', text: t.loadListError },
-        { sel: '#go-top a', attr: 'title', text: t.backToTop }
+        { sel: '#go-top a', attr: 'title', text: t.backToTop },
+        { id: 'update-notice-text', text: t.updateAvailable }
     ];
 
     bindings.forEach(({ id, sel, text, attr }) => {
