@@ -14,7 +14,7 @@ window.config = {
     },
     features: {
         checkForUpdates: true, // Github new commits (github.com/blutmonsterr)
-        gitUpdate: false, // (remotebase) apps.json, apps-g.json) (no images)
+        gitUpdate: true, // (remotebase) apps.json, apps-g.json (fallback is local images (placeholder.wabp))
         GreelanApps: true, // (B: MAIN) - set to false to disable the Greelan-Apps section
         customApps: true,
         themeSwitcher: true,
