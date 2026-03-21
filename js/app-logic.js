@@ -124,9 +124,6 @@ function cacheAppElements() {
     });
 }
 
-/**
- * Helper to compare two app objects for differences
- */
 const areAppsDifferent = (appA, appB) => {
     if (!appA || !appB) return true;
     const keys = ['desc', 'image', 'alias', 'isNew', 'isBeta', 'isCrossplay'];
@@ -138,9 +135,6 @@ const areAppsDifferent = (appA, appB) => {
     });
 };
 
-/**
- * Merges local and remote app lists. Remote takes priority if data differs.
- */
 function mergeAppLists(local, remote) {
     const merged = [];
     const localMap = new Map(local.map(app => [app.name.toLowerCase(), app]));
@@ -160,7 +154,6 @@ function mergeAppLists(local, remote) {
         });
     }
 
-    // Add local apps that are not in remote
     local.forEach(localApp => {
         if (!handledNames.has(localApp.name.toLowerCase())) {
             merged.push({ ...localApp, _source: 'local' });
@@ -170,9 +163,6 @@ function mergeAppLists(local, remote) {
     return merged;
 }
 
-/**
- * Checks GitHub for new commits to notify about project updates.
- */
 async function checkForProjectUpdates() {
     const config = window.config || {};
     if (!config.features || !config.features.checkForUpdates) return;
@@ -183,8 +173,6 @@ async function checkForProjectUpdates() {
         const data = await response.json();
         const latestCommitDate = new Date(data.commit.author.date);
         
-        // Simple check: If the latest commit is newer than 24h from now, show notice
-        // In a real scenario, you'd compare against a local version string or timestamp.
         const lastChecked = localStorage.getItem('last_update_viewed');
         if (lastChecked !== data.sha) {
             const banner = document.createElement('div');
