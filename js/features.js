@@ -1,5 +1,5 @@
 function initFeatures() {
-    const config = window.config || { features: { customApps: true, GreelanApps: true, themeSwitcher: true } };
+    const config = window.config || { features: { customApps: true, GreelanApps: true } };
 
     const customAppsEnabled = config.features.customApps !== false;
     const greelanAppsEnabled = config.features.GreelanApps !== false;
@@ -28,14 +28,6 @@ function initFeatures() {
             } else {
                 toggleGreelan.checked = localStorage.getItem('show_greelan_apps') === 'true';
             }
-        }
-    }
-
-    if (config.features.themeSwitcher === false) {
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            const wrapper = themeToggle.closest('.dropdown-item');
-            if (wrapper) wrapper.style.display = 'none';
         }
     }
 

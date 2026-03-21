@@ -6,7 +6,6 @@ window.translations['en'] = {
     resultsFound: "Results found",
     loadError: "Error loading data.",
     settingsTooltip: "Enable to show custom templates additionally.",
-    themeLabel: "Light Mode",
     customApps: "Custom Apps",
     loadListError: "Failed to load list. File not found or invalid.",
     loading: "Loading apps...",

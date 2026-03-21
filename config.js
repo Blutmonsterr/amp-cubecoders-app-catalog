@@ -1,5 +1,5 @@
 window.config = {
-    // DONT CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING 
+    // DONT CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING  !!!!
     remoteBase: "https://raw.githubusercontent.com/Blutmonsterr/amp-cubecoders-app-catalog/main/", 
     // --------------------------------------
     
@@ -14,12 +14,10 @@ window.config = {
     },
     features: {
         checkForUpdates: true, // Github new commits (github.com/blutmonsterr)
-        gitUpdate: true, // (remotebase) apps.json, apps-g.json (fallback is local images (placeholder.wabp))
-        GreelanApps: true, // (B: MAIN) - set to false to disable the Greelan-Apps section
+        gitUpdate: true, // (remotebase) apps.json, apps-g.json (Images: fallback is local images (placeholder.wabp))
+        GreelanApps: true, // set to false to disable the Greelan-Apps section
         customApps: true,
-        themeSwitcher: true,
         filterButtons: true, 
-        defaultTheme: 'dark', // 'dark' or 'light'
         backButton: {
             enabled: true,
             url: "ADRESS",

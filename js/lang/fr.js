@@ -7,7 +7,6 @@ window.translations['fr'] = {
     resultsFound: "Résultats trouvés",
     loadError: "Erreur lors du chargement des données.",
     settingsTooltip: "Activer pour afficher également les modèles personnalisés (Custom Templates).",
-    themeLabel: "Mode clair",
     customApps: "Applications personnalisées",
     loadListError: "Échec du chargement de la liste. Fichier introuvable ou invalide.",
     loading: "Chargement des applications...",

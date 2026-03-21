@@ -297,7 +297,7 @@ async function loadApps() {
                 </div>
                 <div class="image-container">
                     <div class="img-loader"></div>
-                    <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="app-image" loading="lazy">
+                    <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="app-image" loading="lazy" decoding="async">
                     <span class="card-source-badge ${isGitHub ? 'live' : 'local'}" title="${isGitHub ? 'GitHub Raw' : 'Local File'}"><i class="fa fa-${isGitHub ? 'github' : 'server'}"></i></span>
                     ${app.isBeta ? '<span class="card-beta-badge">BETA</span>' : ''}
                     ${app.isCrossplay ? `<span class="card-crossplay-badge" title="${t.filterCrossplay || 'Crossplay'}"><i class="fa fa-gamepad"></i></span>` : ''}
@@ -456,15 +456,6 @@ function injectModalStyles() {
         .update-text-container { font-size: 0.85rem; flex-grow: 1; }
         .close-update { background: none; border: none; color: #888; cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0 2px; margin-left: 5px; }
         .close-update:hover { color: #fff; }
-
-        body.light-mode .modal-content { background-color: #fff; color: #333; border-color: #ddd; }
-        body.light-mode .modal-header { border-bottom-color: #eee; }
-        body.light-mode .modal-app-desc { color: #555; }
-        body.light-mode .close-modal { color: #888; }
-        body.light-mode .close-modal:hover { color: #000; }
-        
-        body.light-mode .update-nav-button { background-color: #eee; color: #333; border-color: #ccc; }
-        body.light-mode .close-update:hover { color: #000; }
     `;
     document.head.appendChild(style);
 }
@@ -522,7 +513,7 @@ function openModal(app) {
                 <h2>${escapeHtml(app.name)} ${app.isNew ? '<span class="new-badge">NEW</span>' : ''}${app.isBeta ? '<span class="beta-badge">BETA</span>' : ''}${app.isCrossplay ? `<span class="crossplay-badge"><i class="fa fa-gamepad"></i> ${t.filterCrossplay || 'Crossplay'}</span>` : ''}</h2>
             </div>
             <div class="modal-body">
-                <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image">
+                <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async">
                 <p class="modal-app-desc">${escapeHtml(app.desc)}</p>
             </div>
         </div>

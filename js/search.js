@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initSearchHelp === 'function') initSearchHelp();
     if (typeof injectModalStyles === 'function') injectModalStyles();
 
-    document.getElementById('themeToggle')?.addEventListener('change', (e) => toggleTheme(e.target.checked));
     document.getElementById('greelanAppsToggle')?.addEventListener('change', (e) => toggleGreelanApps(e.target.checked));
     document.getElementById('customAppsToggle')?.addEventListener('change', (e) => toggleCustomApps(e.target.checked));
     document.getElementById('lang-select')?.addEventListener('change', (e) => changeLanguage(e.target.value));

@@ -23,7 +23,6 @@ function setLanguage(lang) {
         { sel: '#no-results p', text: t.noResults },
         { id: 'infoTooltipText', text: t.settingsTooltip },
         { id: 'customAppsLabel', text: t.customApps },
-        { id: 'themeLabel', text: t.themeLabel },
         { id: 'filterBtnAll', text: t.filterAll },
         { id: 'filterBtnNew', text: t.filterNew },
         { id: 'filterBtnCrossplayText', text: t.filterCrossplay },

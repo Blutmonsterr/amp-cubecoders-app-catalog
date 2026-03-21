@@ -22,6 +22,8 @@
     text-decoration: none;
     color: inherit;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 200px;
 }
 
 .app-item.new-app::before {
@@ -76,6 +78,7 @@
 .app-image {
     width: 100%;
     height: 100%;
+    display: block; /* Entfernt die Lücke unter dem Bild */
     object-fit: cover;
     border: 2px solid var(--border-color);
     border-radius: 4px;
@@ -134,8 +137,4 @@
 
 #searchInfoBtn:hover {
     opacity: 1;
-}
-
-body.light-mode #searchInfoBtn {
-    filter: invert(0.1);
 }

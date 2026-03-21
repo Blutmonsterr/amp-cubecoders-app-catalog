@@ -60,9 +60,7 @@ window.config = {
         gitUpdate: true,       // Lädt apps.json & apps-g.json von der remoteBase URL
         GreelanApps: true,     // Zeigt die Greelan-Apps Sektion (apps-g.json)
         customApps: true,      // Zeigt die Custom-Apps Sektion (apps-c.json)
-        themeSwitcher: true,   // Zeigt den Dark/Light-Mode Schalter
         filterButtons: true,   // Zeigt die Filter-Buttons (Alle, Neu, etc.)
-        defaultTheme: 'dark', // 'dark' oder 'light'
 
         // Buttons & Links
         backButton: {
@@ -181,8 +179,6 @@ window.config = {
     },
     features: {
         customApps: true,    // Show Custom Apps section
-        themeSwitcher: true, // Show Theme Switcher
-        defaultTheme: 'dark', // 'dark' or 'light'
         backButton: {
             enabled: true,
             url: "ADDRESS",

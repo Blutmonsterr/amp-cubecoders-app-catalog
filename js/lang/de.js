@@ -6,7 +6,6 @@ window.translations['de'] = {
     resultsFound: "Ergebnisse gefunden",
     loadError: "Fehler beim Laden der Daten.",
     settingsTooltip: "Aktivieren, um benutzerdefinierte Vorlagen (Custom Templates) zusätzlich anzuzeigen.",
-    themeLabel: "Heller Modus",
     customApps: "Custom Apps",
     loadListError: "Laden der Liste fehlgeschlagen. Datei nicht gefunden oder fehlerhaft.",
     loading: "Lade Apps...",

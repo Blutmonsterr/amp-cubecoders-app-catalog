@@ -7,7 +7,6 @@ window.translations['nl'] = {
     resultsFound: "Resultaten gevonden",
     loadError: "Fout bij het laden van gegevens.",
     settingsTooltip: "Inschakelen om ook aangepaste sjablonen (Custom Templates) weer te geven.",
-    themeLabel: "Lichte modus",
     customApps: "Custom Apps",
     loadListError: "Lijst laden mislukt. Bestand niet gevonden of ongeldig.",
     loading: "Apps laden...",
