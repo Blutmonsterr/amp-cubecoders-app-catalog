@@ -323,9 +323,9 @@ async function loadApps() {
         const isGitHub = app._source === 'github';
         li.innerHTML = `
             <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}">
-                <div class="app-info">
-                    <span class="app-name">${escapeHtml(app.name)}</span>
-                    <span class="app-desc">${escapeHtml(app.desc || '')}</span>
+                <div class="app-info" style="min-width: 0; overflow: hidden;">
+                    <span class="app-name" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</span>
+                    <span class="app-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>
                     <span class="app-alias" style="display:none;">${escapeHtml(app.alias || '')}</span>
                 </div>
                 <div class="image-container">
