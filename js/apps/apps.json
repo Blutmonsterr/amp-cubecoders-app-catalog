@@ -50,6 +50,11 @@
         "image": "assetto-corsa.webp"
     },
     {
+        "name": "Assetto Corsa Competizione",
+        "desc": "Kunos Simulazioni",
+        "image": "assetto-corsa-c.webp"
+    },
+    {
         "name": "Astro Colony",
         "desc": "Terad Games",
         "image": "astro-colony.webp"
@@ -145,6 +150,11 @@
         "name": "Chivalry: Medieval Warfare",
         "desc": "Torn Banner Studios",
         "image": "chivarlymedievalwarfare.webp"
+    },
+    {
+        "name": "Clone Hero",
+        "desc": "Clone Hero Team",
+        "image": "clonehero.webp"
     },
     {
         "name": "Colony Survival",
@@ -446,13 +456,6 @@
     },
     {
         "name": "Minecraft Bedrock",
-        "desc": "Mojang",
-        "image": "minecraft-bedrock.webp",
-        "alias": "mc",
-        "isCrossplay": true
-    },
-    {
-        "name": "Minecraft Bedrock Edition [Legacy]",
         "desc": "Mojang",
         "image": "minecraft-bedrock.webp",
         "alias": "mc",
