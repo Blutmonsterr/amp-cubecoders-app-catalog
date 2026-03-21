@@ -184,22 +184,26 @@ async function checkForProjectUpdates() {
             const t = getTranslation();
             
             const isGitUpdateActive = config.features && config.features.gitUpdate;
-            const tooltipText = isGitUpdateActive 
-                ? (t.updateTooltipGit || 'New version available! App lists are automatically loaded live from GitHub.') 
-                : (t.updateTooltipNormal || 'New version available on GitHub! A manual update is recommended.');
 
-            banner.innerHTML = `<i class="fa fa-info-circle update-info-trigger" title="Klicken für mehr Infos" style="cursor: pointer;"></i> <div class="update-text-container update-info-trigger" title="Klicken für mehr Infos" style="cursor: pointer;"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
-                                <button class="close-update" title="Schließen" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
+            banner.innerHTML = `<i class="fa fa-info-circle update-info-trigger" style="cursor: pointer;"></i> <div class="update-text-container update-info-trigger" style="cursor: pointer;"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
+                                <button class="close-update" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
             
             const showPopup = () => {
                 if (document.getElementById('updatePopupOverlay')) return;
+                
+                // Sprache dynamisch beim Klick laden, damit sie immer aktuell ist
+                const currentT = getTranslation();
+                const currentTooltipText = isGitUpdateActive 
+                    ? (currentT.updateTooltipGit || 'New version available! App lists are automatically loaded live from GitHub.') 
+                    : (currentT.updateTooltipNormal || 'New version available on GitHub! A manual update is recommended.');
+
                 const overlay = document.createElement('div');
                 overlay.id = 'updatePopupOverlay';
                 overlay.className = 'update-popup-overlay';
                 overlay.innerHTML = `
                     <div class="update-popup-box">
-                        <h3><i class="fa fa-info-circle"></i> ${t.updateAvailable || 'Update Info'}</h3>
-                        <p>${tooltipText}</p>
+                        <h3><i class="fa fa-info-circle"></i> ${currentT.updateAvailable || 'Update Info'}</h3>
+                        <p>${currentTooltipText}</p>
                         <button class="update-popup-btn">OK</button>
                     </div>
                 `;
@@ -228,7 +232,7 @@ async function checkForProjectUpdates() {
                     banner.remove();
                     localStorage.setItem('last_update_viewed', data.sha);
                 }
-            }, 15000);
+            }, 35000);
         }
     } catch (err) {
         console.warn("Update check failed:", err);
