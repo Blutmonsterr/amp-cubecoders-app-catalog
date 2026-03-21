@@ -20,9 +20,9 @@ Dieses Projekt bietet eine saubere, schnelle und durchsuchbare Weboberfläche, u
 - **🔧 Konfigurierbar:** Ändere einfach den Titel, die Standardsprache und Features über eine zentrale `config.js`-Datei.
 - **🧩 Erweiterbar:** Füge ganz einfach eigene Applikationslisten hinzu.
 - **🔄 Auto-Update:** Lädt App-Listen von GitHub und benachrichtigt über neue Katalog-Versionen.
-- **️ Lazy-Loading für Bilder:** Für eine flüssigere Benutzererfahrung und bessere Performance.
+- **🖼️ Lazy-Loading & Async-Decoding:** Für eine extrem flüssige Performance auch bei gigantischen App-Listen.
 - **🔍 Interaktive Detailansicht:** Klicke auf eine App für eine vergrößerte Ansicht mit Details. Direkte Links zu Apps und Suchanfragen sind über die URL möglich.
-- **🛡️ Bild-Fallback:** Zeigt ein Standard-Platzhalterbild an, falls ein App-Bild nicht geladen werden kann.
+- **�️ Bild-Fallback:** Zeigt ein Standard-Platzhalterbild an, falls ein App-Bild nicht geladen werden kann.
 
 ### 🚀 Live-Demo
 
@@ -149,8 +149,10 @@ This project provides a clean, fast, and searchable web interface to browse avai
 - **🌐 Multilingual:** Supports German, English, French, and Dutch by default.
 - **🔧 Configurable:** Easily change the title, default language, and features via a central `config.js` file.
 - **🧩 Extensible:** Easily add your own application lists.
-- **🖼️ Lazy-Loading for Images:** For a smoother user experience and better performance.
+- ** Auto-Update:** Loads app lists from GitHub and notifies about new catalog versions.
+- **🖼️ Lazy-Loading & Async Decoding:** For an extremely smooth performance with large app lists.
 - **🔍 Interactive Detail View:** Click on an app for an enlarged view with details. Direct links to apps and search queries are possible via the URL.
+- **🛡️ Image Fallback:** Displays a default placeholder image if an app image cannot be loaded.
 
 ## 🚀 Live Demo
 
@@ -178,7 +180,11 @@ window.config = {
         disabled: []    // Disabled languages e.g. ['fr']
     },
     features: {
-        customApps: true,    // Show Custom Apps section
+        checkForUpdates: true, // Checks for new commits in the repo and shows an update notice
+        gitUpdate: true,       // Loads apps.json & apps-g.json from the remoteBase URL
+        GreelanApps: true,     // Shows the Greelan-Apps section (apps-g.json)
+        customApps: true,      // Shows the Custom Apps section (apps-c.json)
+        filterButtons: true,   // Shows the filter buttons (All, New, etc.)
         backButton: {
             enabled: true,
             url: "ADDRESS",
