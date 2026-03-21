@@ -188,9 +188,34 @@ async function checkForProjectUpdates() {
                 ? (t.updateTooltipGit || 'New version available! App lists are automatically loaded live from GitHub.') 
                 : (t.updateTooltipNormal || 'New version available on GitHub! A manual update is recommended.');
 
-            banner.innerHTML = `<i class="fa fa-info-circle" title="${tooltipText}"></i> <div class="update-text-container" title="${tooltipText}"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
+            banner.innerHTML = `<i class="fa fa-info-circle update-info-trigger" title="Klicken für mehr Infos" style="cursor: pointer;"></i> <div class="update-text-container update-info-trigger" title="Klicken für mehr Infos" style="cursor: pointer;"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
                                 <button class="close-update" title="Schließen" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
             
+            const showPopup = () => {
+                if (document.getElementById('updatePopupOverlay')) return;
+                const overlay = document.createElement('div');
+                overlay.id = 'updatePopupOverlay';
+                overlay.className = 'update-popup-overlay';
+                overlay.innerHTML = `
+                    <div class="update-popup-box">
+                        <h3><i class="fa fa-info-circle"></i> ${t.updateAvailable || 'Update Info'}</h3>
+                        <p>${tooltipText}</p>
+                        <button class="update-popup-btn">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+                
+                const closePopup = () => {
+                    overlay.style.animation = 'fadeOutBackdrop 0.3s forwards';
+                    overlay.querySelector('.update-popup-box').style.animation = 'fadeOut 0.3s forwards';
+                    setTimeout(() => overlay.remove(), 300);
+                };
+                overlay.querySelector('.update-popup-btn').onclick = closePopup;
+                overlay.onclick = (e) => { if(e.target === overlay) closePopup(); };
+            };
+
+            banner.querySelectorAll('.update-info-trigger').forEach(el => el.onclick = showPopup);
+
             const langSelect = document.getElementById('lang-select');
             if (langSelect) {
                 langSelect.insertAdjacentElement('afterend', banner);
@@ -457,11 +482,18 @@ function injectModalStyles() {
         .update-nav-button { margin: 10px 15px; background: linear-gradient(135deg, rgba(57, 181, 74, 0.15) 0%, rgba(30, 30, 30, 0.9) 100%); backdrop-filter: blur(10px); color: #fff; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; animation: slideInDown 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .update-nav-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); border-color: rgba(57, 181, 74, 0.6); }
         @keyframes slideInDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-        .update-nav-button i { color: #39b54a; font-size: 1.2rem; animation: pulse-icon 2s infinite; cursor: help; }
+        .update-nav-button i { color: #39b54a; font-size: 1.2rem; animation: pulse-icon 2s infinite; cursor: pointer; }
         @keyframes pulse-icon { 0% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(57, 181, 74, 0); } 50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 8px rgba(57, 181, 74, 0.6); } 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(57, 181, 74, 0); } }
-        .update-text-container { font-size: 0.9rem; flex-grow: 1; font-family: "Montserrat", sans-serif; font-weight: 500; letter-spacing: 0.5px; cursor: help; }
+        .update-text-container { font-size: 0.9rem; flex-grow: 1; font-family: "Montserrat", sans-serif; font-weight: 500; letter-spacing: 0.5px; cursor: pointer; }
         .close-update { background: rgba(255, 255, 255, 0.1); border: none; color: #ccc; cursor: pointer; font-size: 1.2rem; line-height: 1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .close-update:hover { background: rgba(255, 255, 255, 0.2); color: #fff; transform: rotate(90deg); }
+
+        .update-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center; animation: fadeInBackdrop 0.3s; }
+        .update-popup-box { background: #1e1e1e; padding: 25px; border-radius: 8px; border: 1px solid rgba(57, 181, 74, 0.4); box-shadow: 0 4px 20px rgba(0,0,0,0.5); max-width: 400px; width: 90%; text-align: center; color: #fff; animation: slideInDown 0.3s; }
+        .update-popup-box h3 { margin-top: 0; color: #39b54a; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.3rem; }
+        .update-popup-box p { font-size: 1rem; line-height: 1.5; color: #ccc; margin-bottom: 20px; font-family: "Montserrat", sans-serif; }
+        .update-popup-btn { background: #39b54a; color: #fff; border: none; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: opacity 0.3s; }
+        .update-popup-btn:hover { opacity: 0.8; }
     `;
     document.head.appendChild(style);
 }
