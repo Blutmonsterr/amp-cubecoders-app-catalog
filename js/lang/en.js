@@ -16,5 +16,8 @@ window.translations['en'] = {
     filterCrossplay: "Crossplay",
 
     appLoadError: "Error loading apps:",
-    criticalLangError: "CRITICAL ERROR: Core language files (e.g., en.js) are missing."
+    criticalLangError: "CRITICAL ERROR: Core language files (e.g., en.js) are missing.",
+    updateAvailable: "Update available",
+    updateTooltipGit: "New version available! App lists are automatically loaded live from GitHub via 'gitUpdate'.",
+    updateTooltipNormal: "New version available on GitHub! A manual update of your local files is recommended to see the latest apps."
 };

@@ -17,5 +17,8 @@ window.translations['nl'] = {
     filterCrossplay: "Crossplay",
 
     appLoadError: "Fout bij het laden van de apps:",
-    criticalLangError: "KRITIEKE FOUT: Essentiële taalbestanden (bijv. en.js) ontbreken."
+    criticalLangError: "KRITIEKE FOUT: Essentiële taalbestanden (bijv. en.js) ontbreken.",
+    updateAvailable: "Update beschikbaar",
+    updateTooltipGit: "Nieuwe versie beschikbaar! App-lijsten worden via 'gitUpdate' automatisch en live vanaf GitHub geladen.",
+    updateTooltipNormal: "Nieuwe versie beschikbaar op GitHub! Een handmatige update van je lokale bestanden wordt aanbevolen om de nieuwste apps te zien."
 };

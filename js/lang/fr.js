@@ -17,5 +17,8 @@ window.translations['fr'] = {
     filterCrossplay: "Crossplay",
 
     appLoadError: "Erreur lors du chargement des applications :",
-    criticalLangError: "ERREUR CRITIQUE : Les fichiers de langue principaux (par ex. en.js) sont manquants."
+    criticalLangError: "ERREUR CRITIQUE : Les fichiers de langue principaux (par ex. en.js) sont manquants.",
+    updateAvailable: "Mise à jour disponible",
+    updateTooltipGit: "Nouvelle version disponible ! Les listes d'applications sont automatiquement chargées en direct depuis GitHub via 'gitUpdate'.",
+    updateTooltipNormal: "Nouvelle version disponible sur GitHub ! Une mise à jour manuelle de vos fichiers locaux est recommandée pour voir les dernières applications."
 };

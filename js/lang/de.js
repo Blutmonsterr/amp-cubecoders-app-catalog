@@ -17,5 +17,7 @@ window.translations['de'] = {
 
     appLoadError: "Fehler beim Laden der Apps:",
     criticalLangError: "KRITISCHER FEHLER: Notwendige Sprachdateien (z.B. en.js) fehlen.",
-    updateAvailable: "Update verfügbar"
+    updateAvailable: "Update verfügbar",
+    updateTooltipGit: "Neue Version verfügbar! Die App-Listen werden durch 'gitUpdate' automatisch und live von GitHub bezogen.",
+    updateTooltipNormal: "Neue Version auf GitHub verfügbar! Ein manuelles Update der lokalen Dateien wird empfohlen, um die neuesten Apps zu sehen."
 };
