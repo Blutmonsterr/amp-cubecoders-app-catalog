@@ -166,6 +166,7 @@ function mergeAppLists(local, remote) {
 async function checkForProjectUpdates() {
     const config = window.config || {};
     if (!config.features || !config.features.checkForUpdates) return;
+    if (document.getElementById('update-notice')) return;
 
     try {
         const response = await fetch('https://api.github.com/repos/Blutmonsterr/amp-cubecoders-app-catalog/commits/main');
@@ -175,12 +176,20 @@ async function checkForProjectUpdates() {
         
         const lastChecked = localStorage.getItem('last_update_viewed');
         if (lastChecked !== data.sha) {
+            if (document.getElementById('update-notice')) return;
+
             const banner = document.createElement('div');
             banner.id = 'update-notice';
             banner.className = 'update-nav-button';
             const t = getTranslation();
-            banner.innerHTML = `<i class="fa fa-refresh"></i> <div class="update-text-container"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
-                                <button class="close-update" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
+            
+            const isGitUpdateActive = config.features && config.features.gitUpdate;
+            const tooltipText = isGitUpdateActive 
+                ? (t.updateTooltipGit || 'New version available! App lists are automatically loaded live from GitHub.') 
+                : (t.updateTooltipNormal || 'New version available on GitHub! A manual update is recommended.');
+
+            banner.innerHTML = `<i class="fa fa-info-circle" title="${tooltipText}"></i> <div class="update-text-container" title="${tooltipText}"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
+                                <button class="close-update" title="Schließen" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
             
             const langSelect = document.getElementById('lang-select');
             if (langSelect) {
@@ -188,6 +197,13 @@ async function checkForProjectUpdates() {
             } else {
                 document.body.prepend(banner);
             }
+            
+            setTimeout(() => {
+                if (document.body.contains(banner)) {
+                    banner.remove();
+                    localStorage.setItem('last_update_viewed', data.sha);
+                }
+            }, 15000);
         }
     } catch (err) {
         console.warn("Update check failed:", err);
@@ -438,12 +454,14 @@ function injectModalStyles() {
         .card-source-badge.live { background: rgba(39, 174, 96, 0.2); color: #2ecc71; border: 1px solid rgba(39, 174, 96, 0.4); }
         .card-source-badge.local { background: rgba(149, 165, 166, 0.2); color: #bdc3c7; border: 1px solid rgba(149, 165, 166, 0.4); }
 
-        .update-nav-button { margin: 5px 15px; background-color: #333; color: #fff; padding: 10px 12px; border-radius: 4px; display: flex; align-items: center; gap: 10px; border: 1px solid #444; transition: background 0.2s; cursor: default; animation: fadeInSimple 0.4s ease-out; }
-        @keyframes fadeInSimple { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-        .update-nav-button i { color: #39b54a; font-size: 0.9rem; }
-        .update-text-container { font-size: 0.85rem; flex-grow: 1; }
-        .close-update { background: none; border: none; color: #888; cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0 2px; margin-left: 5px; }
-        .close-update:hover { color: #fff; }
+        .update-nav-button { margin: 10px 15px; background: linear-gradient(135deg, rgba(57, 181, 74, 0.15) 0%, rgba(30, 30, 30, 0.9) 100%); backdrop-filter: blur(10px); color: #fff; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; animation: slideInDown 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .update-nav-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); border-color: rgba(57, 181, 74, 0.6); }
+        @keyframes slideInDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+        .update-nav-button i { color: #39b54a; font-size: 1.2rem; animation: pulse-icon 2s infinite; cursor: help; }
+        @keyframes pulse-icon { 0% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(57, 181, 74, 0); } 50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 8px rgba(57, 181, 74, 0.6); } 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(57, 181, 74, 0); } }
+        .update-text-container { font-size: 0.9rem; flex-grow: 1; font-family: "Montserrat", sans-serif; font-weight: 500; letter-spacing: 0.5px; cursor: help; }
+        .close-update { background: rgba(255, 255, 255, 0.1); border: none; color: #ccc; cursor: pointer; font-size: 1.2rem; line-height: 1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .close-update:hover { background: rgba(255, 255, 255, 0.2); color: #fff; transform: rotate(90deg); }
     `;
     document.head.appendChild(style);
 }
