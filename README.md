@@ -15,14 +15,14 @@ Dieses Projekt bietet eine saubere, schnelle und durchsuchbare Weboberfläche, u
 
 ### ✨ Features
 
-- **⚡️ Schnelle Suche:** Filtere Applikationen sofort nach Name, Beschreibung oder Alias. Nutze `f:new`, `f:beta` oder `f:crossplay` für spezielle Filter.
-- **🌐 Mehrsprachig:** Unterstützt standardmäßig Deutsch, Englisch, Französisch und Niederländisch.
+- **⚡️ Schnelle Suche & Filter:** Filtere Applikationen sofort nach Name, Beschreibung oder Alias. Nutze spezielle Filter-Chips oder Befehle wie `f:new`, `f:beta` oder `f:crossplay`.
+- **🌐 Mehrsprachig:** Unterstützt standardmäßig Deutsch (`de`), Englisch (`en`), Niederländisch (`nl`) und Französisch (`fr`).
 - **🔧 Konfigurierbar:** Ändere einfach den Titel, die Standardsprache und Features über eine zentrale `config.js`-Datei.
 - **🧩 Erweiterbar:** Füge ganz einfach eigene Applikationslisten hinzu.
-- **🔄 Auto-Update:** Lädt App-Listen von GitHub und benachrichtigt über neue Katalog-Versionen.
+- **🔄 Live-Updates & Benachrichtigungen:** Lädt App-Listen bei Bedarf direkt und live von GitHub (`gitUpdate`) und benachrichtigt über neue Katalog-Versionen im Haupt-Repository.
 - **🖼️ Lazy-Loading & Async-Decoding:** Für eine extrem flüssige Performance auch bei gigantischen App-Listen.
-- **🔍 Interaktive Detailansicht:** Klicke auf eine App für eine vergrößerte Ansicht mit Details. Direkte Links zu Apps und Suchanfragen sind über die URL möglich.
-- **�️ Bild-Fallback:** Zeigt ein Standard-Platzhalterbild an, falls ein App-Bild nicht geladen werden kann.
+- **🔍 Interaktive Detailansicht & Deep-Links:** Klicke auf eine App für eine vergrößerte Modal-Ansicht. Direkte Links zu spezifischen Apps (`?app=Minecraft`) oder Suchanfragen (`?search=Valve`) sind ganz einfach teilbar!
+- **🛡️ Bild-Fallback:** Zeigt ein Standard-Platzhalterbild an, falls ein App-Bild nicht geladen werden kann.
 
 ### 🚀 Live-Demo
 
@@ -42,31 +42,29 @@ Die Hauptkonfiguration erfolgt in der Datei `config.js`.
 
 ```javascript
 window.config = {
-    // Technische Konfiguration
-    remoteBase: "https://raw.githubusercontent.com/USER/REPO/main/", // Basis-URL für gitUpdate
-
-    // Allgemeine Einstellungen
+    // DONT CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING !!!!
+    remoteBase: "https://raw.githubusercontent.com/Blutmonsterr/amp-cubecoders-app-catalog/main/", 
+    // --------------------------------------
+    
+    // SETTINGS
     title: "CubeCoders App Catalog",
     placeholder: "Minecraft, Valve, mc ...",
     
     language: {
-        enabled: true,  // Sprachwahl aktivieren
-        default: 'de',  // Standardsprache (de, en, fr, nl)
-        disabled: []    // Deaktivierte Sprachen z.B. ['fr']
+        enabled: true,
+        default: 'de', // Options: 'de', 'en', 'nl', 'fr'
+        disabled: []   // e.g. ['nl', 'fr']
     },
     features: {
-        // Feature-Schalter
-        checkForUpdates: true, // Prüft auf neue Commits im Repo und zeigt eine Update-Info an
-        gitUpdate: true,       // Lädt apps.json & apps-g.json von der remoteBase URL
-        GreelanApps: true,     // Zeigt die Greelan-Apps Sektion (apps-g.json)
-        customApps: true,      // Zeigt die Custom-Apps Sektion (apps-c.json)
-        filterButtons: true,   // Zeigt die Filter-Buttons (Alle, Neu, etc.)
-
-        // Buttons & Links
+        checkForUpdates: true, // Github new commits (github.com/blutmonsterr)
+        gitUpdate: true,       // (remotebase) apps.json, apps-g.json (Images: fallback is local images)
+        GreelanApps: true,     // set to false to disable the Greelan-Apps section
+        customApps: true,
+        filterButtons: true, 
         backButton: {
             enabled: true,
             url: "ADRESS",
-            text: "" // Leer lassen für Übersetzung
+            text: "" // Leave empty to use translation
         },
         extraLink: {
             enabled: true,
@@ -75,10 +73,14 @@ window.config = {
         },
         searchHelp: {
             enabled: true,
-            items: ["f:new", "f:beta", "f:crossplay"]
+            items: [
+                "f:new",
+                "f:beta",
+                "f:crossplay"
+            ]
         }
     }
-};
+}
 ```
 
 ## 📦 Applikationen hinzufügen

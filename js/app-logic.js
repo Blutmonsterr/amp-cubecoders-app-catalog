@@ -555,7 +555,7 @@ function openModal(app) {
                 <h2>${escapeHtml(app.name)} ${app.isNew ? '<span class="new-badge">NEW</span>' : ''}${app.isBeta ? '<span class="beta-badge">BETA</span>' : ''}${app.isCrossplay ? `<span class="crossplay-badge"><i class="fa fa-gamepad"></i> ${t.filterCrossplay || 'Crossplay'}</span>` : ''}</h2>
             </div>
             <div class="modal-body">
-                <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async">
+                <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async" onerror="this.onerror=null; this.src='images/placeholder.webp';">
                 <p class="modal-app-desc">${escapeHtml(app.desc)}</p>
             </div>
         </div>
