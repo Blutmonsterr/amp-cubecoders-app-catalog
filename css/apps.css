@@ -78,7 +78,7 @@
 .app-image {
     width: 100%;
     height: 100%;
-    display: block; /* Entfernt die Lücke unter dem Bild */
+    display: block; 
     object-fit: cover;
     border: 2px solid var(--border-color);
     border-radius: 4px;
