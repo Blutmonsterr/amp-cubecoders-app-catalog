@@ -2,7 +2,8 @@
     {
         "name": "Abiotic Factor",
         "desc": "Deep Field Games",
-        "image": "abiotic-factor.webp"
+        "image": "abiotic-factor.webp",
+        "isCrossplay": true
     },
     {
         "name": "American Truck Simulator",
@@ -144,7 +145,8 @@
     {
         "name": "Carrier Command 2",
         "desc": "Geometa",
-        "image": "carriercommander2.webp"
+        "image": "carriercommander2.webp",
+        "isCrossplay": true
     },
     {
         "name": "Chivalry: Medieval Warfare",
@@ -164,7 +166,8 @@
     {
         "name": "Conan Exiles",
         "desc": "Funcom",
-        "image": "conanexiles.webp"
+        "image": "conanexiles.webp",
+        "isCrossplay": true
     },
     {
         "name": "Core Keeper",
@@ -201,7 +204,8 @@
     {
         "name": "Cubic Odyssey",
         "desc": "Cubic Odyssey Team",
-        "image": "cubicodyssey.webp"
+        "image": "cubicodyssey.webp",
+        "isCrossplay": true
     },
     {
         "name": "Day of Defeat",
@@ -247,7 +251,8 @@
     {
         "name": "DOOM II",
         "desc": "id Software",
-        "image": "doom2.webp"
+        "image": "doom2.webp",
+        "isCrossplay": true
     },
     {
         "name": "Dota 2",
@@ -319,7 +324,8 @@
     {
         "name": "Foundry Virtual Tabletop",
         "desc": "Foundry Gaming",
-        "image": "fvtt.webp"
+        "image": "fvtt.webp",
+        "isCrossplay": true
     },
     {
         "name": "Frozen Flame",
@@ -335,7 +341,8 @@
     {
         "name": "Geyser",
         "desc": "GeyserMC",
-        "image": "gmc.webp"
+        "image": "gmc.webp",
+        "isCrossplay": true
     },
     {
         "name": "Ground Branch",
@@ -442,7 +449,8 @@
     {
         "name": "Luanti",
         "desc": "Luanti Contributors",
-        "image": "luanti.webp"
+        "image": "luanti.webp",
+        "isCrossplay": true
     },
     {
         "name": "MariaDB",
@@ -452,7 +460,8 @@
     {
         "name": "Mindustry",
         "desc": "AnukenDev",
-        "image": "mindustry.webp"
+        "image": "mindustry.webp",
+        "isCrossplay": true
     },
     {
         "name": "Minecraft Bedrock",
@@ -476,7 +485,8 @@
     {
         "name": "Minetest (Legacy)",
         "desc": "Minetest Team",
-        "image": "minetest.webp"
+        "image": "minetest.webp",
+        "isCrossplay": true
     },
     {
         "name": "MongoDB",
@@ -487,7 +497,7 @@
         "name": "Mordhau",
         "desc": "Triternion",
         "image": "mordhau.webp",
-        "isCrossplay": true
+        "isCrossplay": false
     },
     {
         "name": "Mount & Blade II: Bannerlord",
@@ -559,7 +569,8 @@
     {
         "name": "Nukkit",
         "desc": "CloudburstMC",
-        "image": "nukkit.webp"
+        "image": "nukkit.webp",
+        "isCrossplay": true
     },
     {
         "name": "Open World - RimWorld Server",
@@ -610,7 +621,8 @@
     {
         "name": "Palworld",
         "desc": "Pocketpair",
-        "image": "palworld.webp"
+        "image": "palworld.webp",
+        "isCrossplay": true
     },
     {
         "name": "Palworld (Modded)",
@@ -626,7 +638,8 @@
     {
         "name": "Pavlov VR",
         "desc": "Vankrupt Games",
-        "image": "pavlovvr.webp"
+        "image": "pavlovvr.webp",
+        "isCrossplay": true
     },
     {
         "name": "Pirates, Vikings, & Knights II",
@@ -636,7 +649,8 @@
     {
         "name": "PixARK",
         "desc": "Snail Games",
-        "image": "pixark.webp"
+        "image": "pixark.webp",
+        "isCrossplay": true
     },
     {
         "name": "Plains of Pain",
@@ -646,12 +660,14 @@
     {
         "name": "PocketMine-MP",
         "desc": "PocketMine Team",
-        "image": "pocketmine-mp.webp"
+        "image": "pocketmine-mp.webp",
+        "isCrossplay": true
     },
     {
         "name": "Portal Knights",
         "desc": "Keen Games",
-        "image": "portalknights.webp"
+        "image": "portalknights.webp",
+        "isCrossplay": true
     },
     {
         "name": "PostgreSQL",
@@ -811,7 +827,7 @@
         "name": "Space Engineers (Torch)",
         "desc": "Keen Software House",
         "image": "spaceengineers-torch.webp",
-        "isCrossplay": true
+        "isCrossplay": false
     },
     {
         "name": "Spellmasons",
@@ -840,6 +856,17 @@
         "image": "starbound.webp"
     },
     {
+
+
+
+
+
+
+
+
+
+
+        
         "name": "Starmade",
         "desc": "Schine",
         "image": "starmade.webp"

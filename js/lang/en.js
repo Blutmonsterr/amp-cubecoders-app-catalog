@@ -13,7 +13,8 @@ window.translations['en'] = {
     backToTop: "Back to Top",
     filterAll: "All",
     filterNew: "New",
-    filterCrossplay: "Crossplay",
+    filterCrossplay: "DDE-Crossplay",
+    filterCrossplayTooltip: "Crossplay possible via DDE servers (PC, Xbox, PSN/PS4/PS5, etc.). Note: Bugs may occur!",
 
     appLoadError: "Error loading apps:",
     criticalLangError: "CRITICAL ERROR: Core language files (e.g., en.js) are missing.",

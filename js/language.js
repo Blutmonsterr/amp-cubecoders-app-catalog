@@ -26,6 +26,7 @@ function setLanguage(lang) {
         { id: 'filterBtnAll', text: t.filterAll },
         { id: 'filterBtnNew', text: t.filterNew },
         { id: 'filterBtnCrossplayText', text: t.filterCrossplay },
+        { id: 'filterBtnCrossplayTooltip', text: t.filterCrossplayTooltip || 'Crossplay über den DDE Server möglich (PC, Xbox, PSN/PS4/PS5, etc.). Info: Es kann zu Fehlern kommen!' },
         { id: 'greelanLoadError', attr: 'title', text: t.loadListError },
         { id: 'customLoadError', attr: 'title', text: t.loadListError },
         { sel: '#go-top a', attr: 'title', text: t.backToTop },

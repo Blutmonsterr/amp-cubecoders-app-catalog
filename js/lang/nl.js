@@ -14,7 +14,8 @@ window.translations['nl'] = {
     backToTop: "Terug naar boven",
     filterAll: "Alle",
     filterNew: "Nieuw",
-    filterCrossplay: "Crossplay",
+    filterCrossplay: "DDE-Crossplay",
+    filterCrossplayTooltip: "Crossplay mogelijk via DDE-servers (PC, Xbox, PSN/PS4/PS5, etc.). Let op: er kunnen fouten optreden!",
 
     appLoadError: "Fout bij het laden van de apps:",
     criticalLangError: "KRITIEKE FOUT: Essentiële taalbestanden (bijv. en.js) ontbreken.",

@@ -13,7 +13,8 @@ window.translations['de'] = {
     backToTop: "Nach oben",
     filterAll: "Alle",
     filterNew: "Neu",
-    filterCrossplay: "Crossplay",
+    filterCrossplay: "DDE-Crossplay",
+    filterCrossplayTooltip: "Crossplay über den DDE Server möglich (PC, Xbox, PSN/PS4/PS5, etc.). Info: Es kann zu Fehlern kommen!",
 
     appLoadError: "Fehler beim Laden der Apps:",
     criticalLangError: "KRITISCHER FEHLER: Notwendige Sprachdateien (z.B. en.js) fehlen.",

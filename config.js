@@ -5,7 +5,7 @@ window.config = {
     
     // SETTINGS
     title: "CubeCoders App Catalog",
-    placeholder: "Minecraft, Valve, mc ...",
+    placeholder: "Minecraft, Valve, mc, gta, ...",
     
     language: {
         enabled: true,
@@ -18,6 +18,7 @@ window.config = {
         GreelanApps: true, // set to false to disable the Greelan-Apps section
         customApps: true,
         filterButtons: true, 
+        descriptions: false, // Show app descriptions in the details view
         backButton: {
             enabled: true,
             url: "ADRESS",

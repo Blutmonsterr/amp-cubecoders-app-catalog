@@ -295,6 +295,7 @@ async function loadApps() {
     const showCustom = customAppsEnabled && (localStorage.getItem('show_custom_apps') === 'true');
     const showGreelan = greelanAppsEnabled && (localStorage.getItem('show_greelan_apps') === 'true');
 
+    const showDesc = config.features && config.features.descriptions !== false;
     const gitUpdate = config.features && config.features.gitUpdate === true;
     const remoteBase = config.remoteBase || 'https://raw.githubusercontent.com/Blutmonsterr/amp-cubecoders-app-catalog/main/';
 
@@ -325,7 +326,7 @@ async function loadApps() {
             <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}">
                 <div class="app-info" style="min-width: 0; overflow: hidden;">
                     <span class="app-name" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</span>
-                    <span class="app-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>
+                    ${showDesc ? `<span class="app-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>` : ''}
                     <span class="app-alias" style="display:none;">${escapeHtml(app.alias || '')}</span>
                 </div>
                 <div class="image-container">
@@ -457,31 +458,31 @@ function injectModalStyles() {
     const style = document.createElement('style');
     style.id = 'app-modal-styles';
     style.textContent = `
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); animation: fadeInBackdrop 0.3s; }
-        .modal-content { background-color: #1e1e1e; margin: 5% auto; padding: 20px; border: 1px solid #333; width: 90%; max-width: 600px; border-radius: 8px; color: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.5); position: relative; animation: fadeIn 0.3s; }
-        .close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-        .close-modal:hover { color: #fff; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(8px); animation: fadeInBackdrop 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .modal-content { background-color: #1a1a1a; margin: 5% auto; padding: 24px; border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 600px; border-radius: 16px; color: #f4f4f5; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .close-modal { color: #888; float: right; font-size: 28px; font-weight: normal; cursor: pointer; transition: color 0.2s ease, transform 0.2s ease; line-height: 1; }
+        .close-modal:hover { color: #fff; transform: scale(1.1); }
         .modal-header { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .modal-header h2 { margin: 0; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .modal-header h2 { margin: 0; font-size: 1.6rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
         .modal-body { text-align: center; }
-        .modal-app-image { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .modal-app-desc { font-size: 1.1rem; line-height: 1.6; color: #ccc; text-align: left; }
+        .modal-app-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .modal-app-desc { font-size: 1.1rem; line-height: 1.7; color: #ccc; text-align: left; margin-top: 10px; }
         .new-badge { background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
         .beta-badge { background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
-        .card-beta-badge { position: absolute; bottom: 8px; right: 8px; background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 5; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .card-beta-badge { position: absolute; bottom: 8px; right: 8px; background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 5; box-shadow: 0 2px 6px rgba(231, 76, 60, 0.4); }
         .crossplay-badge { background-color: #9b59b6; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
-        .card-crossplay-badge { position: absolute; top: 8px; right: 8px; background-color: #9b59b6; color: white; font-size: 0.85rem; padding: 4px 6px; border-radius: 4px; z-index: 5; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .card-crossplay-badge { position: absolute; top: 8px; right: 8px; background-color: #9b59b6; color: white; font-size: 0.85rem; padding: 4px 6px; border-radius: 4px; z-index: 5; box-shadow: 0 2px 6px rgba(155, 89, 182, 0.4); }
         .image-container { position: relative; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes fadeInBackdrop { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.95); } }
         @keyframes fadeOutBackdrop { from { opacity: 1; } to { opacity: 0; } }
-        .modal.closing { animation: fadeOutBackdrop 0.3s forwards; }
-        .modal.closing .modal-content { animation: fadeOut 0.3s forwards; }
+        .modal.closing { animation: fadeOutBackdrop 0.3s forwards cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .modal.closing .modal-content { animation: fadeOut 0.3s forwards cubic-bezier(0.25, 0.8, 0.25, 1); }
 
         .card-source-badge { position: absolute; bottom: 8px; left: 8px; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 5; display: flex; align-items: center; gap: 3px; }
-        .card-source-badge.live { background: rgba(39, 174, 96, 0.2); color: #2ecc71; border: 1px solid rgba(39, 174, 96, 0.4); }
-        .card-source-badge.local { background: rgba(149, 165, 166, 0.2); color: #bdc3c7; border: 1px solid rgba(149, 165, 166, 0.4); }
+        .card-source-badge.live { background: rgba(39, 174, 96, 0.15); color: #2ecc71; border: 1px solid rgba(39, 174, 96, 0.3); backdrop-filter: blur(4px); }
+        .card-source-badge.local { background: rgba(149, 165, 166, 0.15); color: #bdc3c7; border: 1px solid rgba(149, 165, 166, 0.3); backdrop-filter: blur(4px); }
 
         .update-nav-button { margin: 10px 15px; background: linear-gradient(135deg, rgba(57, 181, 74, 0.15) 0%, rgba(30, 30, 30, 0.9) 100%); backdrop-filter: blur(10px); color: #fff; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; animation: slideInDown 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .update-nav-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); border-color: rgba(57, 181, 74, 0.6); }
@@ -492,12 +493,12 @@ function injectModalStyles() {
         .close-update { background: rgba(255, 255, 255, 0.1); border: none; color: #ccc; cursor: pointer; font-size: 1.2rem; line-height: 1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .close-update:hover { background: rgba(255, 255, 255, 0.2); color: #fff; transform: rotate(90deg); }
 
-        .update-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center; animation: fadeInBackdrop 0.3s; }
-        .update-popup-box { background: #1e1e1e; padding: 25px; border-radius: 8px; border: 1px solid rgba(57, 181, 74, 0.4); box-shadow: 0 4px 20px rgba(0,0,0,0.5); max-width: 400px; width: 90%; text-align: center; color: #fff; animation: slideInDown 0.3s; }
+        .update-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 10000; display: flex; align-items: center; justify-content: center; animation: fadeInBackdrop 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .update-popup-box { background: #1a1a1a; padding: 30px; border-radius: 16px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.6); max-width: 400px; width: 90%; text-align: center; color: #fff; animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .update-popup-box h3 { margin-top: 0; color: #39b54a; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.3rem; }
-        .update-popup-box p { font-size: 1rem; line-height: 1.5; color: #ccc; margin-bottom: 20px; font-family: "Montserrat", sans-serif; }
-        .update-popup-btn { background: #39b54a; color: #fff; border: none; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: opacity 0.3s; }
-        .update-popup-btn:hover { opacity: 0.8; }
+        .update-popup-box p { font-size: 1rem; line-height: 1.6; color: #ccc; margin-bottom: 25px; font-family: "Montserrat", sans-serif; }
+        .update-popup-btn { background: #39b54a; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(57, 181, 74, 0.3); }
+        .update-popup-btn:hover { background: #44cc56; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(57, 181, 74, 0.4); }
     `;
     document.head.appendChild(style);
 }
@@ -505,6 +506,9 @@ function injectModalStyles() {
 function openModal(app) {
     injectModalStyles();
     const t = typeof getTranslation === 'function' ? getTranslation() : {};
+    const config = window.config || {};
+    const showDesc = config.features && config.features.descriptions !== false;
+
     let modal = document.getElementById('appDetailModal');
 
     let handleEsc;
@@ -556,7 +560,7 @@ function openModal(app) {
             </div>
             <div class="modal-body">
                 <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async" onerror="this.onerror=null; this.src='images/placeholder.webp';">
-                <p class="modal-app-desc">${escapeHtml(app.desc)}</p>
+                ${showDesc ? `<p class="modal-app-desc">${escapeHtml(app.desc)}</p>` : ''}
             </div>
         </div>
     `;

@@ -14,7 +14,8 @@ window.translations['fr'] = {
     backToTop: "Retour en haut",
     filterAll: "Tous",
     filterNew: "Nouveau",
-    filterCrossplay: "Crossplay",
+    filterCrossplay: "DDE-Crossplay",
+    filterCrossplayTooltip: "Jeu croisé possible via serveurs DDE (PC, Xbox, PSN/PS4/PS5, etc.). Info : des erreurs peuvent survenir !",
 
     appLoadError: "Erreur lors du chargement des applications :",
     criticalLangError: "ERREUR CRITIQUE : Les fichiers de langue principaux (par ex. en.js) sont manquants.",
