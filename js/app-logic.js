@@ -128,7 +128,6 @@ const areAppsDifferent = (appA, appB) => {
     if (!appA || !appB) return true;
     const keys = ['desc', 'image', 'alias', 'isNew', 'isBeta', 'isCrossplay'];
     return keys.some(key => {
-        // Normalisierung: Behandelt null/undefined und entfernt überflüssige Leerzeichen
         const valA = (appA[key] || '').toString().trim();
         const valB = (appB[key] || '').toString().trim();
         return valA !== valB;
@@ -191,7 +190,6 @@ async function checkForProjectUpdates() {
             const showPopup = () => {
                 if (document.getElementById('updatePopupOverlay')) return;
                 
-                // Sprache dynamisch beim Klick laden, damit sie immer aktuell ist
                 const currentT = getTranslation();
                 const currentTooltipText = isGitUpdateActive 
                     ? (currentT.updateTooltipGit || 'New version available! App lists are automatically loaded live from GitHub.') 
@@ -220,12 +218,7 @@ async function checkForProjectUpdates() {
 
             banner.querySelectorAll('.update-info-trigger').forEach(el => el.onclick = showPopup);
 
-            const langSelect = document.getElementById('lang-select');
-            if (langSelect) {
-                langSelect.insertAdjacentElement('afterend', banner);
-            } else {
-                document.body.prepend(banner);
-            }
+            document.body.appendChild(banner);
             
             setTimeout(() => {
                 if (document.body.contains(banner)) {
@@ -484,7 +477,7 @@ function injectModalStyles() {
         .card-source-badge.live { background: rgba(39, 174, 96, 0.15); color: #2ecc71; border: 1px solid rgba(39, 174, 96, 0.3); backdrop-filter: blur(4px); }
         .card-source-badge.local { background: rgba(149, 165, 166, 0.15); color: #bdc3c7; border: 1px solid rgba(149, 165, 166, 0.3); backdrop-filter: blur(4px); }
 
-        .update-nav-button { margin: 10px 15px; background: linear-gradient(135deg, rgba(57, 181, 74, 0.15) 0%, rgba(30, 30, 30, 0.9) 100%); backdrop-filter: blur(10px); color: #fff; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; animation: slideInDown 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .update-nav-button { position: fixed; top: 20px; right: 20px; z-index: 10000; margin: 0; max-width: 350px; background: linear-gradient(135deg, rgba(57, 181, 74, 0.15) 0%, rgba(30, 30, 30, 0.9) 100%); backdrop-filter: blur(10px); color: #fff; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; animation: slideInDown 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .update-nav-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); border-color: rgba(57, 181, 74, 0.6); }
         @keyframes slideInDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
         .update-nav-button i { color: #39b54a; font-size: 1.2rem; animation: pulse-icon 2s infinite; cursor: pointer; }
@@ -499,6 +492,39 @@ function injectModalStyles() {
         .update-popup-box p { font-size: 1rem; line-height: 1.6; color: #ccc; margin-bottom: 25px; font-family: "Montserrat", sans-serif; }
         .update-popup-btn { background: #39b54a; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(57, 181, 74, 0.3); }
         .update-popup-btn:hover { background: #44cc56; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(57, 181, 74, 0.4); }
+
+        @media (max-width: 768px) {
+            .update-nav-button { top: auto; bottom: 20px; right: 15px; left: 15px; max-width: none; flex-direction: row; justify-content: space-between; animation: slideInUp 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
+            @keyframes slideInUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+            
+            .modal-content { margin: 10% auto; width: 92%; padding: 20px; box-sizing: border-box; border-radius: 16px; }
+            .modal-header { padding-right: 25px; border-bottom: none; margin-bottom: 10px; }
+            .modal-header h2 { font-size: 1.3rem; flex-wrap: wrap; line-height: 1.4; justify-content: center; text-align: center; width: 100%; }
+            .close-modal { position: absolute; right: 15px; top: 15px; background: rgba(255,255,255,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 20; font-size: 1.4rem; }
+            .modal-app-image { max-height: 35vh; object-fit: cover; width: 100%; border-radius: 12px; }
+            .update-popup-box { padding: 24px 20px; width: 92%; box-sizing: border-box; }
+            
+            #searchInput { width: 100%; font-size: 16px !important; padding: 14px 20px !important; box-sizing: border-box; border-radius: 12px; } 
+            .filter-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; width: 100%; margin-top: 10px; }
+            .filter-chip { text-align: center; font-size: 0.85rem; padding: 10px 5px; border-radius: 8px; }
+
+            ul#appList { display: grid; grid-template-columns: 1fr !important; gap: 20px; padding: 0 10px !important; margin-top: 20px; }
+            .list-separator { display: none !important; }
+            .app-item { 
+                display: flex; 
+                flex-direction: column-reverse;
+                padding: 16px !important; 
+                border-radius: 16px !important; 
+                background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            }
+            .app-item .image-container { width: 100% !important; height: 180px; margin: 0 0 15px 0 !important; position: relative; }
+            .app-item .app-image { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px !important; }
+            .app-info { width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+            .app-name { font-size: 1.35rem !important; white-space: normal !important; margin-bottom: 8px; line-height: 1.3; font-weight: 600; }
+            .app-desc { font-size: 0.95rem !important; color: #aaa !important; -webkit-line-clamp: 3 !important; }
+        }
     `;
     document.head.appendChild(style);
 }

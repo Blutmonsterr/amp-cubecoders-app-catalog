@@ -38,6 +38,16 @@ function initSearchHelp() {
                     }
                     .search-help-tooltip ul { padding-left: 20px; margin: 0; }
                     .search-help-tooltip li { margin-bottom: 4px; color: #ccc; font-size: 0.85rem; }
+                    
+                    @media (max-width: 768px) {
+                        .search-help-tooltip {
+                            width: 90vw;
+                            max-width: none;
+                            left: 5vw !important;
+                            transform: none;
+                            box-sizing: border-box;
+                        }
+                    }
                 `;
                 document.head.appendChild(style);
             }
@@ -56,16 +66,32 @@ function initSearchHelp() {
                 tooltip.innerHTML = `${listHtml}`;
             };
 
-            infoBtn.addEventListener('mouseenter', function() {
+            const showTooltip = () => {
                 updateTooltip();
                 const rect = infoBtn.getBoundingClientRect();
                 tooltip.style.top = (rect.bottom + 10) + 'px';
-                tooltip.style.left = (rect.left + rect.width / 2) + 'px';
+                if (window.innerWidth > 768) {
+                    tooltip.style.left = (rect.left + rect.width / 2) + 'px';
+                }
                 tooltip.classList.add('visible');
-            });
+            };
 
-            infoBtn.addEventListener('mouseleave', function() {
+            const hideTooltip = () => {
                 tooltip.classList.remove('visible');
+            };
+
+            infoBtn.addEventListener('mouseenter', function() {
+                if (window.innerWidth > 768) showTooltip();
+            });
+            infoBtn.addEventListener('mouseleave', function() {
+                if (window.innerWidth > 768) hideTooltip();
+            });
+            infoBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                tooltip.classList.contains('visible') ? hideTooltip() : showTooltip();
+            });
+            document.addEventListener('click', function(e) {
+                if (!tooltip.contains(e.target) && !infoBtn.contains(e.target)) hideTooltip();
             });
         }
     }
