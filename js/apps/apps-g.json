@@ -11,13 +11,6 @@
         "alias": "avp"
     },
     {
-        "name": "alt:V - Grand Theft Auto V Server",
-        "desc": "Greelan, alt:V Team",
-        "image": "fivegta5.webp",
-        "isNew": true,
-        "alias": "gta gta5 gtav"
-    },
-    {
         "name": "Arma 2",
         "desc": "Greelan, Bohemia Interactive",
         "image": "arma2.webp",
@@ -322,6 +315,11 @@
         "image": "survive-the-nights.webp"
     },
     {
+        "name": "Synapse (WIP)",
+        "desc": "Greelan, Synapse Team",
+        "image": "synapse.webp"
+    },
+    {
         "name": "Team Fortress 2 Classified",
         "desc": "Greelan, Community",
         "image": "tf2-classified.webp",
@@ -329,23 +327,28 @@
         "isBeta": true
     },
     {
+        "name": "The Riftbreaker",
+        "desc": "Exor Studios",
+        "image": "riftbreaker.webp"
+    },
+    {
         "name": "Trackmania",
-        "desc": "Greelan, Nadeo",
+        "desc": "Nadeo",
         "image": "trackmania.webp"
     },
     {
         "name": "Uptime Kuma 1",
-        "desc": "Greelan, Louis Lam",
+        "desc": "Louis Lam",
         "image": "uptime-kuma.webp"
     },
     {
         "name": "Uptime Kuma 2",
-        "desc": "Greelan, Louis Lam",
+        "desc": "Louis Lam",
         "image": "uptime-kuma.webp"
     },
-        {
-        "name": "TEST",
-        "desc": "TEST",
-        "image": "TEST"
+    { 
+        "name": "Windrose  (Windrose+ Testing)",
+        "desc": "Kraken Express",
+        "image": "windrose.webp"
     }
 ]
