@@ -56,6 +56,7 @@
         "image": "assetto-corsa-c.webp"
     },
     {
+        
         "name": "Astro Colony",
         "desc": "Terad Games",
         "image": "astro-colony.webp"
@@ -377,9 +378,7 @@
     {
         "name": "Hytale",
         "desc": "Hypixel Studios",
-        "image": "hytale.webp",
-        "isNew": "2026-06-15",
-        "isBeta": true
+        "image": "hytale.webp"
     },
     {   
         "name": "Icarus",
