@@ -159,6 +159,11 @@
         "image": "clonehero.webp"
     },
     {
+        "name": "Code-server",
+        "desc": "Coder",
+        "image": "codes.webp"
+    },
+    {
         "name": "Colony Survival",
         "desc": "Pipliz",
         "image": "colonysurvival.webp"
@@ -748,6 +753,16 @@
         "image": "risingworld.webp"
     },
     {
+        "name": "Romestead",
+        "desc": "Beartwigs",
+        "image": "romestead.webp"
+    },
+    {
+        "name": "RuneScape: Dragonwilds",
+        "desc": "Jagex Ltd.",
+        "image": "runescapedw.webp"
+    },
+    {
         "name": "Rust",
         "desc": "Facepunch Studios",
         "image": "rust.webp"
@@ -856,6 +871,11 @@
         "image": "starbound.webp"
     },
     {
+        "name": "Stardew Valley",
+        "desc": "Eric Barone",
+        "image": "stardewvalley.webp"
+    },
+    {
         "name": "Starmade",
         "desc": "Schine",
         "image": "starmade.webp"
@@ -881,13 +901,8 @@
         "image": "stormworks.webp"
     },
     {
-        "name": "Subnautica (Legacy)",
-        "desc": "Unknown Worlds Entertainment",
-        "image": "subnautica.webp"
-    },
-    {
-        "name": "Subnautica 2.0",
-        "desc": "Unknown Worlds Entertainment",
+        "name": "Subnautica (Nitrox-Mod)",
+        "desc": "Sunrunner (Community)",
         "image": "subnautica.webp"
     },
     {
@@ -938,7 +953,13 @@
         "alias": "tf2"
     },
     {
-        "name": "Team Fortress Classic",
+        "name": "Team Fortress 2 Classified",
+        "desc": "Valve",
+        "image": "tf2c.webp",
+        "alias": "tf2"
+    },
+    {
+        "name": "Team Fortress 2 Classic",
         "desc": "Valve",
         "image": "tfc.webp",
         "alias": "tfc"
@@ -1091,6 +1112,11 @@
         "name": "Voyagers of Nera",
         "desc": "Treehouse Games",
         "image": "voyagersofnera.webp"
+    },
+    {
+        "name": "Windrose",
+        "desc": "Kraken Express",
+        "image": "windrose.webp"
     },
     {
         "name": "Windward",
