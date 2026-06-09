@@ -856,17 +856,6 @@
         "image": "starbound.webp"
     },
     {
-
-
-
-
-
-
-
-
-
-
-        
         "name": "Starmade",
         "desc": "Schine",
         "image": "starmade.webp"
@@ -998,7 +987,8 @@
     {
         "name": "The Front",
         "desc": "Samar Studio",
-        "image": "thefront.webp"
+        "image": "thefront.webp",
+        "isCrossplay": true
     },
     {
         "name": "The Isle (EVRIMA)",
@@ -1013,7 +1003,8 @@
     {
         "name": "The Lord of the Rings: Return to Moria",
         "desc": "Free Range Games",
-        "image": "returntomoria.webp"
+        "image": "returntomoria.webp",
+        "isCrossplay": true
     },
     {
         "name": "Titanfall 2",
