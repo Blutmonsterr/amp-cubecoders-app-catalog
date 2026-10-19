@@ -190,6 +190,11 @@
         "image": "neverwinter-nights.webp"
     },
     {
+        "name": "Nimbus (Vintage Story Proxy)",
+        "desc": "Greelan, Nimbus Team",
+        "image": "nimbus.webp"
+    },
+    {
         "name": "Nova-Life: Amboise",
         "desc": "Greelan, Nova-Life Team",
         "image": "nova-life.webp"
@@ -310,6 +315,11 @@
         "image": "jk2-jedi-outcast.webp"
     },
     {
+        "name": "Subnautica2 (BeaconServer)",
+        "desc": "Greelan, Subnautica Team",
+        "image": "subnautica2.webp"
+    },
+    {
         "name": "Survive the Nights",
         "desc": "Greelan, a2z Interactive",
         "image": "survive-the-nights.webp"
@@ -345,10 +355,5 @@
         "name": "Uptime Kuma 2",
         "desc": "Louis Lam",
         "image": "uptime-kuma.webp"
-    },
-    { 
-        "name": "Windrose  (Windrose+ Testing)",
-        "desc": "Kraken Express",
-        "image": "windrose.webp"
     }
 ]
