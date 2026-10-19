@@ -6,7 +6,7 @@
     }
 
     .logo-container img {
-        width: 140px;
+        width: 150px;
     }
 
     .back-btn,
@@ -24,97 +24,125 @@
     }
 
     .app-list {
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 16px;
     }
 }
 
-/* --- Smartphone (max-width: 680px) --- */
-@media only screen and (max-width: 680px) {
+/* --- Smartphone (max-width: 768px) --- */
+@media only screen and (max-width: 768px) {
+    /* Symmetrical, centered mobile header */
     .page-header {
         position: relative;
-        grid-template-columns: 1fr auto;
-        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 14px 14px;
         gap: 12px;
     }
 
     .logo-container {
-        grid-column: 1 / -1;
-        order: -1;
-        justify-self: center;
-        margin-bottom: 2px;
+        order: 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .logo-container img {
-        width: 150px;
+        width: 170px;
     }
 
     .nav-left {
-        justify-self: start;
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 8px;
+    }
+
+    .back-btn,
+    .extra-btn {
+        padding: 8px 15px;
+        font-size: 0.82rem;
+        justify-content: center;
     }
 
     .lang-switch {
-        justify-self: end;
-        padding: 5px 10px;
-        gap: 8px;
+        order: 3;
+        justify-content: center;
+        padding: 5px 14px;
+        gap: 12px;
     }
 
     .settings-dropdown-content {
-        right: 0;
-        left: auto;
-        min-width: 235px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        min-width: 245px;
         max-width: calc(100vw - 24px);
     }
 
     .info-tooltip .tooltiptext {
-        right: -40px;
-        width: 220px;
-        max-width: calc(100vw - 32px);
+        left: 50%;
+        right: auto;
+        transform: translateX(-35%);
+        width: 230px;
+        max-width: calc(100vw - 28px);
     }
 
+    /* Compact Hero Search */
     .search-section {
-        padding: 22px 14px 64px;
+        padding: 18px 12px 60px;
     }
 
     .search-bar-container {
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
 
     .heading-wrapper {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .heading-wrapper h1 {
-        font-size: 1.75rem;
+        font-size: 1.55rem;
+        line-height: 1.25;
     }
 
     .search-input-wrapper {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     #searchInput {
         font-size: 1rem; /* Prevents auto-zoom on iOS Safari */
-        padding: 14px 44px 14px 20px;
+        padding: 12px 42px 12px 18px;
     }
 
     #clearSearch {
-        right: 16px;
+        right: 14px;
         padding: 6px;
     }
 
     .filter-chips {
-        gap: 8px;
+        gap: 7px;
+        margin-top: 8px;
     }
 
     .filter-chip {
-        padding: 9px 16px;
-        font-size: 0.85rem;
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+
+    .result-count {
+        margin-top: 10px;
+        font-size: 0.82rem;
     }
 
     .custom-tooltip-text {
         width: 230px;
-        max-width: calc(100vw - 32px);
+        max-width: calc(100vw - 28px);
         left: auto;
         right: 0;
         transform: translateY(8px);
@@ -130,9 +158,14 @@
         transform: translateY(0);
     }
 
+    /* Compact 2-Column Mobile App Grid */
     .app-list {
-        grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
-        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .app-item {
+        border-radius: 12px;
     }
 
     /* Disable hover lift on touch devices to avoid sticky hover states */
@@ -141,31 +174,76 @@
     }
 
     .app-info {
-        padding: 12px 14px;
+        padding: 9px 10px;
     }
 
     .app-name {
-        font-size: 1.02rem;
+        font-size: 0.84rem;
+        line-height: 1.25;
     }
 
     .app-desc {
-        font-size: 0.85rem;
+        font-size: 0.74rem;
+        line-height: 1.35;
+        margin-top: 3px;
         -webkit-line-clamp: 2;
         line-clamp: 2;
     }
 
+    /* Scaled-down card badges for 2-column mobile cards */
+    .card-badges-top {
+        top: 6px;
+        right: 6px;
+        gap: 4px;
+    }
+
+    .card-new-badge {
+        font-size: 0.58rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    .card-crossplay-badge {
+        font-size: 0.65rem;
+        padding: 2px 5px;
+        border-radius: 4px;
+    }
+
+    .card-beta-badge {
+        bottom: 6px;
+        right: 6px;
+        font-size: 0.58rem;
+        padding: 2px 5px;
+        border-radius: 4px;
+    }
+
+    .card-source-badge {
+        bottom: 6px;
+        left: 6px;
+        font-size: 0.58rem;
+        padding: 2px 5px;
+        border-radius: 4px;
+    }
+
+    /* Section Separators */
     .app-list li.list-separator {
-        margin: 16px 0 6px;
-        gap: 10px;
+        margin: 14px 0 4px;
+        gap: 8px;
     }
 
     .separator-badge {
-        padding: 5px 13px;
-        font-size: 0.8rem;
+        padding: 5px 12px;
+        font-size: 0.76rem;
     }
 
+    .separator-count {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+    }
+
+    /* Modal & Floating Buttons */
     .modal-content {
-        margin: 5vh auto;
+        margin: 6vh auto;
         width: 94%;
         padding: 18px;
         border-radius: 14px;
@@ -178,7 +256,7 @@
     }
 
     .modal-header h2 {
-        font-size: 1.18rem;
+        font-size: 1.15rem;
     }
 
     .modal-app-desc {
@@ -188,73 +266,39 @@
 
     .update-nav-button {
         left: 12px;
-        right: 66px;
-        bottom: 16px;
+        right: 64px;
+        bottom: 14px;
         max-width: none;
+        padding: 9px 12px;
     }
 
     #go-top {
-        bottom: 16px;
-        right: 14px;
+        bottom: 14px;
+        right: 12px;
     }
 
     #go-top a {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
     }
 }
 
-/* --- Compact Smartphone (max-width: 420px) --- */
-@media only screen and (max-width: 420px) {
-    .page-header {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        padding: 12px;
-        gap: 10px;
-    }
-
-    .logo-container img {
-        width: 140px;
-    }
-
-    .nav-left {
-        justify-self: center;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .lang-switch {
-        justify-self: center;
-    }
-
-    .settings-dropdown-content {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-    }
-
-    .info-tooltip .tooltiptext {
-        left: 50%;
-        right: auto;
-        transform: translateX(-35%);
-    }
-
-    .filter-chips {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: 100%;
+/* --- Extra Small Phones (max-width: 380px) --- */
+@media only screen and (max-width: 380px) {
+    .app-list {
         gap: 8px;
     }
 
-    .filter-chip {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-        padding: 9px 10px;
+    .app-info {
+        padding: 8px;
     }
 
-    .app-list {
-        grid-template-columns: 1fr;
-        gap: 14px;
+    .app-name {
+        font-size: 0.78rem;
+    }
+
+    .filter-chip {
+        padding: 6px 11px;
+        font-size: 0.76rem;
     }
 }
