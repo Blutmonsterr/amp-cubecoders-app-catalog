@@ -22,7 +22,7 @@ function initUtils() {
             }
         }, 150);
 
-        window.addEventListener('scroll', throttledScroll);
+        window.addEventListener('scroll', throttledScroll, { passive: true });
 
         const topLink = goTopBtn.querySelector('a');
         if (topLink) {
