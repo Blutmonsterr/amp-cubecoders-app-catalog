@@ -65,15 +65,26 @@ function setLanguage(lang) {
     const langSelect = document.getElementById('lang-select');
     if (langSelect) langSelect.value = lang;
 
-    const newLabel = t.filterNew || 'Neu';
-    document.querySelectorAll('.app-item.new-app').forEach(el => {
-        el.setAttribute('data-new-label', newLabel);
+    const newLabel = (t.filterNew || 'Neu').toUpperCase();
+    document.querySelectorAll('.card-new-badge').forEach(el => {
+        el.textContent = newLabel;
+    });
+
+    const betaLabel = (t.filterBeta || 'BETA').toUpperCase();
+    document.querySelectorAll('.card-beta-badge').forEach(el => {
+        el.textContent = betaLabel;
     });
 
     const crossplayLabel = t.filterCrossplay || 'Crossplay';
     document.querySelectorAll('.card-crossplay-badge').forEach(el => {
         el.title = crossplayLabel;
     });
+
+    if (t.customApps) {
+        document.querySelectorAll('.separator-title[data-i18n="customApps"]').forEach(el => {
+            el.textContent = t.customApps;
+        });
+    }
 
     if (typeof appCache !== 'undefined' && appCache.length > 0) {
         filterApps();

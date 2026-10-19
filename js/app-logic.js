@@ -70,6 +70,7 @@ function filterApps() {
     }
 
     let visibleCount = 0;
+    const sectionCounts = { base: 0, greelan: 0, custom: 0 };
 
     for (let i = 0; i < appCache.length; i++) {
         const app = appCache[i];
@@ -91,6 +92,9 @@ function filterApps() {
         if (matchesSearch) {
             if (app.element.style.display !== "") app.element.style.display = "";
             visibleCount++;
+            if (app.section && sectionCounts[app.section] !== undefined) {
+                sectionCounts[app.section]++;
+            }
         } else {
             if (app.element.style.display !== "none") app.element.style.display = "none";
         }
@@ -98,7 +102,11 @@ function filterApps() {
 
     const separators = document.querySelectorAll('.list-separator');
     separators.forEach(sep => {
-        sep.style.display = isSearching ? 'none' : 'block';
+        const secKey = sep.dataset.section;
+        const count = secKey && sectionCounts[secKey] !== undefined ? sectionCounts[secKey] : 0;
+        const countEl = sep.querySelector('.separator-count');
+        if (countEl) countEl.textContent = count;
+        sep.style.display = count > 0 ? '' : 'none';
     });
 
     const globalLoader = document.getElementById('globalLoader');
@@ -151,6 +159,7 @@ function cacheAppElements() {
         const alias = li.dataset.searchAlias || '';
         appCache.push({
             element: li,
+            section: li.dataset.section || 'base',
             isNew: li.dataset.isNew === 'true',
             isBeta: li.dataset.isBeta === 'true',
             isCrossplay: li.dataset.isCrossplay === 'true',
@@ -363,7 +372,7 @@ async function loadApps() {
     const urlParams = new URLSearchParams(window.location.search);
     const appParam = urlParams.get('app')?.toUpperCase();
 
-    const createAppItem = (data) => {
+    const createAppItem = (data, sectionKey = 'base') => {
         const app = { ...data };
         if (isExpired(app.isNew)) app.isNew = false;
         if (isExpired(app.isBeta)) app.isBeta = false;
@@ -371,6 +380,7 @@ async function loadApps() {
         const li = document.createElement('li');
         li.tabIndex = 0;
         li.setAttribute('role', 'button');
+        li.dataset.section = sectionKey;
         if (app.isNew) li.dataset.isNew = 'true';
         if (app.isBeta) li.dataset.isBeta = 'true';
         if (app.isCrossplay) li.dataset.isCrossplay = 'true';
@@ -378,7 +388,6 @@ async function loadApps() {
         li.dataset.searchName = (app.name || '').toUpperCase();
         li.dataset.searchDesc = (app.desc || '').toUpperCase();
         li.dataset.searchAlias = (app.alias || '').toUpperCase();
-        li.style.cursor = 'pointer';
         li.onclick = () => openModal(app);
         li.onkeydown = (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -388,22 +397,27 @@ async function loadApps() {
         };
 
         const isGitHub = app._source === 'github';
-        const newLabel = escapeHtml(t.filterNew || 'Neu');
+        const newLabel = escapeHtml((t.filterNew || 'Neu').toUpperCase());
         const safeImage = escapeHtml(app.image || '');
 
         li.innerHTML = `
-            <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}"${app.isNew ? ` data-new-label="${newLabel}"` : ''}>
-                <div class="app-info" style="min-width: 0; overflow: hidden;">
-                    <span class="app-name" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</span>
-                    ${showDesc ? `<span class="app-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>` : ''}
-                    <span class="app-alias" style="display:none;">${escapeHtml(app.alias || '')}</span>
-                </div>
+            <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}">
                 <div class="image-container">
                     <div class="img-loader"></div>
                     <img src="images/games/${safeImage}" alt="${escapeHtml(app.name)}" class="app-image" loading="lazy" decoding="async">
+                    ${(app.isNew || app.isCrossplay) ? `
+                        <div class="card-badges-top">
+                            ${app.isNew ? `<span class="card-new-badge">${newLabel}</span>` : ''}
+                            ${app.isCrossplay ? `<span class="card-crossplay-badge" title="${escapeHtml(t.filterCrossplay || 'Crossplay')}"><i class="fa fa-gamepad" aria-hidden="true"></i></span>` : ''}
+                        </div>
+                    ` : ''}
                     <span class="card-source-badge ${isGitHub ? 'live' : 'local'}" title="${isGitHub ? 'GitHub Raw' : 'Local File'}"><i class="fa fa-${isGitHub ? 'github' : 'server'}" aria-hidden="true"></i></span>
                     ${app.isBeta ? `<span class="card-beta-badge">${escapeHtml((t.filterBeta || 'BETA').toUpperCase())}</span>` : ''}
-                    ${app.isCrossplay ? `<span class="card-crossplay-badge" title="${escapeHtml(t.filterCrossplay || 'Crossplay')}"><i class="fa fa-gamepad" aria-hidden="true"></i></span>` : ''}
+                </div>
+                <div class="app-info">
+                    <span class="app-name" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</span>
+                    ${showDesc ? `<span class="app-desc" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>` : ''}
+                    <span class="app-alias">${escapeHtml(app.alias || '')}</span>
                 </div>
             </div>
         `;
@@ -415,11 +429,11 @@ async function loadApps() {
         return { li, app };
     };
 
-    const renderBlock = (apps, targetList) => {
+    const renderBlock = (apps, targetList, sectionKey = 'base') => {
         const fragment = document.createDocumentFragment();
         const normalizedApps = [];
         apps.forEach(rawApp => {
-            const { li, app } = createAppItem(rawApp);
+            const { li, app } = createAppItem(rawApp, sectionKey);
             fragment.appendChild(li);
             normalizedApps.push(app);
         });
@@ -427,10 +441,19 @@ async function loadApps() {
         return normalizedApps;
     };
 
-    const renderSeparator = (targetList) => {
+    const renderSeparator = (targetList, sectionKey, title, icon, count, i18nKey = '') => {
         const separatorLi = document.createElement('li');
         separatorLi.className = 'list-separator';
-        separatorLi.innerHTML = `<div class="separator-bar"></div>`;
+        separatorLi.dataset.section = sectionKey;
+        separatorLi.innerHTML = `
+            <div class="separator-line"></div>
+            <div class="separator-badge">
+                <i class="fa ${escapeHtml(icon)}" aria-hidden="true"></i>
+                <span class="separator-title"${i18nKey ? ` data-i18n="${escapeHtml(i18nKey)}"` : ''}>${escapeHtml(title)}</span>
+                <span class="separator-count">${count}</span>
+            </div>
+            <div class="separator-line"></div>
+        `;
         targetList.appendChild(separatorLi);
     };
 
@@ -459,7 +482,7 @@ async function loadApps() {
             : (localBase || []).map(a => ({ ...a, _source: 'local' }));
 
         if (baseApps.length > 0) {
-            const renderedBase = renderBlock(baseApps, appList);
+            const renderedBase = renderBlock(baseApps, appList, 'base');
             blocksRendered++;
             allApps = allApps.concat(renderedBase);
         }
@@ -477,8 +500,10 @@ async function loadApps() {
                     : (localG || []).map(a => ({ ...a, _source: 'local' }));
 
                 if (finalG.length > 0) {
-                    if (blocksRendered > 0) renderSeparator(appList);
-                    const renderedG = renderBlock(finalG, appList);
+                    if (blocksRendered > 0) {
+                        renderSeparator(appList, 'greelan', 'Greelan (B-DEV&DB)', 'fa-flask', finalG.length);
+                    }
+                    const renderedG = renderBlock(finalG, appList, 'greelan');
                     blocksRendered++;
                     allApps = allApps.concat(renderedG);
                 }
@@ -494,8 +519,10 @@ async function loadApps() {
                 }
             } else if (localC.length > 0) {
                 const finalC = localC.map(a => ({ ...a, _source: 'local' }));
-                if (blocksRendered > 0) renderSeparator(appList);
-                const renderedC = renderBlock(finalC, appList);
+                if (blocksRendered > 0) {
+                    renderSeparator(appList, 'custom', t.customApps || 'Custom Apps', 'fa-puzzle-piece', finalC.length, 'customApps');
+                }
+                const renderedC = renderBlock(finalC, appList, 'custom');
                 blocksRendered++;
                 allApps = allApps.concat(renderedC);
             }
@@ -525,86 +552,7 @@ async function loadApps() {
 }
 
 function injectModalStyles() {
-    if (document.getElementById('app-modal-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'app-modal-styles';
-    style.textContent = `
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(8px); animation: fadeInBackdrop 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .modal-content { background-color: #1a1a1a; margin: 5% auto; padding: 24px; border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 600px; border-radius: 16px; color: #f4f4f5; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .close-modal { color: #888; float: right; font-size: 28px; font-weight: normal; cursor: pointer; transition: color 0.2s ease, transform 0.2s ease; line-height: 1; }
-        .close-modal:hover { color: #fff; transform: scale(1.1); }
-        .modal-header { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .modal-header h2 { margin: 0; font-size: 1.6rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .modal-body { text-align: center; }
-        .modal-app-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-        .modal-app-desc { font-size: 1.1rem; line-height: 1.7; color: #ccc; text-align: left; margin-top: 10px; }
-        .new-badge { background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
-        .beta-badge { background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
-        .card-beta-badge { position: absolute; bottom: 8px; right: 8px; background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 5; box-shadow: 0 2px 6px rgba(231, 76, 60, 0.4); }
-        .crossplay-badge { background-color: #9b59b6; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
-        .card-crossplay-badge { position: absolute; top: 8px; right: 8px; background-color: #9b59b6; color: white; font-size: 0.85rem; padding: 4px 6px; border-radius: 4px; z-index: 5; box-shadow: 0 2px 6px rgba(155, 89, 182, 0.4); }
-        .image-container { position: relative; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes fadeInBackdrop { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.95); } }
-        @keyframes fadeOutBackdrop { from { opacity: 1; } to { opacity: 0; } }
-        .modal.closing { animation: fadeOutBackdrop 0.3s forwards cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .modal.closing .modal-content { animation: fadeOut 0.3s forwards cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-        .card-source-badge { position: absolute; bottom: 8px; left: 8px; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 5; display: flex; align-items: center; gap: 3px; }
-        .card-source-badge.live { background: rgba(39, 174, 96, 0.15); color: #2ecc71; border: 1px solid rgba(39, 174, 96, 0.3); backdrop-filter: blur(4px); }
-        .card-source-badge.local { background: rgba(149, 165, 166, 0.15); color: #bdc3c7; border: 1px solid rgba(149, 165, 166, 0.3); backdrop-filter: blur(4px); }
-
-        .update-nav-button { position: fixed; top: 20px; right: 20px; z-index: 10000; margin: 0; max-width: 350px; background: linear-gradient(135deg, rgba(57, 181, 74, 0.15) 0%, rgba(30, 30, 30, 0.9) 100%); backdrop-filter: blur(10px); color: #fff; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; animation: slideInDown 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .update-nav-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); border-color: rgba(57, 181, 74, 0.6); }
-        @keyframes slideInDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-        .update-nav-button i { color: #39b54a; font-size: 1.2rem; animation: pulse-icon 2s infinite; cursor: pointer; }
-        @keyframes pulse-icon { 0% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(57, 181, 74, 0); } 50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 8px rgba(57, 181, 74, 0.6); } 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(57, 181, 74, 0); } }
-        .update-text-container { font-size: 0.9rem; flex-grow: 1; font-family: "Montserrat", sans-serif; font-weight: 500; letter-spacing: 0.5px; cursor: pointer; }
-        .close-update { background: rgba(255, 255, 255, 0.1); border: none; color: #ccc; cursor: pointer; font-size: 1.2rem; line-height: 1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-        .close-update:hover { background: rgba(255, 255, 255, 0.2); color: #fff; transform: rotate(90deg); }
-
-        .update-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 10000; display: flex; align-items: center; justify-content: center; animation: fadeInBackdrop 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .update-popup-box { background: #1a1a1a; padding: 30px; border-radius: 16px; border: 1px solid rgba(57, 181, 74, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.6); max-width: 400px; width: 90%; text-align: center; color: #fff; animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .update-popup-box h3 { margin-top: 0; color: #39b54a; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.3rem; }
-        .update-popup-box p { font-size: 1rem; line-height: 1.6; color: #ccc; margin-bottom: 25px; font-family: "Montserrat", sans-serif; }
-        .update-popup-btn { background: #39b54a; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(57, 181, 74, 0.3); }
-        .update-popup-btn:hover { background: #44cc56; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(57, 181, 74, 0.4); }
-
-        @media (max-width: 768px) {
-            .update-nav-button { top: auto; bottom: 20px; right: 15px; left: 15px; max-width: none; flex-direction: row; justify-content: space-between; animation: slideInUp 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
-            @keyframes slideInUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
-            
-            .modal-content { margin: 10% auto; width: 92%; padding: 20px; box-sizing: border-box; border-radius: 16px; }
-            .modal-header { padding-right: 25px; border-bottom: none; margin-bottom: 10px; }
-            .modal-header h2 { font-size: 1.3rem; flex-wrap: wrap; line-height: 1.4; justify-content: center; text-align: center; width: 100%; }
-            .close-modal { position: absolute; right: 15px; top: 15px; background: rgba(255,255,255,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 20; font-size: 1.4rem; }
-            .modal-app-image { max-height: 35vh; object-fit: cover; width: 100%; border-radius: 12px; }
-            .update-popup-box { padding: 24px 20px; width: 92%; box-sizing: border-box; }
-            
-            #searchInput { width: 100%; font-size: 16px !important; padding: 14px 45px 14px 20px !important; box-sizing: border-box; border-radius: 12px; } 
-            .filter-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; width: 100%; margin-top: 10px; }
-            .filter-chip { text-align: center; font-size: 0.85rem; padding: 10px 5px; border-radius: 8px; }
-
-            ul#appList { display: grid; grid-template-columns: 1fr !important; gap: 20px; padding: 0 10px !important; margin-top: 20px; }
-            .list-separator { display: none !important; }
-            .app-item { 
-                display: flex; 
-                flex-direction: column-reverse;
-                padding: 16px !important; 
-                border-radius: 16px !important; 
-                background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            }
-            .app-item .image-container { width: 100% !important; height: 180px; margin: 0 0 15px 0 !important; position: relative; }
-            .app-item .app-image { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px !important; }
-            .app-info { width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-            .app-name { font-size: 1.35rem !important; white-space: normal !important; margin-bottom: 8px; line-height: 1.3; font-weight: 600; }
-            .app-desc { font-size: 0.95rem !important; color: #aaa !important; -webkit-line-clamp: 3 !important; }
-        }
-    `;
-    document.head.appendChild(style);
+    // Modal, badge, update-popup, and responsive styles are consolidated in css/components.css and css/responsive.css
 }
 
 function openModal(app, updateHistory = true) {

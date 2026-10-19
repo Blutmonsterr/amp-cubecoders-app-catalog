@@ -1,69 +1,260 @@
-@media only screen and (max-width: 900px) {
-    .app-list li {
-        width: 100%;
-    }
-    .app-item {
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-    .app-info {
-        padding-right: 0;
-        padding-top: 2rem;
-    }
-    .image-container {
-        width: 100%;
-        max-width: 320px;
-    }
-}
-@media only screen and (max-width: 768px) {
+/* --- Tablet (max-width: 960px) --- */
+@media only screen and (max-width: 960px) {
     .page-header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1rem 1.5rem 0;
+        padding: 12px 18px;
+        gap: 12px;
     }
-    .page-header .logo-container {
-        order: 3;
-        width: 100%;
-        margin-top: 0.5rem;
+
+    .logo-container img {
+        width: 140px;
     }
-    .nav-left, .lang-switch {
-        position: static;
+
+    .back-btn,
+    .extra-btn {
+        padding: 7px 13px;
+        font-size: 0.8rem;
     }
-    .lang-switch {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 0.25rem;
-    }
+
     .search-section {
-        padding: 4vh 1rem 4rem 1rem;
+        padding: 28px 18px 64px;
     }
-    #searchInput {
-        font-size: 1.5rem;
-        padding: 1.2rem 4rem 1.2rem 1.5rem;
-        border-width: 3px;
+
+    .heading-wrapper h1 {
+        font-size: 2rem;
     }
-    .back-btn, .extra-btn {
-        font-size: 1rem;
-        padding: 0.4rem 0.8rem;
-    }
-    .app-name {
-        font-size: 1.8rem;
-    }
-    .app-desc {
-        font-size: 1.3rem;
-    }
-    .app-item {
-        padding: 1.5rem;
+
+    .app-list {
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 16px;
     }
 }
-@media only screen and (max-width: 480px) {
+
+/* --- Smartphone (max-width: 680px) --- */
+@media only screen and (max-width: 680px) {
     .page-header {
-        padding: 0.75rem 1rem 0;
+        position: relative;
+        grid-template-columns: 1fr auto;
+        padding: 14px 16px;
+        gap: 12px;
     }
+
+    .logo-container {
+        grid-column: 1 / -1;
+        order: -1;
+        justify-self: center;
+        margin-bottom: 2px;
+    }
+
+    .logo-container img {
+        width: 150px;
+    }
+
+    .nav-left {
+        justify-self: start;
+        gap: 8px;
+    }
+
+    .lang-switch {
+        justify-self: end;
+        padding: 5px 10px;
+        gap: 8px;
+    }
+
     .settings-dropdown-content {
-        min-width: 220px;
+        right: 0;
+        left: auto;
+        min-width: 235px;
+        max-width: calc(100vw - 24px);
+    }
+
+    .info-tooltip .tooltiptext {
+        right: -40px;
+        width: 220px;
+        max-width: calc(100vw - 32px);
+    }
+
+    .search-section {
+        padding: 22px 14px 64px;
+    }
+
+    .search-bar-container {
+        margin-bottom: 24px;
+    }
+
+    .heading-wrapper {
+        margin-bottom: 14px;
+    }
+
+    .heading-wrapper h1 {
+        font-size: 1.75rem;
+    }
+
+    .search-input-wrapper {
+        margin-bottom: 14px;
+    }
+
+    #searchInput {
+        font-size: 1rem; /* Prevents auto-zoom on iOS Safari */
+        padding: 14px 44px 14px 20px;
+    }
+
+    #clearSearch {
+        right: 16px;
+        padding: 6px;
+    }
+
+    .filter-chips {
+        gap: 8px;
+    }
+
+    .filter-chip {
+        padding: 9px 16px;
+        font-size: 0.85rem;
+    }
+
+    .custom-tooltip-text {
+        width: 230px;
+        max-width: calc(100vw - 32px);
+        left: auto;
+        right: 0;
+        transform: translateY(8px);
+    }
+
+    .custom-tooltip-text::after {
+        left: auto;
+        right: 24px;
+        margin-left: 0;
+    }
+
+    .custom-tooltip-container:hover .custom-tooltip-text {
+        transform: translateY(0);
+    }
+
+    .app-list {
+        grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+        gap: 14px;
+    }
+
+    /* Disable hover lift on touch devices to avoid sticky hover states */
+    .app-item:hover {
+        transform: none;
+    }
+
+    .app-info {
+        padding: 12px 14px;
+    }
+
+    .app-name {
+        font-size: 1.02rem;
+    }
+
+    .app-desc {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    .app-list li.list-separator {
+        margin: 16px 0 6px;
+        gap: 10px;
+    }
+
+    .separator-badge {
+        padding: 5px 13px;
+        font-size: 0.8rem;
+    }
+
+    .modal-content {
+        margin: 5vh auto;
+        width: 94%;
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .modal-header {
+        padding-right: 36px;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.18rem;
+    }
+
+    .modal-app-desc {
+        font-size: 0.92rem;
+        line-height: 1.55;
+    }
+
+    .update-nav-button {
+        left: 12px;
+        right: 66px;
+        bottom: 16px;
+        max-width: none;
+    }
+
+    #go-top {
+        bottom: 16px;
+        right: 14px;
+    }
+
+    #go-top a {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* --- Compact Smartphone (max-width: 420px) --- */
+@media only screen and (max-width: 420px) {
+    .page-header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .logo-container img {
+        width: 140px;
+    }
+
+    .nav-left {
+        justify-self: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .lang-switch {
+        justify-self: center;
+    }
+
+    .settings-dropdown-content {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    .info-tooltip .tooltiptext {
+        left: 50%;
+        right: auto;
+        transform: translateX(-35%);
+    }
+
+    .filter-chips {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        gap: 8px;
+    }
+
+    .filter-chip {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        padding: 9px 10px;
+    }
+
+    .app-list {
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 }
