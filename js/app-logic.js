@@ -1,4 +1,8 @@
 let appCache = [];
+let allLoadedApps = [];
+let updateCheckCompleted = false;
+const listMemoryCache = new Map();
+let activeModalCloseHandler = null;
 
 const escapeHtml = (unsafe) => {
     if (unsafe === null || unsafe === undefined) return "";
@@ -12,17 +16,23 @@ const escapeHtml = (unsafe) => {
 
 const isExpired = (val) => {
     if (typeof val !== 'string') return false;
-    const expiryDate = new Date(val);
+    const trimmed = val.trim();
+    const expiryDate = /^\d{4}-\d{2}-\d{2}$/.test(trimmed)
+        ? new Date(`${trimmed}T23:59:59.999`)
+        : new Date(trimmed);
     return !isNaN(expiryDate.getTime()) && new Date() > expiryDate;
 };
 
 function filterApps() {
     const input = document.getElementById('searchInput');
-    const filter = input.value.trim().toUpperCase();
+    if (!input) return;
+
+    const rawValue = input.value.trim();
+    const filter = rawValue.toUpperCase();
     
     const url = new URL(window.location);
-    if (input.value) {
-        url.searchParams.set('search', input.value);
+    if (rawValue) {
+        url.searchParams.set('search', rawValue);
     } else {
         url.searchParams.delete('search');
     }
@@ -35,31 +45,56 @@ function filterApps() {
         clearBtn.style.display = isSearching ? 'block' : 'none';
     }
 
-    let visibleCount = 0;
-    const isNewFilter = filter === 'F:NEW';
-    const isBetaFilter = filter === 'F:BETA';
-    const isCrossplayFilter = filter === 'F:CROSSPLAY';
-
-    appCache.forEach(app => {
-        let matchesSearch;
-
-        if (isNewFilter) {
-            matchesSearch = app.isNew;
-        } else if (isBetaFilter) {
-            matchesSearch = app.isBeta;
-        } else if (isCrossplayFilter) {
-            matchesSearch = app.isCrossplay;
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+        const chipFilter = (chip.dataset.filter || '').toUpperCase();
+        if (chipFilter === filter) {
+            chip.classList.add('active');
         } else {
-            matchesSearch = !isSearching || app.name.indexOf(filter) > -1 || app.desc.indexOf(filter) > -1 || app.alias.indexOf(filter) > -1;
+            chip.classList.remove('active');
+        }
+    });
+
+    const tokens = isSearching ? filter.split(/\s+/) : [];
+    let requireNew = false;
+    let requireBeta = false;
+    let requireCrossplay = false;
+    const textTokens = [];
+
+    for (let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+        if (token === 'F:NEW') requireNew = true;
+        else if (token === 'F:BETA') requireBeta = true;
+        else if (token === 'F:CROSSPLAY') requireCrossplay = true;
+        else textTokens.push(token);
+    }
+
+    let visibleCount = 0;
+
+    for (let i = 0; i < appCache.length; i++) {
+        const app = appCache[i];
+        let matchesSearch = true;
+
+        if (requireNew && !app.isNew) matchesSearch = false;
+        if (matchesSearch && requireBeta && !app.isBeta) matchesSearch = false;
+        if (matchesSearch && requireCrossplay && !app.isCrossplay) matchesSearch = false;
+
+        if (matchesSearch && textTokens.length > 0) {
+            for (let j = 0; j < textTokens.length; j++) {
+                if (app.searchText.indexOf(textTokens[j]) === -1) {
+                    matchesSearch = false;
+                    break;
+                }
+            }
         }
 
         if (matchesSearch) {
-            app.element.style.display = "";
+            if (app.element.style.display !== "") app.element.style.display = "";
             visibleCount++;
         } else {
-            app.element.style.display = "none";
+            if (app.element.style.display !== "none") app.element.style.display = "none";
         }
-    });
+    }
 
     const separators = document.querySelectorAll('.list-separator');
     separators.forEach(sep => {
@@ -70,28 +105,27 @@ function filterApps() {
     const noResults = document.getElementById("no-results");
     
     const isLoading = globalLoader && globalLoader.style.display !== 'none';
-    if (visibleCount === 0 && !isLoading) {
-        noResults.style.display = "block";
-    } else {
-        noResults.style.display = "none";
+    if (noResults) {
+        noResults.style.display = (visibleCount === 0 && !isLoading) ? "block" : "none";
     }
     
-    const t = getTranslation();
-    const resultText = t.resultsFound || "Ergebnisse gefunden";
-    document.getElementById('resultCount').innerText = visibleCount + " " + resultText;
-
+    const resultCountEl = document.getElementById('resultCount');
+    if (resultCountEl) {
+        if (isLoading) {
+            resultCountEl.innerText = '';
+        } else {
+            const t = getTranslation();
+            const resultText = t.resultsFound || "Ergebnisse gefunden";
+            resultCountEl.innerText = `${visibleCount} ${resultText}`;
+        }
+    }
 }
 
 function setFilter(val) {
     const input = document.getElementById('searchInput');
+    if (!input) return;
     input.value = val;
     filterApps();
-
-    const chips = document.querySelectorAll('.filter-chip');
-    chips.forEach(chip => {
-        if (chip.dataset.filter === val) chip.classList.add('active');
-        else chip.classList.remove('active');
-    });
     input.focus();
 }
 
@@ -112,14 +146,18 @@ function cacheAppElements() {
 
     const liElements = ul.querySelectorAll('li:not(.list-separator)');
     liElements.forEach(li => {
+        const name = li.dataset.searchName || '';
+        const desc = li.dataset.searchDesc || '';
+        const alias = li.dataset.searchAlias || '';
         appCache.push({
             element: li,
             isNew: li.dataset.isNew === 'true',
             isBeta: li.dataset.isBeta === 'true',
             isCrossplay: li.dataset.isCrossplay === 'true',
-            name: li.dataset.searchName || '',
-            desc: li.dataset.searchDesc || '',
-            alias: li.dataset.searchAlias || ''
+            name,
+            desc,
+            alias,
+            searchText: `${name} ${desc} ${alias}`
         });
     });
 }
@@ -135,12 +173,15 @@ const areAppsDifferent = (appA, appB) => {
 };
 
 function mergeAppLists(local, remote) {
+    const safeLocal = Array.isArray(local) ? local : [];
+    const safeRemote = Array.isArray(remote) ? remote : null;
     const merged = [];
-    const localMap = new Map(local.map(app => [app.name.toLowerCase(), app]));
+    const localMap = new Map(safeLocal.map(app => [(app.name || '').toLowerCase(), app]));
     const handledNames = new Set();
 
-    if (remote) {
-        remote.forEach(remoteApp => {
+    if (safeRemote) {
+        safeRemote.forEach(remoteApp => {
+            if (!remoteApp || !remoteApp.name) return;
             const nameKey = remoteApp.name.toLowerCase();
             const localApp = localMap.get(nameKey);
 
@@ -153,16 +194,21 @@ function mergeAppLists(local, remote) {
         });
     }
 
-    local.forEach(localApp => {
+    safeLocal.forEach(localApp => {
+        if (!localApp || !localApp.name) return;
         if (!handledNames.has(localApp.name.toLowerCase())) {
             merged.push({ ...localApp, _source: 'local' });
         }
     });
 
+    merged.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' }));
     return merged;
 }
 
 async function checkForProjectUpdates() {
+    if (updateCheckCompleted || document.getElementById('update-notice')) return;
+    updateCheckCompleted = true;
+
     const config = window.config || {};
     if (!config.features || !config.features.checkForUpdates) return;
     if (document.getElementById('update-notice')) return;
@@ -171,16 +217,21 @@ async function checkForProjectUpdates() {
         const response = await fetch('https://api.github.com/repos/Blutmonsterr/amp-cubecoders-app-catalog/commits/main');
         if (!response.ok) return;
         const data = await response.json();
-        const latestCommitDate = new Date(data.commit.author.date);
-        
+        if (!data || !data.sha) return;
+
         const lastChecked = localStorage.getItem('last_update_viewed');
+<<<<<<< Updated upstream
         if (lastChecked !== data.sha) {
             if (document.getElementById('update-notice')) return;
 
+=======
+        if (lastChecked !== data.sha && !document.getElementById('update-notice')) {
+>>>>>>> Stashed changes
             const banner = document.createElement('div');
             banner.id = 'update-notice';
             banner.className = 'update-nav-button';
             const t = getTranslation();
+<<<<<<< Updated upstream
             
             const isGitUpdateActive = config.features && config.features.gitUpdate;
 
@@ -226,59 +277,100 @@ async function checkForProjectUpdates() {
                     localStorage.setItem('last_update_viewed', data.sha);
                 }
             }, 35000);
+=======
+            const commitUrl = data.html_url || 'https://github.com/Blutmonsterr/amp-cubecoders-app-catalog/commits/main';
+            banner.innerHTML = `
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                <div class="update-text-container">
+                    <a href="${escapeHtml(commitUrl)}" target="_blank" rel="noopener noreferrer" id="update-notice-text">${escapeHtml(t.updateAvailable || 'Update available')}</a>
+                </div>
+                <button type="button" class="close-update" aria-label="Close">&times;</button>
+            `;
+            banner.querySelector('.close-update').addEventListener('click', () => {
+                banner.remove();
+                localStorage.setItem('last_update_viewed', data.sha);
+            });
+
+            const langSelect = document.getElementById('lang-select');
+            if (langSelect) {
+                langSelect.insertAdjacentElement('afterend', banner);
+            } else {
+                document.body.prepend(banner);
+            }
+>>>>>>> Stashed changes
         }
     } catch (err) {
         console.warn("Update check failed:", err);
     }
 }
 
-async function fetchJSON(url) {
+async function fetchJSON(url, useCache = true) {
+    if (useCache && listMemoryCache.has(url)) {
+        return listMemoryCache.get(url);
+    }
     try {
         const response = await fetch(url);
-        return response.ok ? await response.json() : null;
+        if (!response.ok) return null;
+        const data = await response.json();
+        if (useCache && data) {
+            listMemoryCache.set(url, data);
+        }
+        return data;
     } catch (err) {
         return null;
     }
 }
 
-async function fetchOptionalAppList(url, errorElementId, fallbackUrl = null) {
-    try {
-        const data = await fetchJSON(url);
-        if (data) return { data, source: url.includes('githubusercontent') ? 'github' : 'local' };
-        
-        if (fallbackUrl && url !== fallbackUrl) {
-            const fallbackData = await fetchJSON(fallbackUrl);
-            if (fallbackData) return { data: fallbackData, source: 'local' };
-        }
-        return null;
-    } catch (err) {
-        console.warn(`Could not load optional app list from ${url}:`, err);
-        const errorIndicator = document.getElementById(errorElementId);
-        if (errorIndicator) {
-            errorIndicator.style.display = 'inline';
-            const t = getTranslation();
-            errorIndicator.title = t.loadListError || 'Laden der Liste fehlgeschlagen.';
-        }
-        return null;
+function attachImageFallback(img, imageName, loader = null) {
+    const config = window.config || {};
+    const gitUpdate = config.features && config.features.gitUpdate === true;
+    const remoteBase = config.remoteBase || 'https://raw.githubusercontent.com/Blutmonsterr/amp-cubecoders-app-catalog/main/';
+
+    const onImageLoad = () => {
+        if (loader) loader.style.display = 'none';
+        img.style.opacity = '1';
+    };
+
+    if (img.complete && img.naturalWidth > 0) {
+        onImageLoad();
+        return;
     }
+
+    let triedRemote = false;
+    img.onload = onImageLoad;
+    img.onerror = function() {
+        if (gitUpdate && !triedRemote && imageName) {
+            triedRemote = true;
+            this.src = `${remoteBase}images/games/${encodeURIComponent(imageName)}`;
+            return;
+        }
+        if (loader) loader.style.display = 'none';
+        this.src = 'images/placeholder.webp';
+        this.style.opacity = '1';
+        this.onerror = null;
+    };
 }
 
 async function loadApps() {
     const appList = document.getElementById('appList');
     const globalLoader = document.getElementById('globalLoader');
-    
+    if (!appList) return;
+
     checkForProjectUpdates();
 
     const t = getTranslation();
 
     appList.innerHTML = '';
     if (globalLoader) {
+        delete globalLoader.dataset.hasError;
         globalLoader.style.display = 'block';
         globalLoader.innerText = t.loading || 'Lade Apps...';
     }
 
-    document.getElementById('greelanLoadError').style.display = 'none';
-    document.getElementById('customLoadError').style.display = 'none';
+    const greelanErrorEl = document.getElementById('greelanLoadError');
+    const customErrorEl = document.getElementById('customLoadError');
+    if (greelanErrorEl) greelanErrorEl.style.display = 'none';
+    if (customErrorEl) customErrorEl.style.display = 'none';
 
     let allApps = [];
     const config = window.config || { features: { customApps: true, GreelanApps: true, gitUpdate: false } };
@@ -295,72 +387,75 @@ async function loadApps() {
     const urlParams = new URLSearchParams(window.location.search);
     const appParam = urlParams.get('app')?.toUpperCase();
 
-    const createAppItem = (app) => {
+    const createAppItem = (data) => {
+        const app = { ...data };
         if (isExpired(app.isNew)) app.isNew = false;
         if (isExpired(app.isBeta)) app.isBeta = false;
 
         const li = document.createElement('li');
-        if (app.isNew) {
-            li.dataset.isNew = 'true';
-        }
-        if (app.isBeta) {
-            li.dataset.isBeta = 'true';
-        }
-        if (app.isCrossplay) {
-            li.dataset.isCrossplay = 'true';
-        }
+        li.tabIndex = 0;
+        li.setAttribute('role', 'button');
+        if (app.isNew) li.dataset.isNew = 'true';
+        if (app.isBeta) li.dataset.isBeta = 'true';
+        if (app.isCrossplay) li.dataset.isCrossplay = 'true';
+
         li.dataset.searchName = (app.name || '').toUpperCase();
         li.dataset.searchDesc = (app.desc || '').toUpperCase();
         li.dataset.searchAlias = (app.alias || '').toUpperCase();
         li.style.cursor = 'pointer';
         li.onclick = () => openModal(app);
+        li.onkeydown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(app);
+            }
+        };
+
         const isGitHub = app._source === 'github';
+        const newLabel = escapeHtml(t.filterNew || 'Neu');
+        const safeImage = escapeHtml(app.image || '');
+
         li.innerHTML = `
+<<<<<<< Updated upstream
             <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}">
                 <div class="app-info" style="min-width: 0; overflow: hidden;">
                     <span class="app-name" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</span>
                     ${showDesc ? `<span class="app-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>` : ''}
+=======
+            <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}"${app.isNew ? ` data-new-label="${newLabel}"` : ''}>
+                <div class="app-info">
+                    <span class="app-name">${escapeHtml(app.name)}</span>
+                    <span class="app-desc">${escapeHtml(app.desc || '')}</span>
+>>>>>>> Stashed changes
                     <span class="app-alias" style="display:none;">${escapeHtml(app.alias || '')}</span>
                 </div>
                 <div class="image-container">
                     <div class="img-loader"></div>
-                    <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="app-image" loading="lazy" decoding="async">
-                    <span class="card-source-badge ${isGitHub ? 'live' : 'local'}" title="${isGitHub ? 'GitHub Raw' : 'Local File'}"><i class="fa fa-${isGitHub ? 'github' : 'server'}"></i></span>
-                    ${app.isBeta ? '<span class="card-beta-badge">BETA</span>' : ''}
-                    ${app.isCrossplay ? `<span class="card-crossplay-badge" title="${t.filterCrossplay || 'Crossplay'}"><i class="fa fa-gamepad"></i></span>` : ''}
+                    <img src="images/games/${safeImage}" alt="${escapeHtml(app.name)}" class="app-image" loading="lazy" decoding="async">
+                    <span class="card-source-badge ${isGitHub ? 'live' : 'local'}" title="${isGitHub ? 'GitHub Raw' : 'Local File'}"><i class="fa fa-${isGitHub ? 'github' : 'server'}" aria-hidden="true"></i></span>
+                    ${app.isBeta ? `<span class="card-beta-badge">${escapeHtml((t.filterBeta || 'BETA').toUpperCase())}</span>` : ''}
+                    ${app.isCrossplay ? `<span class="card-crossplay-badge" title="${escapeHtml(t.filterCrossplay || 'Crossplay')}"><i class="fa fa-gamepad" aria-hidden="true"></i></span>` : ''}
                 </div>
             </div>
         `;
 
         const img = li.querySelector('.app-image');
         const loader = li.querySelector('.img-loader');
+        attachImageFallback(img, app.image, loader);
 
-        const onImageLoad = () => {
-            loader.style.display = 'none';
-            img.style.opacity = '1';
-        };
-        
-        if (img.complete) {
-            onImageLoad();
-        } else {
-            img.onload = onImageLoad;
-            img.onerror = function() {
-                loader.style.display = 'none';
-                this.src = 'images/placeholder.webp';
-                this.style.opacity = '1';
-                this.onerror = null;
-            };
-        }
-
-        return li;
+        return { li, app };
     };
 
     const renderBlock = (apps, targetList) => {
         const fragment = document.createDocumentFragment();
-        apps.forEach(app => {
-            fragment.appendChild(createAppItem(app));
+        const normalizedApps = [];
+        apps.forEach(rawApp => {
+            const { li, app } = createAppItem(rawApp);
+            fragment.appendChild(li);
+            normalizedApps.push(app);
         });
         targetList.appendChild(fragment);
+        return normalizedApps;
     };
 
     const renderSeparator = (targetList) => {
@@ -371,82 +466,97 @@ async function loadApps() {
     };
 
     try {
-        // --- Block 1: Base Apps ---
-        let baseApps;
-        let blocksRendered = 0;
         const basePath = 'js/apps/apps.json';
-        const cacheBuster = `t=${Date.now()}`;
-        
-        // Fetch local first
-        const localBase = await fetchJSON(basePath);
-        if (!localBase) throw new Error("Could not load local apps.json");
+        const greelanPath = 'js/apps/apps-g.json';
+        const customPath = 'js/apps/apps-c.json';
 
-        if (gitUpdate) {
-            const remoteBaseData = await fetchJSON(`${remoteBase}${basePath}?${cacheBuster}`);
-            baseApps = mergeAppLists(localBase, remoteBaseData);
-        } else {
-            baseApps = localBase.map(a => ({ ...a, _source: 'local' }));
+        const [localBase, remoteBaseData, localG, remoteG, localC] = await Promise.all([
+            fetchJSON(basePath),
+            gitUpdate ? fetchJSON(`${remoteBase}${basePath}`) : Promise.resolve(null),
+            showGreelan ? fetchJSON(greelanPath) : Promise.resolve(null),
+            (showGreelan && gitUpdate) ? fetchJSON(`${remoteBase}${greelanPath}`) : Promise.resolve(null),
+            showCustom ? fetchJSON(customPath) : Promise.resolve(null)
+        ]);
+
+        if (!localBase && !remoteBaseData) {
+            throw new Error("Could not load apps.json");
         }
 
-        if (baseApps && baseApps.length > 0) {
-            renderBlock(baseApps, appList);
+        let blocksRendered = 0;
+
+        // --- Block 1: Base Apps ---
+        const baseApps = gitUpdate
+            ? mergeAppLists(localBase || [], remoteBaseData)
+            : (localBase || []).map(a => ({ ...a, _source: 'local' }));
+
+        if (baseApps.length > 0) {
+            const renderedBase = renderBlock(baseApps, appList);
             blocksRendered++;
-            allApps = allApps.concat(baseApps);
+            allApps = allApps.concat(renderedBase);
         }
 
         // --- Block 2: Greelan Apps (Optional) ---
         if (showGreelan) {
-            const greelanPath = 'js/apps/apps-g.json';
-            const localG = await fetchJSON(greelanPath) || [];
-            let finalG;
-            
-            if (gitUpdate) {
-                const remoteG = await fetchJSON(`${remoteBase}${greelanPath}?${cacheBuster}`);
-                finalG = mergeAppLists(localG, remoteG);
+            if (!localG && !remoteG) {
+                if (greelanErrorEl) {
+                    greelanErrorEl.style.display = 'inline';
+                    greelanErrorEl.title = t.loadListError || 'Laden der Liste fehlgeschlagen.';
+                }
             } else {
-                finalG = localG.map(a => ({ ...a, _source: 'local' }));
-            }
+                const finalG = gitUpdate
+                    ? mergeAppLists(localG || [], remoteG)
+                    : (localG || []).map(a => ({ ...a, _source: 'local' }));
 
-            if (finalG && finalG.length > 0) {
-                if (blocksRendered > 0) renderSeparator(appList);
-                renderBlock(finalG, appList);
-                blocksRendered++;
-                allApps = allApps.concat(finalG);
+                if (finalG.length > 0) {
+                    if (blocksRendered > 0) renderSeparator(appList);
+                    const renderedG = renderBlock(finalG, appList);
+                    blocksRendered++;
+                    allApps = allApps.concat(renderedG);
+                }
             }
         }
 
         // --- Block 3: Custom Apps (Optional) ---
         if (showCustom) {
-            const localC = await fetchJSON('js/apps/apps-c.json');
-            if (localC && localC.length > 0) {
+            if (!localC) {
+                if (customErrorEl) {
+                    customErrorEl.style.display = 'inline';
+                    customErrorEl.title = t.loadListError || 'Laden der Liste fehlgeschlagen.';
+                }
+            } else if (localC.length > 0) {
                 const finalC = localC.map(a => ({ ...a, _source: 'local' }));
                 if (blocksRendered > 0) renderSeparator(appList);
-                renderBlock(finalC, appList);
+                const renderedC = renderBlock(finalC, appList);
                 blocksRendered++;
-                allApps = allApps.concat(finalC);
+                allApps = allApps.concat(renderedC);
             }
         }
 
+        allLoadedApps = allApps;
         if (globalLoader) globalLoader.style.display = 'none';
 
         cacheAppElements();
         filterApps();
 
         if (appParam) {
-            const target = allApps.find(a => a.name.toUpperCase() === appParam);
+            const target = allApps.find(a => (a.name || '').toUpperCase() === appParam);
             if (target) {
-                setTimeout(() => openModal(target), 100);
+                openModal(target, false);
             }
         }
     } catch (err) {
-        const t = typeof getTranslation === 'function' ? getTranslation() : {};
-        const errorText = t.appLoadError || 'Fehler beim Laden der Apps:';
+        const tErr = typeof getTranslation === 'function' ? getTranslation() : {};
+        const errorText = tErr.appLoadError || 'Fehler beim Laden der Apps:';
         console.error(errorText, err);
-        if (globalLoader) globalLoader.innerText = t.loadError || 'Fehler beim Laden der Daten.';
+        if (globalLoader) {
+            globalLoader.dataset.hasError = 'true';
+            globalLoader.innerText = tErr.loadError || 'Fehler beim Laden der Daten.';
+        }
     }
 }
 
 function injectModalStyles() {
+<<<<<<< Updated upstream
     if (document.getElementById('app-modal-styles')) return;
     const style = document.createElement('style');
     style.id = 'app-modal-styles';
@@ -527,41 +637,63 @@ function injectModalStyles() {
         }
     `;
     document.head.appendChild(style);
+=======
+    // Modal and badge styles are now consolidated in css/components.css
+>>>>>>> Stashed changes
 }
 
-function openModal(app) {
-    injectModalStyles();
+function openModal(app, updateHistory = true) {
     const t = typeof getTranslation === 'function' ? getTranslation() : {};
     const config = window.config || {};
     const showDesc = config.features && config.features.descriptions !== false;
 
     let modal = document.getElementById('appDetailModal');
 
+    if (activeModalCloseHandler) {
+        activeModalCloseHandler(true);
+    }
+
     let handleEsc;
     let handleBackgroundClick;
 
-    const closeModalAnimated = () => {
-        if (modal.classList.contains('closing')) return;
-        modal.classList.add('closing');
-        
+    const closeModalAnimated = (immediate = false, fromPopState = false) => {
+        if (!modal) return;
         window.removeEventListener('keydown', handleEsc);
         modal.removeEventListener('click', handleBackgroundClick);
+        activeModalCloseHandler = null;
+
+        const finishClose = () => {
+            modal.style.display = 'none';
+            modal.classList.remove('closing');
+            document.body.style.overflow = '';
+
+            if (!fromPopState && !immediate) {
+                const url = new URL(window.location);
+                if (url.searchParams.has('app')) {
+                    url.searchParams.delete('app');
+                    window.history.pushState({}, '', url);
+                }
+            }
+        };
+
+        if (immediate) {
+            finishClose();
+            return;
+        }
+
+        if (modal.classList.contains('closing')) return;
+        modal.classList.add('closing');
 
         const onAnimationEnd = (e) => {
             if (e.target === modal) {
-                modal.style.display = 'none';
-                modal.classList.remove('closing');
-                document.body.style.overflow = '';
-                
-                const url = new URL(window.location);
-                url.searchParams.delete('app');
-                window.history.pushState({}, '', url);
-
                 modal.removeEventListener('animationend', onAnimationEnd);
+                finishClose();
             }
         };
         modal.addEventListener('animationend', onAnimationEnd);
     };
+
+    activeModalCloseHandler = closeModalAnimated;
 
     handleEsc = (e) => {
         if (e.key === 'Escape') closeModalAnimated();
@@ -575,30 +707,74 @@ function openModal(app) {
         modal = document.createElement('div');
         modal.id = 'appDetailModal';
         modal.className = 'modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
         document.body.appendChild(modal);
     }
-    
+
+    const safeImage = escapeHtml(app.image || '');
+    const newText = escapeHtml((t.filterNew || 'NEW').toUpperCase());
+    const betaText = escapeHtml((t.filterBeta || 'BETA').toUpperCase());
+    const crossplayText = escapeHtml(t.filterCrossplay || 'Crossplay');
+
     modal.innerHTML = `
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" role="button" tabindex="0" aria-label="Close">&times;</span>
             <div class="modal-header">
-                <h2>${escapeHtml(app.name)} ${app.isNew ? '<span class="new-badge">NEW</span>' : ''}${app.isBeta ? '<span class="beta-badge">BETA</span>' : ''}${app.isCrossplay ? `<span class="crossplay-badge"><i class="fa fa-gamepad"></i> ${t.filterCrossplay || 'Crossplay'}</span>` : ''}</h2>
+                <h2>${escapeHtml(app.name)} ${app.isNew ? `<span class="new-badge">${newText}</span>` : ''}${app.isBeta ? `<span class="beta-badge">${betaText}</span>` : ''}${app.isCrossplay ? `<span class="crossplay-badge"><i class="fa fa-gamepad" aria-hidden="true"></i> ${crossplayText}</span>` : ''}</h2>
             </div>
             <div class="modal-body">
+<<<<<<< Updated upstream
                 <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async" onerror="this.onerror=null; this.src='images/placeholder.webp';">
                 ${showDesc ? `<p class="modal-app-desc">${escapeHtml(app.desc)}</p>` : ''}
+=======
+                <img src="images/games/${safeImage}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async">
+                ${app.desc ? `<p class="modal-app-desc">${escapeHtml(app.desc)}</p>` : ''}
+>>>>>>> Stashed changes
             </div>
         </div>
     `;
-    
-    modal.querySelector('.close-modal').addEventListener('click', closeModalAnimated);
+
+    const modalImg = modal.querySelector('.modal-app-image');
+    attachImageFallback(modalImg, app.image);
+
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.addEventListener('click', () => closeModalAnimated());
+    closeBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            closeModalAnimated();
+        }
+    });
     modal.addEventListener('click', handleBackgroundClick);
     window.addEventListener('keydown', handleEsc);
 
+    modal.classList.remove('closing');
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 
-    const url = new URL(window.location);
-    url.searchParams.set('app', app.name);
-    window.history.pushState({}, '', url);
+    if (updateHistory) {
+        const url = new URL(window.location);
+        if (url.searchParams.get('app') !== app.name) {
+            url.searchParams.set('app', app.name);
+            window.history.pushState({}, '', url);
+        }
+    }
 }
+
+window.addEventListener('popstate', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const appParam = urlParams.get('app')?.toUpperCase();
+    const modal = document.getElementById('appDetailModal');
+
+    if (!appParam) {
+        if (activeModalCloseHandler && modal && modal.style.display === 'block') {
+            activeModalCloseHandler(false, true);
+        }
+    } else if (allLoadedApps.length > 0) {
+        const target = allLoadedApps.find(a => (a.name || '').toUpperCase() === appParam);
+        if (target) {
+            openModal(target, false);
+        }
+    }
+});

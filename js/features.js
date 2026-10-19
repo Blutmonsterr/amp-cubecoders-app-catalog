@@ -1,12 +1,14 @@
 function initFeatures() {
     const config = window.config || { features: { customApps: true, GreelanApps: true } };
+    const features = config.features || {};
 
-    const customAppsEnabled = config.features.customApps !== false;
-    const greelanAppsEnabled = config.features.GreelanApps !== false;
+    const customAppsEnabled = features.customApps !== false;
+    const greelanAppsEnabled = features.GreelanApps !== false;
+
+    const settingsDropdown = document.querySelector('.settings-dropdown');
+    const infoTooltip = document.querySelector('.info-tooltip');
 
     if (!customAppsEnabled && !greelanAppsEnabled) {
-        const settingsDropdown = document.querySelector('.settings-dropdown');
-        const infoTooltip = document.querySelector('.info-tooltip');
         if (settingsDropdown) settingsDropdown.style.display = 'none';
         if (infoTooltip) infoTooltip.style.display = 'none';
     } else {
@@ -29,29 +31,55 @@ function initFeatures() {
                 toggleGreelan.checked = localStorage.getItem('show_greelan_apps') === 'true';
             }
         }
+
+        if (settingsDropdown) {
+            const dropBtn = settingsDropdown.querySelector('.settings-dropbtn');
+            if (dropBtn) {
+                dropBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    settingsDropdown.classList.toggle('open');
+                });
+            }
+        }
+
+        if (infoTooltip) {
+            infoTooltip.addEventListener('click', (e) => {
+                e.stopPropagation();
+                infoTooltip.classList.toggle('open');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (settingsDropdown && !settingsDropdown.contains(e.target)) {
+                settingsDropdown.classList.remove('open');
+            }
+            if (infoTooltip && !infoTooltip.contains(e.target)) {
+                infoTooltip.classList.remove('open');
+            }
+        });
     }
 
-    if (config.features.backButton) {
+    if (features.backButton) {
         const backBtn = document.getElementById('backBtn');
         if (backBtn) {
-            if (config.features.backButton.enabled === false) {
+            if (features.backButton.enabled === false) {
                 backBtn.style.display = 'none';
-            } else if (config.features.backButton.url) {
-                backBtn.href = config.features.backButton.url;
+            } else if (features.backButton.url) {
+                backBtn.href = features.backButton.url;
             }
         }
     }
 
-    if (config.features.extraLink && config.features.extraLink.enabled) {
+    if (features.extraLink && features.extraLink.enabled) {
         const btn = document.getElementById('extraLinkBtn');
         if (btn) {
-            btn.href = config.features.extraLink.url;
-            btn.innerText = config.features.extraLink.text;
+            btn.href = features.extraLink.url;
+            btn.innerText = features.extraLink.text;
             btn.style.display = 'inline-block';
         }
     }
 
-    if (config.features.filterButtons === false) {
+    if (features.filterButtons === false) {
         const filterChips = document.querySelector('.filter-chips');
         if (filterChips) filterChips.style.display = 'none';
     }

@@ -35,9 +35,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     
     if (searchInput) {
-        
-        searchInput.addEventListener('input', debounce(filterApps, 250));
+        searchInput.addEventListener('input', debounce(filterApps, 150));
+
+        searchInput.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('appDetailModal');
+            const isModalOpen = modal && modal.style.display === 'block';
+            if (e.key === 'Escape' && !isModalOpen && searchInput.value) {
+                e.preventDefault();
+                searchInput.value = '';
+                filterApps();
+            }
+        });
     }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+            const modal = document.getElementById('appDetailModal');
+            if (!modal || modal.style.display !== 'block') {
+                e.preventDefault();
+                searchInput?.focus();
+            }
+        }
+    });
 
     if (clearBtn && searchInput) {
         clearBtn.addEventListener('click', function(e) {

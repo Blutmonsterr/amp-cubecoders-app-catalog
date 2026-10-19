@@ -16,22 +16,38 @@
     }
 }
 @media only screen and (max-width: 768px) {
-    .nav-left, .lang-switch {
-        top: 1.5rem;
+    .page-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem 1.5rem 0;
     }
-    .nav-left {
-        left: 1.5rem;
+    .page-header .logo-container {
+        order: 3;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    .nav-left, .lang-switch {
+        position: static;
     }
     .lang-switch {
-        right: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.25rem;
+    }
+    .search-section {
+        padding: 4vh 1rem 4rem 1rem;
     }
     #searchInput {
         font-size: 1.5rem;
-        padding: 1.2rem 1.5rem;
+        padding: 1.2rem 4rem 1.2rem 1.5rem;
         border-width: 3px;
     }
-    .back-btn {
-        font-size: 1.2rem;
+    .back-btn, .extra-btn {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
     }
     .app-name {
         font-size: 1.8rem;
@@ -44,14 +60,8 @@
     }
 }
 @media only screen and (max-width: 480px) {
-    .nav-left, .lang-switch {
-        top: 1rem;
-    }
-    .nav-left {
-        left: 1rem;
-    }
-    .lang-switch {
-        right: 1rem;
+    .page-header {
+        padding: 0.75rem 1rem 0;
     }
     .settings-dropdown-content {
         min-width: 220px;

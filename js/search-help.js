@@ -1,15 +1,18 @@
 function initSearchHelp() {
     const config = window.config || { features: {} };
     
-    if (config.features.searchHelp && config.features.searchHelp.enabled) {
+    if (config.features && config.features.searchHelp && config.features.searchHelp.enabled) {
         const infoBtn = document.getElementById('searchInfoBtn');
         if (infoBtn) {
             infoBtn.style.display = 'block';
+            infoBtn.tabIndex = 0;
+            infoBtn.setAttribute('role', 'button');
             
             const tooltip = document.createElement('div');
             tooltip.className = 'search-help-tooltip';
             document.body.appendChild(tooltip);
 
+<<<<<<< Updated upstream
             if (!document.getElementById('search-help-tooltip-styles')) {
                 const style = document.createElement('style');
                 style.id = 'search-help-tooltip-styles';
@@ -52,6 +55,8 @@ function initSearchHelp() {
                 document.head.appendChild(style);
             }
 
+=======
+>>>>>>> Stashed changes
             const updateTooltip = () => {
                 const t = typeof getTranslation === 'function' ? getTranslation() : {};
                 
@@ -63,12 +68,13 @@ function initSearchHelp() {
                 });
                 listHtml += '</ul>';
 
-                tooltip.innerHTML = `${listHtml}`;
+                tooltip.innerHTML = listHtml;
             };
 
             const showTooltip = () => {
                 updateTooltip();
                 const rect = infoBtn.getBoundingClientRect();
+<<<<<<< Updated upstream
                 tooltip.style.top = (rect.bottom + 10) + 'px';
                 if (window.innerWidth > 768) {
                     tooltip.style.left = (rect.left + rect.width / 2) + 'px';
@@ -92,7 +98,39 @@ function initSearchHelp() {
             });
             document.addEventListener('click', function(e) {
                 if (!tooltip.contains(e.target) && !infoBtn.contains(e.target)) hideTooltip();
+=======
+                tooltip.style.top = `${rect.bottom + 10}px`;
+                const centerX = rect.left + rect.width / 2;
+                const halfWidth = Math.min(160, window.innerWidth / 2 - 16);
+                const clampedX = Math.max(halfWidth + 16, Math.min(window.innerWidth - halfWidth - 16, centerX));
+                tooltip.style.left = `${clampedX}px`;
+                tooltip.classList.add('visible');
+            };
+
+            const hideTooltip = () => {
+                tooltip.classList.remove('visible');
+            };
+
+            infoBtn.addEventListener('mouseenter', showTooltip);
+            infoBtn.addEventListener('mouseleave', hideTooltip);
+            infoBtn.addEventListener('focus', showTooltip);
+            infoBtn.addEventListener('blur', hideTooltip);
+            infoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (tooltip.classList.contains('visible')) {
+                    hideTooltip();
+                } else {
+                    showTooltip();
+                }
             });
+
+            document.addEventListener('click', (e) => {
+                if (!infoBtn.contains(e.target)) {
+                    hideTooltip();
+                }
+>>>>>>> Stashed changes
+            });
+            window.addEventListener('scroll', hideTooltip, { passive: true });
         }
     }
 }
