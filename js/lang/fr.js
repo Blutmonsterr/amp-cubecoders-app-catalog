@@ -15,25 +15,17 @@ window.translations['fr'] = {
     backToTop: "Retour en haut",
     filterAll: "Tous",
     filterNew: "Nouveau",
-<<<<<<< Updated upstream
+    filterBeta: "Bêta",
     filterCrossplay: "DDE-Crossplay",
     filterCrossplayTooltip: "Jeu croisé possible via serveurs DDE (PC, Xbox, PSN/PS4/PS5, etc.). Info : des erreurs peuvent survenir !",
-
-    appLoadError: "Erreur lors du chargement des applications :",
-    criticalLangError: "ERREUR CRITIQUE : Les fichiers de langue principaux (par ex. en.js) sont manquants.",
-    updateAvailable: "Mise à jour disponible",
-    updateTooltipGit: "Nouvelle version disponible ! Les listes d'applications sont automatiquement chargées en direct depuis GitHub via 'gitUpdate'.",
-    updateTooltipNormal: "Nouvelle version disponible sur GitHub ! Une mise à jour manuelle de vos fichiers locaux est recommandée pour voir les dernières applications."
-=======
-    filterBeta: "Bêta",
-    filterCrossplay: "Crossplay",
     "f:new": "<b>f:new</b> – Afficher uniquement les nouveautés",
     "f:beta": "<b>f:beta</b> – Afficher uniquement les versions bêta",
     "f:crossplay": "<b>f:crossplay</b> – Afficher uniquement les jeux crossplay",
     appLoadError: "Erreur lors du chargement des applications :",
     criticalLangError: "ERREUR CRITIQUE : Les fichiers de langue principaux (par ex. en.js) sont manquants.",
     updateAvailable: "Mise à jour disponible",
+    updateTooltipGit: "Nouvelle version disponible ! Les listes d'applications sont automatiquement chargées en direct depuis GitHub via 'gitUpdate'.",
+    updateTooltipNormal: "Nouvelle version disponible sur GitHub ! Une mise à jour manuelle de vos fichiers locaux est recommandée pour voir les dernières applications.",
     settingsAria: "Paramètres",
     searchAria: "Recherche"
->>>>>>> Stashed changes
 };

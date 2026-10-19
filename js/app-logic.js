@@ -220,24 +220,21 @@ async function checkForProjectUpdates() {
         if (!data || !data.sha) return;
 
         const lastChecked = localStorage.getItem('last_update_viewed');
-<<<<<<< Updated upstream
-        if (lastChecked !== data.sha) {
-            if (document.getElementById('update-notice')) return;
-
-=======
         if (lastChecked !== data.sha && !document.getElementById('update-notice')) {
->>>>>>> Stashed changes
             const banner = document.createElement('div');
             banner.id = 'update-notice';
             banner.className = 'update-nav-button';
             const t = getTranslation();
-<<<<<<< Updated upstream
-            
             const isGitUpdateActive = config.features && config.features.gitUpdate;
 
-            banner.innerHTML = `<i class="fa fa-info-circle update-info-trigger" style="cursor: pointer;"></i> <div class="update-text-container update-info-trigger" style="cursor: pointer;"><span id="update-notice-text">${t.updateAvailable || 'Update available'}</span></div> 
-                                <button class="close-update" onclick="this.parentElement.remove(); localStorage.setItem('last_update_viewed', '${data.sha}')">&times;</button>`;
-            
+            banner.innerHTML = `<i class="fa fa-info-circle update-info-trigger" style="cursor: pointer;"></i> <div class="update-text-container update-info-trigger" style="cursor: pointer;"><span id="update-notice-text">${escapeHtml(t.updateAvailable || 'Update available')}</span></div> 
+                                <button type="button" class="close-update" aria-label="Close">&times;</button>`;
+
+            banner.querySelector('.close-update').addEventListener('click', () => {
+                banner.remove();
+                localStorage.setItem('last_update_viewed', data.sha);
+            });
+
             const showPopup = () => {
                 if (document.getElementById('updatePopupOverlay')) return;
                 
@@ -251,8 +248,8 @@ async function checkForProjectUpdates() {
                 overlay.className = 'update-popup-overlay';
                 overlay.innerHTML = `
                     <div class="update-popup-box">
-                        <h3><i class="fa fa-info-circle"></i> ${currentT.updateAvailable || 'Update Info'}</h3>
-                        <p>${currentTooltipText}</p>
+                        <h3><i class="fa fa-info-circle"></i> ${escapeHtml(currentT.updateAvailable || 'Update Info')}</h3>
+                        <p>${escapeHtml(currentTooltipText)}</p>
                         <button class="update-popup-btn">OK</button>
                     </div>
                 `;
@@ -264,7 +261,7 @@ async function checkForProjectUpdates() {
                     setTimeout(() => overlay.remove(), 300);
                 };
                 overlay.querySelector('.update-popup-btn').onclick = closePopup;
-                overlay.onclick = (e) => { if(e.target === overlay) closePopup(); };
+                overlay.onclick = (e) => { if (e.target === overlay) closePopup(); };
             };
 
             banner.querySelectorAll('.update-info-trigger').forEach(el => el.onclick = showPopup);
@@ -277,27 +274,6 @@ async function checkForProjectUpdates() {
                     localStorage.setItem('last_update_viewed', data.sha);
                 }
             }, 35000);
-=======
-            const commitUrl = data.html_url || 'https://github.com/Blutmonsterr/amp-cubecoders-app-catalog/commits/main';
-            banner.innerHTML = `
-                <i class="fa fa-refresh" aria-hidden="true"></i>
-                <div class="update-text-container">
-                    <a href="${escapeHtml(commitUrl)}" target="_blank" rel="noopener noreferrer" id="update-notice-text">${escapeHtml(t.updateAvailable || 'Update available')}</a>
-                </div>
-                <button type="button" class="close-update" aria-label="Close">&times;</button>
-            `;
-            banner.querySelector('.close-update').addEventListener('click', () => {
-                banner.remove();
-                localStorage.setItem('last_update_viewed', data.sha);
-            });
-
-            const langSelect = document.getElementById('lang-select');
-            if (langSelect) {
-                langSelect.insertAdjacentElement('afterend', banner);
-            } else {
-                document.body.prepend(banner);
-            }
->>>>>>> Stashed changes
         }
     } catch (err) {
         console.warn("Update check failed:", err);
@@ -416,17 +392,10 @@ async function loadApps() {
         const safeImage = escapeHtml(app.image || '');
 
         li.innerHTML = `
-<<<<<<< Updated upstream
-            <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}">
+            <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}"${app.isNew ? ` data-new-label="${newLabel}"` : ''}>
                 <div class="app-info" style="min-width: 0; overflow: hidden;">
                     <span class="app-name" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</span>
                     ${showDesc ? `<span class="app-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(app.desc || '')}">${escapeHtml(app.desc || '')}</span>` : ''}
-=======
-            <div class="app-item${app.isNew ? ' new-app' : ''}${app.isBeta ? ' beta-app' : ''}"${app.isNew ? ` data-new-label="${newLabel}"` : ''}>
-                <div class="app-info">
-                    <span class="app-name">${escapeHtml(app.name)}</span>
-                    <span class="app-desc">${escapeHtml(app.desc || '')}</span>
->>>>>>> Stashed changes
                     <span class="app-alias" style="display:none;">${escapeHtml(app.alias || '')}</span>
                 </div>
                 <div class="image-container">
@@ -556,7 +525,6 @@ async function loadApps() {
 }
 
 function injectModalStyles() {
-<<<<<<< Updated upstream
     if (document.getElementById('app-modal-styles')) return;
     const style = document.createElement('style');
     style.id = 'app-modal-styles';
@@ -614,7 +582,7 @@ function injectModalStyles() {
             .modal-app-image { max-height: 35vh; object-fit: cover; width: 100%; border-radius: 12px; }
             .update-popup-box { padding: 24px 20px; width: 92%; box-sizing: border-box; }
             
-            #searchInput { width: 100%; font-size: 16px !important; padding: 14px 20px !important; box-sizing: border-box; border-radius: 12px; } 
+            #searchInput { width: 100%; font-size: 16px !important; padding: 14px 45px 14px 20px !important; box-sizing: border-box; border-radius: 12px; } 
             .filter-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; width: 100%; margin-top: 10px; }
             .filter-chip { text-align: center; font-size: 0.85rem; padding: 10px 5px; border-radius: 8px; }
 
@@ -637,12 +605,10 @@ function injectModalStyles() {
         }
     `;
     document.head.appendChild(style);
-=======
-    // Modal and badge styles are now consolidated in css/components.css
->>>>>>> Stashed changes
 }
 
 function openModal(app, updateHistory = true) {
+    injectModalStyles();
     const t = typeof getTranslation === 'function' ? getTranslation() : {};
     const config = window.config || {};
     const showDesc = config.features && config.features.descriptions !== false;
@@ -724,13 +690,8 @@ function openModal(app, updateHistory = true) {
                 <h2>${escapeHtml(app.name)} ${app.isNew ? `<span class="new-badge">${newText}</span>` : ''}${app.isBeta ? `<span class="beta-badge">${betaText}</span>` : ''}${app.isCrossplay ? `<span class="crossplay-badge"><i class="fa fa-gamepad" aria-hidden="true"></i> ${crossplayText}</span>` : ''}</h2>
             </div>
             <div class="modal-body">
-<<<<<<< Updated upstream
-                <img src="images/games/${app.image}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async" onerror="this.onerror=null; this.src='images/placeholder.webp';">
-                ${showDesc ? `<p class="modal-app-desc">${escapeHtml(app.desc)}</p>` : ''}
-=======
                 <img src="images/games/${safeImage}" alt="${escapeHtml(app.name)}" class="modal-app-image" decoding="async">
-                ${app.desc ? `<p class="modal-app-desc">${escapeHtml(app.desc)}</p>` : ''}
->>>>>>> Stashed changes
+                ${(showDesc && app.desc) ? `<p class="modal-app-desc">${escapeHtml(app.desc)}</p>` : ''}
             </div>
         </div>
     `;

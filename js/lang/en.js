@@ -14,25 +14,17 @@ window.translations['en'] = {
     backToTop: "Back to Top",
     filterAll: "All",
     filterNew: "New",
-<<<<<<< Updated upstream
+    filterBeta: "Beta",
     filterCrossplay: "DDE-Crossplay",
     filterCrossplayTooltip: "Crossplay possible via DDE servers (PC, Xbox, PSN/PS4/PS5, etc.). Note: Bugs may occur!",
-
-    appLoadError: "Error loading apps:",
-    criticalLangError: "CRITICAL ERROR: Core language files (e.g., en.js) are missing.",
-    updateAvailable: "Update available",
-    updateTooltipGit: "New version available! App lists are automatically loaded live from GitHub via 'gitUpdate'.",
-    updateTooltipNormal: "New version available on GitHub! A manual update of your local files is recommended to see the latest apps."
-=======
-    filterBeta: "Beta",
-    filterCrossplay: "Crossplay",
     "f:new": "<b>f:new</b> – Show only new apps",
     "f:beta": "<b>f:beta</b> – Show only beta apps",
     "f:crossplay": "<b>f:crossplay</b> – Show only crossplay apps",
     appLoadError: "Error loading apps:",
     criticalLangError: "CRITICAL ERROR: Core language files (e.g., en.js) are missing.",
     updateAvailable: "Update available",
+    updateTooltipGit: "New version available! App lists are automatically loaded live from GitHub via 'gitUpdate'.",
+    updateTooltipNormal: "New version available on GitHub! A manual update of your local files is recommended to see the latest apps.",
     settingsAria: "Settings",
     searchAria: "Search"
->>>>>>> Stashed changes
 };

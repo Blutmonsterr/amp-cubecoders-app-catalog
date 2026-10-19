@@ -165,15 +165,9 @@
         "image": "clonehero.webp"
     },
     {
-<<<<<<< Updated upstream
         "name": "Code-server",
         "desc": "Coder",
         "image": "codes.webp"
-=======
-        "name": "Code server",
-        "desc": "Microsoft",
-        "image": "codeserver.webp"
->>>>>>> Stashed changes
     },
     {
         "name": "Colony Survival",
@@ -804,22 +798,13 @@
     },
     {
         "name": "Romestead",
-<<<<<<< Updated upstream
         "desc": "Beartwigs",
-=======
-        "desc": "Community",
->>>>>>> Stashed changes
         "image": "romestead.webp"
     },
     {
         "name": "RuneScape: Dragonwilds",
-<<<<<<< Updated upstream
         "desc": "Jagex Ltd.",
         "image": "runescapedw.webp"
-=======
-        "desc": "Jagex",
-        "image": "runescape-dragonwilds.webp"
->>>>>>> Stashed changes
     },
     {
         "name": "Rust",
@@ -931,11 +916,7 @@
     },
     {
         "name": "Stardew Valley",
-<<<<<<< Updated upstream
         "desc": "Eric Barone",
-=======
-        "desc": "Schine",
->>>>>>> Stashed changes
         "image": "stardewvalley.webp"
     },
     {
@@ -964,13 +945,8 @@
         "image": "stormworks.webp"
     },
     {
-<<<<<<< Updated upstream
         "name": "Subnautica (Nitrox-Mod)",
         "desc": "Sunrunner (Community)",
-=======
-        "name": "Subnautica (Nitrox Mod)",
-        "desc": "Unknown Worlds Entertainment",
->>>>>>> Stashed changes
         "image": "subnautica.webp"
     },
     {
@@ -1028,19 +1004,11 @@
     {
         "name": "Team Fortress 2 Classified",
         "desc": "Valve",
-<<<<<<< Updated upstream
         "image": "tf2c.webp",
         "alias": "tf2"
     },
     {
         "name": "Team Fortress 2 Classic",
-=======
-        "image": "tf2.webp",
-        "alias": "tf2"
-    },
-    {
-        "name": "Team Fortress Classic",
->>>>>>> Stashed changes
         "desc": "Valve",
         "image": "tfc.webp",
         "alias": "tfc"
@@ -1195,13 +1163,8 @@
         "image": "voyagersofnera.webp"
     },
     {
-<<<<<<< Updated upstream
         "name": "Windrose",
         "desc": "Kraken Express",
-=======
-        "name": "WindRose",
-        "desc": "Gaijin Entertainment",
->>>>>>> Stashed changes
         "image": "windrose.webp"
     },
     {
