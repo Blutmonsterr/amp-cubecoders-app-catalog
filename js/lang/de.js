@@ -1,6 +1,7 @@
 window.translations = window.translations || {};
 window.translations['de'] = {
     heading: "Suche",
+    placeholder: "Minecraft, Valve, mc ...",
     back: "< Zurück zur Website",
     noResults: "Applikation nicht gefunden.",
     resultsFound: "Ergebnisse gefunden",
@@ -13,6 +14,7 @@ window.translations['de'] = {
     backToTop: "Nach oben",
     filterAll: "Alle",
     filterNew: "Neu",
+<<<<<<< Updated upstream
     filterCrossplay: "DDE-Crossplay",
     filterCrossplayTooltip: "Crossplay über den DDE Server möglich (PC, Xbox, PSN/PS4/PS5, etc.). Info: Es kann zu Fehlern kommen!",
 
@@ -21,4 +23,16 @@ window.translations['de'] = {
     updateAvailable: "Update verfügbar",
     updateTooltipGit: "Neue Version verfügbar! Die App-Listen werden durch 'gitUpdate' automatisch und live von GitHub bezogen.",
     updateTooltipNormal: "Neue Version auf GitHub verfügbar! Ein manuelles Update der lokalen Dateien wird empfohlen, um die neuesten Apps zu sehen."
+=======
+    filterBeta: "Beta",
+    filterCrossplay: "Crossplay",
+    "f:new": "<b>f:new</b> – Zeigt nur neue Apps",
+    "f:beta": "<b>f:beta</b> – Zeigt nur Beta-Apps",
+    "f:crossplay": "<b>f:crossplay</b> – Zeigt nur Crossplay-Apps",
+    appLoadError: "Fehler beim Laden der Apps:",
+    criticalLangError: "KRITISCHER FEHLER: Notwendige Sprachdateien (z.B. en.js) fehlen.",
+    updateAvailable: "Update verfügbar",
+    settingsAria: "Einstellungen",
+    searchAria: "Suche"
+>>>>>>> Stashed changes
 };

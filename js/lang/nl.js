@@ -2,6 +2,7 @@
 window.translations = window.translations || {};
 window.translations['nl'] = {
     heading: "Zoeken",
+    placeholder: "Minecraft, Valve, mc ...",
     back: "< Terug naar website",
     noResults: "Applicatie niet gevonden.",
     resultsFound: "Resultaten gevonden",
@@ -14,6 +15,7 @@ window.translations['nl'] = {
     backToTop: "Terug naar boven",
     filterAll: "Alle",
     filterNew: "Nieuw",
+<<<<<<< Updated upstream
     filterCrossplay: "DDE-Crossplay",
     filterCrossplayTooltip: "Crossplay mogelijk via DDE-servers (PC, Xbox, PSN/PS4/PS5, etc.). Let op: er kunnen fouten optreden!",
 
@@ -22,4 +24,16 @@ window.translations['nl'] = {
     updateAvailable: "Update beschikbaar",
     updateTooltipGit: "Nieuwe versie beschikbaar! App-lijsten worden via 'gitUpdate' automatisch en live vanaf GitHub geladen.",
     updateTooltipNormal: "Nieuwe versie beschikbaar op GitHub! Een handmatige update van je lokale bestanden wordt aanbevolen om de nieuwste apps te zien."
+=======
+    filterBeta: "Bèta",
+    filterCrossplay: "Crossplay",
+    "f:new": "<b>f:new</b> – Toon alleen nieuwe apps",
+    "f:beta": "<b>f:beta</b> – Toon alleen bèta-apps",
+    "f:crossplay": "<b>f:crossplay</b> – Toon alleen crossplay-apps",
+    appLoadError: "Fout bij het laden van de apps:",
+    criticalLangError: "KRITIEKE FOUT: Essentiële taalbestanden (bijv. en.js) ontbreken.",
+    updateAvailable: "Update beschikbaar",
+    settingsAria: "Instellingen",
+    searchAria: "Zoeken"
+>>>>>>> Stashed changes
 };
