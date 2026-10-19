@@ -6,6 +6,12 @@
         "isCrossplay": true
     },
     {
+        "name": "Alchemy Factory",
+        "desc": "Jagex",
+        "image": "alchemy-factory.webp",
+        "isNew": "2026-12-1"
+    },
+    {
         "name": "American Truck Simulator",
         "desc": "SCS Software",
         "image": "american-truck-simulator.webp",
@@ -159,9 +165,15 @@
         "image": "clonehero.webp"
     },
     {
+<<<<<<< Updated upstream
         "name": "Code-server",
         "desc": "Coder",
         "image": "codes.webp"
+=======
+        "name": "Code server",
+        "desc": "Microsoft",
+        "image": "codeserver.webp"
+>>>>>>> Stashed changes
     },
     {
         "name": "Colony Survival",
@@ -173,6 +185,11 @@
         "desc": "Funcom",
         "image": "conanexiles.webp",
         "isCrossplay": true
+    },
+    { 
+        "name": "Contagion",
+        "desc": "Monochrome, Inc.",
+        "image": "contagion.webp"
     },
     {
         "name": "Core Keeper",
@@ -248,6 +265,11 @@
         "image": "denoapprunner.webp"
     },
     {
+        "name": "Desynced",
+        "desc": "Desynced Team",
+        "image": "desynced.webp"
+    },
+    {
         "name": "Don't Starve Together",
         "desc": "Klei Entertainment",
         "image": "dontstarvetogether.webp",
@@ -268,6 +290,11 @@
         "name": "Dotnet App Runner",
         "desc": "Microsoft",
         "image": "dotnetapprunner.webp"
+    },
+    {
+        "name": "Dune Awakening",
+        "desc": "Dune Awakening Team",
+        "image": "duneawakening.webp"
     },
     {
         "name": "EYE: DIVINE Cybermancy",
@@ -309,6 +336,21 @@
         "name": "Factorio",
         "desc": "Wube Software",
         "image": "factorio.webp"
+    },
+    {
+        "name": "Farming Simulator 19",
+        "desc": "GIANTS Software",
+        "image": "farmingsimulator19.webp"
+    },
+    {
+        "name": "Farming Simulator 22",
+        "desc": "GIANTS Software",
+        "image": "farmingsimulator22.webp"
+    },
+    {
+        "name": "Farming Simulator 25",
+        "desc": "GIANTS Software",
+        "image": "farmingsimulator25.webp"
     },
     {
         "name": "Fistful of Frags",
@@ -490,6 +532,11 @@
         "desc": "Minetest Team",
         "image": "minetest.webp",
         "isCrossplay": true
+    },
+    {
+        "name": "Miscreated",
+        "desc": "Entrada interactive",
+        "image": "miscreated.webp"
     },
     {
         "name": "MongoDB",
@@ -699,6 +746,11 @@
         "image": "puck.webp"
     },
     {
+        "name": "Pumpkin",
+        "desc": "Community",
+        "image": "pumpkin.webp"
+    },
+    {
         "name": "Python App Runner",
         "desc": "Python Software Foundation",
         "image": "python.webp"
@@ -752,13 +804,22 @@
     },
     {
         "name": "Romestead",
+<<<<<<< Updated upstream
         "desc": "Beartwigs",
+=======
+        "desc": "Community",
+>>>>>>> Stashed changes
         "image": "romestead.webp"
     },
     {
         "name": "RuneScape: Dragonwilds",
+<<<<<<< Updated upstream
         "desc": "Jagex Ltd.",
         "image": "runescapedw.webp"
+=======
+        "desc": "Jagex",
+        "image": "runescape-dragonwilds.webp"
+>>>>>>> Stashed changes
     },
     {
         "name": "Rust",
@@ -870,7 +931,11 @@
     },
     {
         "name": "Stardew Valley",
+<<<<<<< Updated upstream
         "desc": "Eric Barone",
+=======
+        "desc": "Schine",
+>>>>>>> Stashed changes
         "image": "stardewvalley.webp"
     },
     {
@@ -899,8 +964,13 @@
         "image": "stormworks.webp"
     },
     {
+<<<<<<< Updated upstream
         "name": "Subnautica (Nitrox-Mod)",
         "desc": "Sunrunner (Community)",
+=======
+        "name": "Subnautica (Nitrox Mod)",
+        "desc": "Unknown Worlds Entertainment",
+>>>>>>> Stashed changes
         "image": "subnautica.webp"
     },
     {
@@ -939,6 +1009,11 @@
         "image": "tarkov-fika.webp"
     },
     {
+        "name": "Tarkov (Fika Mod) 4.1.0+",
+        "desc": "Fika Team",
+        "image": "tarkov-fika.webp"
+    },
+    {
         "name": "Team Fortress 2",
         "desc": "Valve",
         "image": "tf2.webp",
@@ -953,11 +1028,19 @@
     {
         "name": "Team Fortress 2 Classified",
         "desc": "Valve",
+<<<<<<< Updated upstream
         "image": "tf2c.webp",
         "alias": "tf2"
     },
     {
         "name": "Team Fortress 2 Classic",
+=======
+        "image": "tf2.webp",
+        "alias": "tf2"
+    },
+    {
+        "name": "Team Fortress Classic",
+>>>>>>> Stashed changes
         "desc": "Valve",
         "image": "tfc.webp",
         "alias": "tfc"
@@ -1112,8 +1195,13 @@
         "image": "voyagersofnera.webp"
     },
     {
+<<<<<<< Updated upstream
         "name": "Windrose",
         "desc": "Kraken Express",
+=======
+        "name": "WindRose",
+        "desc": "Gaijin Entertainment",
+>>>>>>> Stashed changes
         "image": "windrose.webp"
     },
     {
@@ -1153,7 +1241,7 @@
     },
     {
         "name": "Zombie Panic! Source",
-        "desc": "",
+        "desc": "Zombie Panic! Team",
         "image": "zomps.webp"
     }
 ]
